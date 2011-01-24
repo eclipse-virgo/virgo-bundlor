@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="detecting.blueprint">
+	<title>Blueprint Service Configuration Detection Criteria</title>
+	<para>
+		Bundlor scans for Blueprint Service configuration files. If it detects this file type, it scans the file for a
+		number of values that contain class names.
+	</para>
+
+	<section>
+		<title>Blueprint Configuration Values</title>
+		<para>
+			Using XPath syntax, the following is a list of values searched for type names
+			<itemizedlist>
+				<listitem><literal>//bp:bean/bp:argument/@type</literal></listitem>
+				<listitem><literal>//bp:bean/@class</literal></listitem>
+				<listitem><literal>//bp:service/@interface</literal></listitem>
+				<listitem><literal>//bp:reference/@interface</literal></listitem>
+				<listitem><literal>//bp:reference-list/@interface</literal></listitem>
+				<listitem><literal>//bp:map/@key-type</literal></listitem>
+				<listitem><literal>//bp:map/@value-type</literal></listitem>
+				<listitem><literal>//bp:list/@value-type</literal></listitem>
+				<listitem><literal>//bp:set/@value-type</literal></listitem>
+				<listitem><literal>//bp:array/@value-type</literal></listitem>
+				<listitem><literal>//bp:interfaces/bp:value</literal></listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</section>

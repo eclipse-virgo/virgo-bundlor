@@ -1,0 +1,23 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="detecting" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<title>Detecting Manifest Requirements</title>
+	<para>
+		Bundlor's main function is to scan an existing JAR file and determine its runtime dependencies. With this
+		information it can then generate the OSGi-compliant manifest headers needed for proper runtime operation. This
+		analysis is comprised of looking for class references and class names in Java classes and certain well-known
+		file types.
+	</para>
+
+	<xi:include href="detecting-java.xml"/>
+	<xi:include href="detecting-spring.xml"/>
+	<xi:include href="detecting-blueprint.xml"/>
+	<xi:include href="detecting-webapplication.xml"/>
+	<xi:include href="detecting-bundleclasspath.xml"/>
+	<xi:include href="detecting-jpa.xml"/>
+	<xi:include href="detecting-eclipselink.xml"/>
+	<xi:include href="detecting-hibernate.xml"/>
+	<xi:include href="detecting-jsp.xml"/>
+	<xi:include href="detecting-log4j.xml"/>
+	<xi:include href="detecting-staticresources.xml"/>
+</chapter>

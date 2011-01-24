@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence/orm"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
+		version="1.0">
+
+	<element-collection target-class="alpaca.Alpaca"/>
+
+	<embeddable class="bird.Bird"/>
+
+	<entity class="cat.Cat"/>
+
+	<entity-listener class="dog.Dog"/>
+
+	<entity-result entity-class="emu.Emu"/>
+
+	<id-class class="frog.Frog"/>
+
+	<many-to-many target-entity="giraffe.Giraffe"/>
+
+	<many-to-one target-entity="hippopotamus.Hippopotamus"/>
+
+	<map-key-class class="iguana.Iguana"/>
+
+	<mapped-superclass class="jaguar.Jaguar"/>
+
+	<named-native-query result-class="kangaroo.Kangaroo"/>
+
+	<one-to-many target-entity="lemur.Lemur"/>
+
+	<one-to-one target-entity="manatee.Manatee"/>
+
+	<entity-mappings version="1.0">
+		<package>newt</package>
+	</entity-mappings>
+
+	<one-to-one target-entity="Newt"/>
+
+</persistence>

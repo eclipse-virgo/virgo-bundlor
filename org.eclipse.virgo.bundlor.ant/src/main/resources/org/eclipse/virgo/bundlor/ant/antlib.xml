@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<antlib>
+	<taskdef name="bundlor" classname="org.eclipse.virgo.bundlor.ant.Bundlor"/>
+</antlib>

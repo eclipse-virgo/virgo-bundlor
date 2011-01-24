@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="usage.maven">
+	<title>Apache Maven Usage</title>
+
+	<para>The Maven plugin allows Bundlor to be run from inside any Maven project.</para>
+
+	<section id="usage.maven.setup">
+		<title>Maven Setup</title>
+		<para>
+			The following procedure shows how to set up Bundlor inside of an existing Maven <literal>POM</literal> file.
+		</para>
+
+		<orderedlist>
+			<listitem>
+				<para>Add the SpringSource Enterprise Bundle Repository to the <filename>pom.xml</filename> file.</para>
+				<programlisting language="xml">&lt;pluginRepositories&gt;
+  &lt;pluginRepository&gt;
+    &lt;id&gt;com.springsource.repository.bundles.@release.type@&lt;/id&gt;
+    &lt;name&gt;SpringSource Enterprise Bundle Repository&lt;/name&gt;
+    &lt;url&gt;http://repository.springsource.com/maven/bundles/@release.type@&lt;/url&gt;
+  &lt;/pluginRepository&gt;
+  ...
+&lt;/pluginRepositories&gt;</programlisting>
+			</listitem>
+			<listitem>
+				<para>
+					Use the <literal>bundlor</literal> plugin, as shown in the following example. See
+					<xref linkend="usage.maven.reference"/> for details about the parameters of the plugin.
+				</para>
+				<programlisting language="xml">&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.eclipse.virgo.bundlor&lt;/groupId&gt;
+      &lt;artifactId&gt;org.eclipse.virgo.bundlor.maven&lt;/artifactId&gt;
+      &lt;version&gt;@bundle.version@&lt;/version&gt;
+      &lt;executions&gt;
+        &lt;execution&gt;
+          &lt;id&gt;bundlor&lt;/id&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;bundlor&lt;/goal&gt;
+          &lt;/goals&gt;
+        &lt;/execution&gt;
+      &lt;/executions&gt;
+    &lt;/plugin&gt;
+    ...
+  &lt;/plugins&gt;
+  ...
+&lt;/build&gt;</programlisting>
+			</listitem>
+		</orderedlist>
+	</section>
+
+    <section id="usage.maven.reference">
+		<title>Maven Plugin Reference</title>
+    	<section>
+			<title>Plugin Configuration</title>
+			<para>
+				The following table lists all the elements that you can specify for the <literal>bundlor</literal>
+				Maven plugin.
+			</para>
+			<table>
+				<title>Elements</title>
+				<tgroup cols="3">
+					<thead>
+						<row>
+							<entry>Attribute</entry>
+							<entry>Description</entry>
+							<entry>Required</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>bundleSymbolicName</entry>
+							<entry>The OSGi <literal>Bundle-SymbolicName</literal> for the resulting manifest</entry>
+							<entry>No - defaults to <literal>${project.artifactId}</literal></entry>
+						</row>
+						<row>
+							<entry>bundleVersion</entry>
+							<entry>The OSGi <literal>Bundle-Version</literal> for the resulting manifest</entry>
+							<entry>No - defaults to <literal>${project.version}</literal></entry>
+						</row>
+						<row>
+							<entry>enabled</entry>
+							<entry>Whether Bundlor should create a manifest</entry>
+							<entry>No - defaults to <literal>true</literal></entry>
+						</row>
+						<row>
+							<entry>failOnWarnings</entry>
+							<entry>
+								Whether Bundlor should cause a build failure when there are warnings warnings about the
+								resulting manifest
+							</entry>
+							<entry>No - defaults to <literal>false</literal></entry>
+						</row>
+						<row>
+							<entry>inputPath</entry>
+							<entry>
+								The path to the input to create a manifest for. This can either be a directory or a JAR
+								file.
+							</entry>
+							<entry>No - defaults to <literal>${project.build.outputDirectory}</literal></entry>
+						</row>
+						<row>
+							<entry>manifestTemplatePath</entry>
+							<entry>
+								The path to the manifest template. See <xref linkend="manifest.template"/> for details.
+							</entry>
+							<entry>No - defaults to <literal>${basedir}/template.mf</literal></entry>
+						</row>
+						<row>
+							<entry>osgiProfilePath</entry>
+							<entry>
+								The path to the OSGi profile.  See <xref linkend="osgi.profile"/> for details.
+							</entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry>outputPath</entry>
+							<entry>
+								<para>
+									The path to write the manifest to. This can either be a directory, a JAR file, or
+									not specified.
+								</para>
+								<para>
+									If a directory is specified, the manifest will be written to
+									<literal>${directory}/META-INF/MANIFEST.MF</literal>.
+								</para>
+								<para>
+									If a JAR file is specified, the manifest will be written as the manifest for that
+									JAR file.
+								</para>
+							</entry>
+							<entry>No - defaults to <literal>${project.build.outputDirectory}</literal></entry>
+						</row>
+						<row>
+							<entry>propertiesPath</entry>
+							<entry>
+								The path to a properties file used for substitution.  See
+								<xref linkend="manifest.template.property"/> for details.
+							</entry>
+							<entry>No</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+
+		<section>
+			<title>Inline Manifest Template</title>
+			<para>
+				Manifest templates can be optionally specified inline instead of as an external file using the
+				<literal>&lt;manifestTemplate/&gt;</literal> element.
+			</para>
+			<programlisting language="xml">&lt;execution&gt;
+  &lt;id&gt;bundlor&lt;/id&gt;
+  &lt;goals&gt;
+    &lt;goal&gt;bundlor&lt;/goal&gt;
+  &lt;/goals&gt;
+  &lt;configuration&gt;
+    &lt;manifestTemplate&gt;
+Bundle-ManifestVersion: 2
+Bundle-Name: Bundlor Core
+Bundle-Vendor: SpringSource Inc.
+Bundle-SymbolicName: org.eclipse.virgo.bundlor
+Bundle-Version: 0
+    &lt;/manifestTemplate&gt;
+  &lt;/configuration&gt;
+&lt;/execution&gt;</programlisting>
+			<para>See <xref linkend="manifest.template"/> for details.</para>
+		</section>
+
+		<section>
+			<title>Inline OSGi Profile</title>
+			<para>
+				OSGI profiles can be optionally specified inline instead of as an external file using the
+				<literal>&lt;osgiProfile/&gt;</literal> element.
+			</para>
+			<programlisting language="xml">&lt;execution&gt;
+  &lt;id&gt;bundlor&lt;/id&gt;
+  &lt;goals&gt;
+    &lt;goal&gt;bundlor&lt;/goal&gt;
+  &lt;/goals&gt;
+  &lt;configuration&gt;
+    &lt;osgiProfile&gt;
+org.osgi.framework.system.packages = \
+  javax.accessibility,\
+  javax.activation,\
+  javax.activation;version="1.1.0",\
+  javax.activity,\
+  javax.annotation,\
+...
+  
+org.osgi.framework.bootdelegation = \
+  com_cenqua_clover,\
+  com.cenqua.*,\
+  com.yourkit.*,\
+...
+    &lt;/osgiProfile&gt;
+  &lt;/configuration&gt;
+&lt;/execution&gt;</programlisting>
+			<para>See <xref linkend="osgi.profile"/> for details.</para>
+		</section>
+
+		<section>
+			<title>Inline Property Values</title>
+			<para>
+				Property substitution values can be optionally specified inline instead of as an external file using the
+				<literal>&lt;properties/&gt;</literal> element.
+			</para>
+			<programlisting language="xml">&lt;project&gt;
+  ...
+  &lt;properties&gt;
+    &lt;bundle.name&gt;${project.name}&lt;/bundle.name&gt;
+    &lt;bundle.version&gt;2.0.0.RELEASE&lt;/bundle.version&gt;
+  &lt;/properties&gt;
+  ...
+&lt;/project&gt;</programlisting> 
+			<para>See <xref linkend="manifest.template.property"/> for details.</para>
+		</section>
+	</section>
+
+	<section id="usage.maven.example">
+		<title>Maven Plugin Examples</title>
+		<section>
+			<title>Creating a manifest</title>
+			<programlisting language="xml">&lt;project&gt;
+...
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.eclipse.virgo.bundlor&lt;/groupId&gt;
+        &lt;artifactId&gt;org.eclipse.virgo.bundlor.maven&lt;/artifactId&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;bundlor&lt;/id&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;bundlor&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+...
+&lt;/project&gt;</programlisting>
+		</section>
+
+		<section>
+			<title>Creating a manifest with placeholder replacement</title>
+			<programlisting language="xml">&lt;project&gt;
+...
+  &lt;properties&gt;
+    &lt;bundle.name&gt;${project.name}&lt;/bundle.name&gt;
+    &lt;bundle.version&gt;2.0.0.RELEASE&lt;/bundle.version&gt;
+  &lt;/properties&gt;
+...
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.eclipse.virgo.bundlor&lt;/groupId&gt;
+        &lt;artifactId&gt;org.eclipse.virgo.bundlor.maven&lt;/artifactId&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;bundlor&lt;/id&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;bundlor&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+...
+&lt;/project&gt;</programlisting>
+		</section>
+	</section>
+</section>

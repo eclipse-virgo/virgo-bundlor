@@ -1,0 +1,44 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="detecting.spring">
+	<title>Spring Context Configuration Detection Criteria</title>
+	<para>
+		Bundlor scans for Spring context configuration files. If it detects this file type, it scans the file for a
+		number of values that contain class names.
+	</para>
+
+	<section>
+		<title>Spring Context Values</title>
+		<para>
+			Using XPath syntax, the following is a list of values searched for type names
+			<itemizedlist>
+				<listitem><literal>//beans:bean/@class</literal></listitem>
+				<listitem><literal>//aop:declare-parents/@implement-interface</literal></listitem>
+				<listitem><literal>//aop:declare-parents/@default-impl</literal></listitem>
+				<listitem><literal>//context:load-time-weaver/@weaver-class</literal></listitem>
+				<listitem><literal>//context:component-scan/@name-generator</literal></listitem>
+				<listitem><literal>//context:component-scan/@scope-resolver</literal></listitem>
+				<listitem><literal>//jee:jndi-lookup/@expected-type</literal></listitem>
+				<listitem><literal>//jee:jndi-lookup/@proxy-interface</literal></listitem>
+				<listitem><literal>//jee:remote-slsb/@home-interface</literal></listitem>
+				<listitem><literal>//jee:remote-slsb/@business-interface</literal></listitem>
+				<listitem><literal>//jee:local-slsb/@business-interface</literal></listitem>
+				<listitem><literal>//jms:listener-container/@container-class</literal></listitem>
+				<listitem><literal>//lang:jruby/@script-interfaces</literal></listitem>
+				<listitem><literal>//lang:bsh/@script-interfaces</literal></listitem>
+				<listitem><literal>//oxm:class-to-be-bound/@name</literal></listitem>
+				<listitem><literal>//oxm:jibx-marshaller/@target-class</literal></listitem>
+				<listitem><literal>//osgi:reference/@interface</literal></listitem>
+				<listitem><literal>//osgi:service/@interface</literal></listitem>
+				<listitem><literal>//util:list/@list-class</literal></listitem>
+				<listitem><literal>//util:map/@map-class</literal></listitem>
+				<listitem><literal>//util:set/@set-class</literal></listitem>
+				<listitem><literal>//webflow:flow-builder/@class</literal></listitem>
+				<listitem><literal>//webflow:attribute/@type</literal></listitem>
+				<listitem><literal>//osgi:service/osgi:interfaces/beans:value</literal></listitem>
+				<listitem><literal>//osgi:reference/osgi:interfaces/beans:value</literal></listitem>
+				<listitem><literal>//context:component-scan/@base-package</literal></listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</section>

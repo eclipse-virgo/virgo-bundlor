@@ -1,0 +1,42 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="quickstart.ant">
+	<title>Apache ANT Quickstart</title>
+	<para>The ANT task allows Bundlor to be run from inside any ANT based build system</para>
+	<orderedlist>
+		<listitem>
+			<para>Define a <literal>bundlor</literal> namespace</para>
+			<programlisting language="xml">&lt;project name="bundlor-sample-ant"
+    xmlns:bundlor="antlib:org.eclipse.virgo.bundlor.ant"&gt;</programlisting>
+		</listitem>
+		<listitem>
+			<para>Import the <literal>bundlor</literal> task into your build</para>
+			<programlisting language="xml">&lt;target name="bundlor.init"&gt;
+  &lt;taskdef resource="com/springsource/bundlor/ant/antlib.xml"
+      uri="antlib:org.eclipse.virgo.bundlor.ant"&gt;
+    &lt;classpath id="bundlor.classpath"&gt;
+      &lt;fileset dir="${bundlor.home}/dist"/&gt;
+      &lt;fileset dir="${bundlor.home}/lib"/&gt;
+    &lt;/classpath&gt;
+  &lt;/taskdef&gt;
+&lt;/target&gt;</programlisting>
+			<para>
+				This example uses a very simplistic method for building the <literal>bundlor</literal> task classpath.
+				It is possible to use a dependency manager such as Ivy to better manage the classpath of Bundlor.
+			</para>
+		</listitem>
+		<listitem>
+			<para>
+				Use the <literal>bundlor</literal> task. See <xref linkend="usage.ant"/> for details about the
+				parameters of the task.
+			</para>
+			<programlisting language="xml">
+&lt;bundlor:bundlor
+    inputPath="${basedir}/target/classes"
+    outputPath="${basedir}/target/classes"
+    bundleVersion="1.0.2.BUILD-${timestamp}"
+    manifestTemplatePath="${basedir}/template.mf"/&gt;
+    		</programlisting>
+		</listitem>
+	</orderedlist>
+</section>

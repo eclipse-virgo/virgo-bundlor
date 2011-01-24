@@ -1,0 +1,7 @@
+Bundle-ManifestVersion: 2
+Bundle-Name: Bundlor EBR Diff Application
+Bundle-Vendor: SpringSource Inc.
+Bundle-SymbolicName: org.eclipse.virgo.bundlor.diff
+Bundle-Version: 0
+Import-Template: 
+ org.eclipse.virgo.util.*;version="[2.0.0, 3.0.0)"

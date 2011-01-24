@@ -1,0 +1,9 @@
+Bundle-SymbolicName: com.foo.bar
+Bundle-Version: 1.2.3
+Import-Package: org.apache.commons.collections;version="2.0",a;b;c;version="3.0",com.springsource.server.concurrent.core;version=2.3
+Export-Package: something.foo
+Import-Template:com.springsource.server.kernel.*;version="1.1",com.springsource.server.kernel.core.foo.*;version="1.2";resolution:=optional,a;version="2.0",com.springsource.server.concurrent.*;version=1.2
+Export-Template: com.springsource.server.config.*;version="1.9";include:="bar"
+Excluded-Exports: com.springsource.server.concurrent.internal.*
+Foo: Bar
+

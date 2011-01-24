@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="warning" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<title>Detecting Manifest Issues</title>
+	<para>
+		Bundlor's second function is to scan an existing manifest and identify any potential issues with it.
+	</para>
+
+	<xi:include href="warning-import-version-range.xml"/>
+	<xi:include href="warning-export-import.xml"/>
+	<xi:include href="warning-signed-jar.xml"/>
+	<xi:include href="warning-versioned-imports.xml"/>
+	<xi:include href="warning-versioned-exports.xml"/>
+	<xi:include href="warning-bundle-symbolic-name.xml"/>
+	<xi:include href="warning-manifest-version.xml"/>
+</chapter>

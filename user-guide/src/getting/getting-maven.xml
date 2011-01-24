@@ -1,0 +1,17 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="getting.maven">
+	<title>Getting Bundlor with Maven</title>
+	<para>Eclipse Virgo Bundlor can be obtained from a Maven repository</para>
+	<orderedlist>
+		<listitem>
+			<para>
+				Add the SpringSource Enterprise Bundle Repository resolvers to the <literal>pom.xml</literal> file
+			</para>
+			<programlisting language="xml">&lt;repository&gt;
+  &lt;id&gt;com.springsource.repository.bundles.@release.type@&lt;/id&gt;
+  &lt;url&gt;http://repository.springsource.com/maven/bundles/@release.type@&lt;/url&gt;
+&lt;/repository&gt;</programlisting>
+		</listitem>
+	</orderedlist>
+</section>

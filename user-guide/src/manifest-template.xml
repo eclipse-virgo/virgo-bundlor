@@ -1,0 +1,315 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="manifest.template">
+	<title>Manifest Templates</title>
+	<section id="manifest.template.introduction">
+		<title>Introduction</title>
+		<para>
+			A manifest template is a file that Bundlor uses during the generation of OSGi-compliant manifest entries in
+			a JAR's manifest.  The format of the manifest template is the same as that of a standard Java manifest file,
+			i.e. a series of '<literal>key: value</literal>' pairs.
+		</para>
+		<para>
+			From this template, Bundlor recognizes a specific set of directives and uses them to generate the
+			OSGi-compliant manifest entries. Bundlor will also add any other headers that are specified in the template
+			to the generated manifest. This is typically used to specify things like the bundle's symbolic name and
+			version.
+		</para>
+		<para>
+			You can also specify property placeholders, or variables, in your manifest template that Bundlor substitutes
+			with real values at runtime. With this feature, your manifest templates become more dynamic and useful
+			across a variety of your projects. A particularly useful use case for this feature is to tell Bundlor to
+			automatically expand versions of imports based on a pattern of your choosing. See
+			<xref linkend="manifest.template.property"/> for details.
+		</para>
+	</section>
+
+	<section id="manifest.template.format">
+		<title>Manifest Template Format</title>
+
+		<para>
+			The following table lists the headers you can add to the manifest template, in addition to the standard
+			manifest headers.
+		</para>
+		<table>
+			<title>Headers for Manifest Template</title>
+			<tgroup cols="2">
+				<thead>
+					<row>
+						<entry>Header</entry>
+						<entry>Description</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry><literal>Excluded-Exports</literal></entry>
+						<entry>
+							A comma-separated list of packages that must not be added to the manifest's
+							<literal>Export-Package</literal> header.
+						</entry>
+					</row>
+					<row>
+						<entry><literal>Excluded-Imports</literal></entry>
+						<entry>
+							By default, Bundlor adds imports for every package that Bundlor determines is referenced by
+							the code or for special files in the jar. Use this header to specify a comma-separated list
+							of packages for which imports Bundlor will <emphasis>not</emphasis> generate.
+						</entry>
+					</row>
+					<row>
+						<entry><literal>Export-Template</literal></entry>
+						<entry>
+							By default, Bundlor versions all exported packages at the specified
+							<literal>Bundle-Version</literal>. Use this header to specify that individual exported
+							packages be exported at different versions. For example,
+							<literal>Export-Template com.foo.*;version="1.5"</literal> results in Bundlor versioning any
+							<literal>Export-Package</literal> entries for <literal>com.foo</literal> or its subpackages
+							at <literal>1.5</literal>.
+						</entry>
+					</row>
+					<row>
+						<entry><literal>Ignored-Existing-Headers</literal></entry>
+						<entry>
+							If the JAR for which you are generating a manifest already contains an OSGi-compliant
+							manifest, use this template header to list headers in the original manifest which Bundlor
+							should ignore.
+						</entry>
+					</row>
+					<row>
+						<entry><literal>Import-Template</literal></entry>
+						<entry>
+							Use this header to augment package imports that Bundlor generates via bytecode and special
+							file analysis. Typically you use the header to version the import and, in some cases, to
+							mark them as optional. When you use this header to version the import, you can optionally
+							specify a version expansion pattern so that Bundlor sets the version to a range rather than
+							a single version. To use the header, set its value to a comma-separated list of package
+							names and attributes.
+						</entry>
+					</row>
+					<row>
+						<entry><literal>Version-Patterns</literal></entry>
+						<entry>
+							Use this header to declare one or more version expansion patterns and give each one a name.
+							You can then use these named patterns in the <literal>Import-Template</literal> header if
+							you want to specify an expansion pattern for the <literal>version</literal> of an imported
+							package. This feature is described in detail later in this section. 
+						</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+		<para>
+			A wilcard '<literal>*</literal>' at the end of the package name is supported to match multiple packages. For
+			example, the header <literal>Import-Template: com.foo;version=[1.0,2.0);resolution:=optional,com.bar.*;version="[1.5,1.6)"</literal>
+			will cause any import generated for the <literal>com.foo</literal> package to be versioned at 1.0
+			(inclusive) to 2.0 (exclusive) and to be considered optional, and for any import of
+			<literal>com.bar</literal> or its sub-packages to be versioned at 1.5 (inclusive) to 1.6 (exclusive).
+		</para> 
+	</section>
+
+	<section id="manifest.template.property">
+		<title>Specifying property placeholders</title> 
+		<para>
+			To specify a property placeholder in your manifest template, use the form
+			<literal>${property.name}</literal>, where <literal>property.name</literal> refers to the name of the
+			property placeholder. The method in which the manifest template actually gets the value of the property
+			placeholder at runtime depends on the Bundlor front end you use (command line, ANT, or Maven); the details
+			are described later.
+		</para>
+		<para>
+			The following example shows how to use a property placeholder for the <literal>Bundle-Name</literal>
+			manifest header rather than a literal.
+		</para>
+		<programlisting>Bundle-Name: ${bundle.name}</programlisting>
+ 	</section>
+
+	<section id="manifest.template.version.expansion">
+		<title>Specifying automatic version expansion of imported packages based on a pattern</title>
+		<para>
+			When you use the <literal>Import-Template</literal> template header to augment package imports that Bundlor
+			generates in the manifest file, you use the <literal>version</literal> directive to specify a version or
+			version range of the imported package.
+		</para>
+		<programlisting>Import-Template: 
+ com.springsource.kernel*;version="[1.2.0, 2.0.0)"
+ org.apache.commons.logging;version="[1.1.1, 2.0.0)"</programlisting>
+		<para>
+			The preceding example specifies that Bundlor should version the <literal>com.springsource.*</literal>
+			packages at <literal>[2.5.4.A, 3.0.0)</literal> and the <literal>org.apache.commons.logging</literal>
+			package at <literal>[1.1.1, 2.0.0)</literal> in the generated manifest file. This works just fine for many
+			use cases, but sometimes the use of literal versions in this manner can be restrictive.
+		</para>
+		<para>
+			In order to make the manifest template more dynamic and useful, you can specify that Bundlor automatically
+			expand the package version into a version range using an expansion pattern of your choosing. The pattern
+			uses as a base a property placeholder that you define (as described in
+			<xref linkend="manifest.template.property"/>) and set to a valid OSGI version number. Then, based on the
+			expansion pattern you specify, Bundlor generates a version range using the 4 parts of an OSGI version:
+			major, minor, micro, and qualifier.
+		</para>
+		<para>
+			The way to tell Bundlor to automatically expand a package import version is to specify the property
+			placeholder to the right of the <literal>version</literal> directive of the package in the
+			<literal>Import-Template</literal> header, and then within the property placeholder, specify the pattern for
+			both sides of the version range.  The following manifest template snippet shows how to use this feature; the
+			example is described in detail after the table.
+		</para>
+		<programlisting>Import-Template: 
+ com.springsource.kernel.*;version="${com.springsource.kernel:[=.=.=.=, +1.0.0)}",
+ org.apache.commons.logging.*;version="${org.apache.commons.logging:[=.=.=.=, =.=.+1)}"</programlisting>
+		<para>The following table lists the symbols you can use in the expansion pattern.</para>
+		<table>
+			<title>Expansion Pattern Symbols</title>
+			<tgroup cols="3">
+				<thead>
+					<row>
+						<entry>Symbol</entry>
+						<entry>Description</entry>
+						<entry>Location Allowed</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry>=</entry>
+						<entry>Use the same value from the variable.</entry>
+						<entry>
+							Valid only in the first three segments (major, minor, micro) of the version pattern.
+						</entry>
+					</row>
+					<row>
+						<entry>[+/-]n</entry>
+						<entry>
+							Adjust the value from the variable by this amount. For example, <literal>+1</literal> means
+							to add 1 to the value from the variable.
+						</entry>
+						<entry>
+							Valid only in the first three segments (major, minor, micro) of the version pattern.
+						</entry>
+					</row>
+					<row>
+						<entry>-n</entry>
+						<entry>
+							Substitute this value for the one in the variable. Typically you only use this for putting
+							in a <literal>0</literal>.
+						</entry>
+						<entry>
+							Valid only in the first three segments (major, minor, micro) of the version pattern.
+						</entry>
+					</row>
+					<row>
+						<entry>Any legal qualifier value</entry>
+						<entry>Substitute this value for the one in the variable.</entry>
+						<entry>Valid only in the fourth (qualifier) segment of the version pattern.</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+		<para>
+			Based on the descriptions of the symbols, we can now understand how the examples above work. First assume
+			that you have set the property <literal>${com.springsource.kernel}</literal> to the value
+			<literal>1.2.0</literal>. Based on the expansion pattern, Bundlor sets the version range of the imported
+			<literal>com.springsource.kernel.*</literal> packages to <literal>[1.2.0, 2.0.0)</literal>. The pattern in
+			this case first specifies that the beginning of the version range stay exactly the same as the value of the
+			property. The pattern then specifies that at the end of the version range, the major part of the version
+			should be one integer larger than what the property is originally set to (<literal>1</literal>); the pattern
+			then specifies that the minor and micro segments of the version both be set to <literal>0</literal>.
+		</para>
+		<para>
+			Similarly, assume that you set the <literal>${org.apache.commons.logging}</literal> property to
+			<literal>1.4.0</literal>.  Bundlor generates a version range of <literal>[1.4.0, 1.4.1)</literal>. Again,
+			the beginning of the range is exactly the same as the property value. The pattern specifies that, in the end
+			of the range, only the micro segment of the version increase by one; the major and minor segments stay the
+			same.
+		</para>
+
+		<section id="manifest.template.format.version.naming">
+			<title>Re-using version patterns</title>
+			<para>
+				If you use the same version expansion pattern for several imports, you can name the pattern using the
+				<literal>Version-Patterns</literal> header in the manifest template, and then use this name in the
+				particular import of <literal>Import-Template</literal>.
+			</para>
+			<para>
+				Use the form <literal><emphasis>pattern.name</emphasis>;pattern="<emphasis>pattern</emphasis>"</literal>
+				to specify a named pattern, where <literal>pattern.name</literal> is the name of the pattern and
+				<literal>pattern</literal> is the pattern, such as <literal>[=.=.=.=, +1.0.0)</literal>.
+			</para>
+			<programlisting>Version-Patterns:
+ apache;pattern="[=.=.=.=, +1.0.0)",
+ hibernate;pattern="[=.=.=.=, =.=.+1)"</programlisting>
+			<para>
+				The preceding example shows two named patterns: <literal>apache</literal> and
+				<literal>hibernate</literal>. The <literal>apache</literal> pattern specifies a version range from the
+				one provided in the property up to but not including the next major version. The
+				<literal>hibernate</literal> pattern specifies a version range of the one provided up to but not
+				including the next micro version.
+			</para>
+			<para>
+				To use a named pattern, simply substitute it in the <literal>Import-Template</literal> header in the
+				place where you would put the in-line pattern.
+			</para>
+			<programlisting>Import-Template:
+ org.apache.commons.codec.*;version="${org.apache.commons.codec:apache}",
+ org.apache.commons.logging.*;version="${org.apache.commons.logging:apache}",
+ org.hibernate.*;version="${org.hibernate:hibernate}"
+ org.myorg.*;version="${org.myorg:(=.=.=.=, =.+1.0.=]}"</programlisting>
+			<para>
+				In the example, the <literal>apache</literal> named pattern is used twice, for the two
+				<literal>org.apache</literal> imports, and the <literal>hibernate</literal> pattern is used once. Also
+				note that you can also include an import whose version is specified with an in-line pattern. The in-line
+				pattern shows a more unusual usage. It will create a version range from, but not including, the provided
+				version up to and including the next minor version with the same qualifier.
+			</para>
+		</section>
+	</section>
+	<section id="manifest.template.example">
+		<title>Example Bundlor Manifest Template</title>
+		<para>
+			The following shows a simple example of a Bundlor manifest template file, with a description after the
+			sample.
+		</para>
+		<programlisting>
+<emphasis role="bold">Bundle-ManifestVersion</emphasis>: 2
+<emphasis role="bold">Bundle-SymbolicName</emphasis>: org.springframework.binding
+Bundle-Name: ${bundle.name}
+Bundle-Vendor: SpringSource
+Import-Package: 
+ ognl;version="[2.6.9, 3.0.0)";resolution:=optional,
+ org.jboss.el;version="[2.0.0, 3.0.0)";resolution:=optional
+Import-Template: 
+ org.springframework.*;version="[2.5.4.A, 3.0.0)",
+ org.apache.commons.logging;version="[1.1.1, 2.0.0)",
+ javax.el;version="[2.1.0, 3.0.0)";resolution:=optional,
+ ognl;version="[2.6.9, 3.0.0)";resolution:=optional,
+ org.jboss.el;version="[2.0.0, 3.0.0)";resolution:=optional
+		</programlisting>
+		<para>
+			The headers marked in bold are required in all manifest templates unless the jar already contains a manifest
+			with those headers.
+		</para>
+
+		<itemizedlist>
+			<listitem><literal>Bundle-ManifestVersion</literal>: This should always be 2</listitem>
+			<listitem>
+				<literal>Bundle-SymbolicName</literal>: specifies a unique name for the bundle of
+				<literal>org.springframework.binding</literal>
+			</listitem>
+			<listitem>
+				<literal>Bundle-Name</literal>: specifies a human-readable name for the bundle. The example shows how to
+				use a property placeholder <literal>${bundle.name}</literal>, which at runtime Bundlor will substitute
+				with an actual value, such as <literal>Spring Binding</literal>.
+			</listitem>
+			<listitem><literal>Bundle-Vendor</literal>: specifies the bundle's vendor</listitem>
+			<listitem>
+				<literal>Import-Package</literal>: hard-codes two packages that will be imported (
+				<literal>ognl</literal> and <literal>org.jboss.el</literal> in the generated manifest. Bundlor isn't
+				infallible; this lets you add imports that it misses.
+			</listitem>
+			<listitem>
+				<literal>Import-Template</literal>: specifies the versions for the package imports that Bundlor
+				generates, marking <literal>javax.el</literal>, <literal>ognl</literal>, and
+				<literal>org.jboss.el</literal> optional.
+			</listitem>
+		</itemizedlist>
+	</section>
+</chapter>

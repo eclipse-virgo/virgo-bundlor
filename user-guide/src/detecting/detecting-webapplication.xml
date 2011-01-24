@@ -1,0 +1,34 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="detecting.webapplication">
+	<title>Web Application File Detection Criteria</title>
+	<para>
+		Bundlor scans for the Servlet <literal>web.xml</literal> file located in the <literal>WEB-INF</literal>
+		directory.  If it detects this file, it scans the file for a number of values that contain class names.
+	</para>
+
+	<section>
+		<title><literal>web.xml</literal> Values</title>
+		<para>
+			Using XPath syntax, the following is a list of values searched for type names
+			<itemizedlist>
+				<listitem><literal>//context-param/param-values</literal></listitem>
+				<listitem><literal>//filter/filter-classs</literal></listitem>
+				<listitem><literal>//filter/init-param/param-values</literal></listitem>
+				<listitem><literal>//listener/listener-classs</literal></listitem>
+				<listitem><literal>//servlet/servlet-classs</literal></listitem>
+				<listitem><literal>//servlet/init-param/param-values</literal></listitem>
+				<listitem><literal>//error-page/exception-types</literal></listitem>
+				<listitem><literal>//env-entry/env-entry-types</literal></listitem>
+				<listitem><literal>//ejb-ref/homes</literal></listitem>
+				<listitem><literal>//ejb-ref/remotes</literal></listitem>
+				<listitem><literal>//ejb-local-ref/local-homes</literal></listitem>
+				<listitem><literal>//ejb-local-ref/locals</literal></listitem>
+				<listitem><literal>//service-ref/service-interfaces</literal></listitem>
+				<listitem><literal>//resource-ref/res-types</literal></listitem>
+				<listitem><literal>//resource-env-ref/resource-env-ref-types</literal></listitem>
+				<listitem><literal>//message-destination-ref/message-destination-type</literal></listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</section>

@@ -1,0 +1,57 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="detecting.eclipselink">
+	<title>EclipseLink Detection Criteria</title>
+	<para>
+		Bundlor scans for the EclipseLink <literal>eclipselink-orm.xml</literal> files located in the
+		<literal>META-INF</literal> directory. If it detects this file it scans the file for a number of values that
+		contain class names and package names. If the class name is unqualified (i.e. has no '<literal>.</literal>' in
+		it), the classname is prepended with the content of the <literal>entity-mapping</literal> tag's
+		<literal>package</literal> element.
+	</para>
+
+	<section>
+		<title><literal>eclipselink-orm.xml</literal> Values</title>
+		<para>
+			Using XPath syntax, the following is a list of values searched for type names
+			<itemizedlist>
+				<listitem><literal>//cache-interceptor/@class</literal></listitem>
+				<listitem><literal>//converter/@class</literal></listitem>
+				<listitem><literal>//copy-policy/@class</literal></listitem>
+				<listitem><literal>//customizer/@class</literal></listitem>
+				<listitem><literal>//discriminator-class/@value</literal></listitem>
+				<listitem><literal>//id-class/@class</literal></listitem>
+				<listitem><literal>//element-collection/@target-class</literal></listitem>
+				<listitem><literal>//entity/@class</literal></listitem>
+				<listitem><literal>//entity-listener/@class</literal></listitem>
+				<listitem><literal>//entity-result/@entity-class</literal></listitem>
+				<listitem><literal>//embeddable/@class</literal></listitem>
+				<listitem><literal>//many-to-many/@target-entity</literal></listitem>
+				<listitem><literal>//many-to-one/@target-entity</literal></listitem>
+				<listitem><literal>//map-key-class/@class</literal></listitem>
+				<listitem><literal>//mapped-superclass/@class</literal></listitem>
+				<listitem><literal>//named-native-query/@result-class</literal></listitem>
+				<listitem><literal>//named-stored-procedure-query/@result-class</literal></listitem>
+				<listitem><literal>//object-type-converter/@data-type</literal></listitem>
+				<listitem><literal>//object-type-converter/@object-type</literal></listitem>
+				<listitem><literal>//one-to-many/@target-entity</literal></listitem>
+				<listitem><literal>//one-to-one/@target-entity</literal></listitem>
+				<listitem><literal>//property/@value-type</literal></listitem>
+				<listitem><literal>//query-redirectors/@all-queries</literal></listitem>
+				<listitem><literal>//query-redirectors/@read-all</literal></listitem>
+				<listitem><literal>//query-redirectors/@read-object</literal></listitem>
+				<listitem><literal>//query-redirectors/@report</literal></listitem>
+				<listitem><literal>//query-redirectors/@update</literal></listitem>
+				<listitem><literal>//query-redirectors/@insert</literal></listitem>
+				<listitem><literal>//query-redirectors/@delete</literal></listitem>
+				<listitem><literal>//read-transformer/@transformer-class</literal></listitem>
+				<listitem><literal>//stored-procedure-parameter/@type</literal></listitem>
+				<listitem><literal>//struct-converter/@converter</literal></listitem>
+				<listitem><literal>//type-converter/@data-type</literal></listitem>
+				<listitem><literal>//type-converter/@object-type</literal></listitem>
+				<listitem><literal>//variable-one-to-one/@target-interface</literal></listitem>
+				<listitem><literal>//write-transformer/@transformer-class</literal></listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</section>

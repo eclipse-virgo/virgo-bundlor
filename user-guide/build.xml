@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="user-guide">
+
+	<property name="docbook.build.dir" value="${basedir}"/>
+
+	<property file="../build.properties"/>
+	<property file="../build.versions"/>
+	<import file="../virgo-build/docbook/default.xml"/>
+
+	<filterset id="docbook.filters">
+		<filter token="bundle.version" value="${bundle.version}"/>
+		<filter token="release.type" value="${adjusted.release.type}"/>
+	</filterset>
+
+
+</project>

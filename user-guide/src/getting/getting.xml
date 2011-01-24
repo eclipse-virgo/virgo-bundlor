@@ -1,0 +1,8 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="getting" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<title>Getting Bundlor</title>
+	<xi:include href="getting-zip.xml" />
+	<xi:include href="getting-ivy.xml" />
+	<xi:include href="getting-maven.xml" />
+</chapter>

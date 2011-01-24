@@ -1,0 +1,45 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="detecting.jpa">
+	<title>JPA Detection Criteria</title>
+	<para>
+		Bundlor scans for the JPA <literal>persistence.xml</literal> and <literal>orm.xml</literal> files located in the
+		<literal>META-INF</literal> directory. If it detects this file it scans the file for a number of values that
+		contain class names and package names. If the class name is unqualified (i.e. has no '<literal>.</literal>' in
+		it), the classname is prepended with the content of the <literal>entity-mapping</literal> tag's
+		<literal>package</literal> element.
+	</para>
+
+	<section>
+		<title><literal>persistence.xml</literal> Values</title>
+		<para>
+			Using XPath syntax, the following is a list of values searched for type names
+			<itemizedlist>
+				<listitem><literal>//persistence-unit/provider</literal></listitem>
+				<listitem><literal>//persistence-unit/class</literal></listitem>
+			</itemizedlist>
+		</para>
+	</section>
+
+	<section>
+		<title><literal>orm.xml</literal> Values</title>
+		<para>
+			Using XPath syntax, the following is a list of values searched for type names
+			<itemizedlist>
+				<listitem><literal>//element-collection/@target-class</literal></listitem>
+				<listitem><literal>//embeddable/@class</literal></listitem>
+				<listitem><literal>//entity/@class</literal></listitem>
+				<listitem><literal>//entity-listener/@class</literal></listitem>
+				<listitem><literal>//entity-result/@entity-class</literal></listitem>
+				<listitem><literal>//id-class/@class</literal></listitem>
+				<listitem><literal>//many-to-many/@target-entity</literal></listitem>
+				<listitem><literal>//many-to-one/@target-entity</literal></listitem>
+				<listitem><literal>//map-key-class/@class</literal></listitem>
+				<listitem><literal>//mapped-superclass/@class</literal></listitem>
+				<listitem><literal>//named-native-query/@result-class</literal></listitem>
+				<listitem><literal>//one-to-many/@target-entity</literal></listitem>
+				<listitem><literal>//one-to-one/@target-entity</literal></listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</section>

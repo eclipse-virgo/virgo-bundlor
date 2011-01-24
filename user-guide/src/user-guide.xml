@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" 
+		"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<book xmlns:xi="http://www.w3.org/2001/XInclude">
+	<bookinfo>
+		<title>Bundlor User Guide
+		</title>
+		<releaseinfo>@bundle.version@</releaseinfo>
+		<productname>Eclipse Virgo Bundlor</productname>
+		<mediaobject>
+			<imageobject role="fo">
+				<imagedata fileref="images/virgo-logo-large.png" format="PNG" align="right" valign="bottom"/>
+			</imageobject>
+			<imageobject role="html">
+				<imagedata fileref="images/virgo-logo-large.png" format="PNG" align="right" valign="bottom"/>
+			</imageobject>
+		</mediaobject>
+
+		<authorgroup>
+			<author>
+				<firstname>Ben</firstname>
+				<surname>Hale</surname>
+			</author>
+			<author>
+				<firstname>Juliet</firstname>
+				<surname>Shackell</surname>
+			</author>
+		</authorgroup>
+	</bookinfo>
+	<toc />
+	<!-- prefaces -->
+	<xi:include href="copyright.xml" />
+	<xi:include href="license.xml" />
+	<!-- chapters -->
+	<xi:include href="introduction-to-bundlor.xml" />
+	<xi:include href="getting/getting.xml" />
+	<xi:include href="quickstart/quickstart.xml" />
+	<xi:include href="usage/usage.xml" />
+	<xi:include href="manifest-template.xml" />
+	<xi:include href="osgi-profile.xml" />
+	<xi:include href="detecting/detecting.xml" />
+	<xi:include href="warning/warning.xml" />
+
+</book>

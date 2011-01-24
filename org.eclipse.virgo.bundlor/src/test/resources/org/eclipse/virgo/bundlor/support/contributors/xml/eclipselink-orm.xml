@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<persistence xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.eclipse.org/eclipselink/xsds/persistence/orm http://www.eclipse.org/eclipselink/xsds/eclipselink_orm_1_2.xsd" version="1.2">
+
+	<cache-interceptor class="alpaca.Alpaca"/>
+
+	<converter class="bird.Bird"/>
+
+	<copy-policy class="cat.Cat"/>
+
+	<customizer class="dog.Dog"/>
+
+	<discriminator-class value="emu.Emu"/>
+
+	<id-class class="frog.Frog"/>
+
+	<element-collection target-class="giraffe.Giraffe"/>
+
+	<entity class="hippopotamus.Hippopotamus"/>
+
+	<entity-listener class="iguana.Iguana"/>
+
+	<entity-result entity-class="jaguar.Jaguar"/>
+
+	<embeddable class="kangaroo.Kangaroo"/>
+
+	<many-to-many target-entity="lemur.Lemur"/>
+
+	<many-to-one target-entity="manatee.Manatee"/>
+
+	<map-key-class class="newt.Newt"/>
+
+	<mapped-superclass class="ocelot.Ocelot"/>
+
+	<named-native-query result-class="porcupine.Porcupine"/>
+
+	<named-stored-procedure-query result-class="quoll.Quoll"/>
+
+	<object-type-converter data-type="rhinoceros.Rhinoceros"/>
+
+	<object-type-converter object-type="snail.Snail"/>
+
+	<one-to-many target-entity="tapir.Tapir"/>
+
+	<one-to-one target-entity="urchin.Urichin"/>
+
+	<property value-type="vervet.Vervet"/>
+
+	<query-redirectors all-queries="wombat.Wombat"/>
+	
+	<query-redirectors read-all="xerus.Xerus"/>
+	
+	<query-redirectors read-object="yak.Yak"/>
+	
+	<query-redirectors report="zebra.Zebra"/>
+	
+	<query-redirectors update="aardvark.Aardvark"/>
+	
+	<query-redirectors insert="bison.Bison"/>
+	
+	<query-redirectors delete="caracal.Caracal"/>
+	
+	<read-transformer transformer-class="dolphin.Dolphin"/>
+	
+	<stored-procedure-parameter type="eel.Eel"/>
+	
+	<struct-converter converter="fox.Fox"/>
+
+	<type-converter data-type="gazelle.Gazelle"/>
+	
+	<type-converter object-type="hummingbird.Hummingbird"/>
+
+	<variable-one-to-one target-interface="ibex.Ibex"/>
+	
+	<write-transformer transformer-class="jellyfish.Jellyfish"/>
+
+	<entity-mappings version="1.2">
+		<package>kiwi</package>
+	</entity-mappings>
+
+	<one-to-one target-entity="Kiwi"/>
+</persistence>

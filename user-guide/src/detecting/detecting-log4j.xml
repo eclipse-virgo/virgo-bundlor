@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="detecting.log4j">
+	<title>Log4J Configuration Detection Criteria</title>
+	<para>
+		Bundlor scans for Log4J configuration files. If it detects this file type, it scans the file for a
+		number of values that contain class names.
+	</para>
+
+	<section>
+		<title>Log4J Configuration Values</title>
+		<para>
+			Using XPath syntax, the following is a list of values searched for type names
+			<itemizedlist>
+				<listitem><literal>//appender/@class</literal></listitem>
+				<listitem><literal>//layout/@class</literal></listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</section>

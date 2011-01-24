@@ -1,0 +1,8 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="quickstart" xmlns:xi="http://www.w3.org/2001/XInclude">
+	<title>Quickstart</title>
+	<xi:include href="quickstart-command-line.xml" />
+	<xi:include href="quickstart-ant.xml" />
+	<xi:include href="quickstart-maven.xml" />
+</chapter>

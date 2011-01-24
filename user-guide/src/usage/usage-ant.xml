@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="usage.ant">
+	<title>Apache ANT Usage</title>
+	<para>
+		The ANT task allows you to run Bundlor from inside any ANT based build system
+	</para>
+
+	<section id="usage.ant.setup">
+		<title>ANT Setup</title>
+		<para>The following procedure shows how to set up Bundlor inside of an existing ANT build file</para>
+		<orderedlist>
+			<listitem>
+				<para>Define a <literal>bundlor</literal> namespace</para>
+				<programlisting language="xml">&lt;project name="bundlor-sample-ant"
+    xmlns:bundlor="antlib:org.eclipse.virgo.bundlor.ant"&gt;</programlisting>
+			</listitem>
+			<listitem>
+				<para>Import the <literal>bundlor</literal> task into your build</para>
+				<programlisting language="xml">&lt;target name="bundlor.init"&gt;
+  &lt;taskdef resource="com/springsource/bundlor/ant/antlib.xml"
+      uri="antlib:org.eclipse.virgo.bundlor.ant"&gt;
+    &lt;classpath id="bundlor.classpath"&gt;
+      &lt;fileset dir="${bundlor.home}/dist"/&gt;
+      &lt;fileset dir="${bundlor.home}/lib"/&gt;
+    &lt;/classpath&gt;
+  &lt;/taskdef&gt;
+&lt;/target&gt;</programlisting>
+				<para>
+					This example uses a very simplistic method for building the <literal>bundlor</literal> task
+					classpath. It is possible to use a dependency manager such as Ivy to better manage the classpath of
+					Bundlor.
+				</para>
+			</listitem>
+			<listitem>
+				<para>
+					Use the <literal>bundlor</literal> task, as shown in the following example. See
+					<xref linkend="usage.ant.reference"/> for details about the parameters of the task.
+				</para>
+				<programlisting language="xml">&lt;bundlor:bundlor
+    inputPath="${basedir}/target/classes"
+    outputPath="${basedir}/target/classes"
+    bundleVersion="1.0.2.BUILD-${timestamp}"
+    manifestTemplatePath="${basedir}/template.mf" &gt;
+  &lt;property name="name" value="${ant.project.name}" /&gt;
+&lt;/bundlor:bundlor&gt;</programlisting>
+			</listitem>
+		</orderedlist>
+	</section>
+
+	<section id="usage.ant.reference">
+		<title>ANT Task Reference</title>
+		<section>
+			<title>Task Attributes</title>
+			<para>
+				The following table lists all the attributes that you can specify for the <literal>bundlor</literal>
+				ANT task.
+			</para>
+			<table>
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<thead>
+						<row>
+							<entry>Attribute</entry>
+							<entry>Description</entry>
+							<entry>Required</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>bundleSymbolicName</entry>
+							<entry>The OSGi <literal>Bundle-SymbolicName</literal> for the resulting manifest</entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry>bundleVersion</entry>
+							<entry>The OSGi <literal>Bundle-Version</literal> for the resulting manifest</entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry>enabled</entry>
+							<entry>Whether Bundlor should create a manifest</entry>
+							<entry>No - defaults to <literal>true</literal></entry>
+						</row>
+						<row>
+							<entry>failOnWarnings</entry>
+							<entry>
+								Whether Bundlor should cause a build failure when there are warnings warnings about the
+								resulting manifest
+							</entry>
+							<entry>No - defaults to <literal>false</literal></entry>
+						</row>
+						<row>
+							<entry>inputPath</entry>
+							<entry>
+								The path to the input to create a manifest for. This can either be a directory or a JAR
+								file.
+							</entry>
+							<entry>Yes</entry>
+						</row>
+						<row>
+							<entry>manifestTemplatePath</entry>
+							<entry>
+								The path to the manifest template. See <xref linkend="manifest.template"/> for details.
+							</entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry>osgiProfilePath</entry>
+							<entry>
+								The path to the OSGi profile.  See <xref linkend="osgi.profile"/> for details.
+							</entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry>outputPath</entry>
+							<entry>
+								<para>
+									The path to write the manifest to. This can either be a directory, a JAR file, or
+									not specified.
+								</para>
+								<para>
+									If a directory is specified, the manifest will be written to
+									<literal>${directory}/META-INF/MANIFEST.MF</literal>.
+								</para>
+								<para>
+									If a JAR file is specified, the manifest will be written as the manifest for that
+									JAR file.
+								</para>
+								<para>
+									If nothing is specified, the manifest will be written to
+									<literal>System.out</literal>.
+								</para>
+							</entry>
+							<entry>No - defaults to <literal>System.out</literal></entry>
+						</row>
+						<row>
+							<entry>propertiesPath</entry>
+							<entry>
+								The path to a properties file used for substitution.  See
+								<xref linkend="manifest.template.property"/> for details.
+							</entry>
+							<entry>No</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+
+		<section>
+			<title>Inline Manifest Template</title>
+			<para>
+				Manifest templates can be optionally specified inline instead of as an external file using the
+				<literal>&lt;manifestTemplate/&gt;</literal> element.
+			</para>
+			<programlisting language="xml">&lt;bundlor:bundlor&gt;
+  &lt;manifestTemplate&gt;
+Bundle-ManifestVersion: 2
+Bundle-Name: Bundlor Core
+Bundle-Vendor: SpringSource Inc.
+Bundle-SymbolicName: org.eclipse.virgo.bundlor
+Bundle-Version: 0
+  &lt;/manifestTemplate&gt;
+&lt;/bundlor:bundlor&gt;</programlisting>
+			<para>See <xref linkend="manifest.template"/> for details.</para>
+		</section>
+
+		<section>
+			<title>Inline OSGi Profile</title>
+			<para>
+				OSGI profiles can be optionally specified inline instead of as an external file using the
+				<literal>&lt;osgiProfile/&gt;</literal> element.
+			</para>
+			<programlisting language="xml">&lt;bundlor:bundlor&gt;
+  &lt;osgiProfile&gt;
+org.osgi.framework.system.packages = \
+  javax.accessibility,\
+  javax.activation,\
+  javax.activation;version="1.1.0",\
+  javax.activity,\
+  javax.annotation,\
+...
+  
+org.osgi.framework.bootdelegation = \
+  com_cenqua_clover,\
+  com.cenqua.*,\
+  com.yourkit.*,\
+...
+  &lt;/osgiProfile&gt;
+&lt;/bundlor:bundlor&gt;</programlisting>
+			<para>See <xref linkend="osgi.profile"/> for details.</para>
+		</section>
+
+		<section>
+			<title>Inline Property Values</title>
+			<para>
+				Property substitution values can be optionally specified inline instead of as an external file using the
+				<literal>&lt;property/&gt;</literal> and <literal>&lt;propertySet/&gt;</literal> elements.
+			</para>
+			<programlisting language="xml">&lt;bundlor:bundlor&gt;
+  &lt;property name="bundle.name" value="Kernel test bundle"/&gt;
+  &lt;property name="bundle.version" value="1.0.2.BUILD-${timestamp}"/&gt;
+  &lt;propertyset&gt;
+    &lt;propertyref builtin=&quot;all&quot;/&gt;
+  &lt;/propertyset&gt;
+&lt;/bundlor:bundlor&gt;</programlisting>
+			<para>See <xref linkend="manifest.template.property"/> for details.</para>
+		</section>
+	</section>
+
+	<section id="usage.ant.example">
+		<title>ANT Task Examples</title>
+		<section>
+			<title>Creating a manifest</title>
+			<programlisting language="xml">&lt;bundlor:bundlor
+   inputPath="${basedir}/target/classes"
+   outputPath="${basedir}/target/classes"
+   bundleVersion="1.0.2.BUILD-${timestamp}"
+   manifestTemplatePath="${basedir}/template.mf"/&gt;</programlisting>
+		</section>
+
+		<section>
+			<title>Creating a manifest with placeholder replacement</title>
+			<programlisting language="xml">&lt;bundlor:bundlor
+    inputPath="${basedir}/target/classes"
+    outputPath="${basedir}/target/target/classes"
+    bundleVersion="1.0.2.BUILD-${timestamp}"
+    manifestTemplatePath="${basedir}/template.mf"&gt;
+  &lt;property name="bundle.name" value="Kernel test bundle"/&gt;
+  &lt;property name="bundle.version" value="1.0.2.BUILD-${timestamp}"/&gt;
+&lt;/bundlor:bundlor&gt;</programlisting>
+		</section>
+	</section>
+</section>

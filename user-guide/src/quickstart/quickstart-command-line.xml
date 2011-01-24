@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="quickstart.command.line">
+	<title>Command Line Quickstart</title>
+	<para>The command line client allows Bundlor to be run from the command line of any platform</para>
+	<orderedlist>
+		<listitem>
+			<para>Change directory to the <literal>$BUNDLOR_HOME/bin</literal> directory</para>
+		</listitem>
+		<listitem>
+			<para>
+				Run <literal>bundlor.sh</literal> or <literal>bundlor.bat</literal> scripts. See
+				<xref linkend="usage.command.line"/> for details about the parameters the command line client.
+			</para>
+		</listitem>
+	</orderedlist>
+	<programlisting>% ./bundlor.sh \
+-i ./org.springframework.integration.jar \
+-m ./template.mf \
+-o ./target/org.springframework.integration.jar
+
+Transformed bundle written to ./target/org.springframework.integration.jar
+%</programlisting>
+</section>

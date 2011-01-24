@@ -1,0 +1,8 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="detecting.staticresources">
+	<title>Static Resource Detection Criteria</title>
+	<para>
+		Bundlor scans for any static resource and exports that package.
+	</para>
+</section>

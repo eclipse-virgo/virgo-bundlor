@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java">
+		<attributes>
+			<attribute name="com.springsource.server.ide.jdt.core.test.classpathentry" value="false"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src/main/resources">
+		<attributes>
+			<attribute name="com.springsource.server.ide.jdt.core.test.classpathentry" value="false"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="com.springsource.server.ide.jdt.core.test.classpathentry" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/resources">
+		<attributes>
+			<attribute name="com.springsource.server.ide.jdt.core.test.classpathentry" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.objectweb.asm/com.springsource.org.objectweb.asm/3.1.0/com.springsource.org.objectweb.asm-3.1.0.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.objectweb.asm/com.springsource.org.objectweb.asm/3.1.0/com.springsource.org.objectweb.asm-sources-3.1.0.jar"/>
+	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.objectweb.asm/com.springsource.org.objectweb.asm.commons/3.1.0/com.springsource.org.objectweb.asm.commons-3.1.0.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.objectweb.asm/com.springsource.org.objectweb.asm.commons/3.1.0/com.springsource.org.objectweb.asm.commons-sources-3.1.0.jar"/>
+	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.objectweb.asm/com.springsource.org.objectweb.asm.tree/3.1.0/com.springsource.org.objectweb.asm.tree-3.1.0.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.objectweb.asm/com.springsource.org.objectweb.asm.tree/3.1.0/com.springsource.org.objectweb.asm.tree-sources-3.1.0.jar"/>
+	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.osgi/2.2.0.M01/org.eclipse.virgo.util.osgi-2.2.0.M01.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.osgi/2.0.0.RELEASE/org.eclipse.virgo.util.osgi-sources-2.0.0.RELEASE.jar"/>
+	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.junit/com.springsource.org.junit/4.7.0/com.springsource.org.junit-4.7.0.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.junit/com.springsource.org.junit/4.4.0/com.springsource.org.junit-sources-4.4.0.jar"/>
+	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.common/2.2.0.M01/org.eclipse.virgo.util.common-2.2.0.M01.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.common/2.0.0.RELEASE/org.eclipse.virgo.util.common-sources-2.0.0.RELEASE.jar"/>
+	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.math/2.2.0.M01/org.eclipse.virgo.util.math-2.2.0.M01.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.math/2.0.0.RELEASE/org.eclipse.virgo.util.math-sources-2.0.0.RELEASE.jar"/>
+	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.parser.manifest/2.2.0.M01/org.eclipse.virgo.util.parser.manifest-2.2.0.M01.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.parser.manifest/2.0.0.RELEASE/org.eclipse.virgo.util.parser.manifest-sources-2.0.0.RELEASE.jar"/>
+	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.osgi/org.osgi.core/4.1.0/org.osgi.core-4.1.0.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

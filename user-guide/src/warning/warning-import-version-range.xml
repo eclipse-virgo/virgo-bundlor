@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="warning.importversionrange">
+	<title>Import Version Range Warning Criteria</title>
+	<para>
+		Bundlor checks that all entries in the <literal>Import-Package</literal> header have a sensible version range
+		declared. This ensures that there are no version ranges that are reversed (<literal>[2, 1)</literal>), and no
+		version ranges that are exclusive (<literal>[1, 1]</literal>).
+	</para>
+</section>

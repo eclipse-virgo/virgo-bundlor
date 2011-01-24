@@ -1,0 +1,44 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="quickstart.maven">
+	<title>Apache Maven Quickstart</title>
+	<para>The Maven plugin allows Bundlor to be run from inside any Maven project.</para>
+	<orderedlist>
+		<listitem>
+			<para>Add the SpringSource Enterprise Bundle Repository to the <filename>pom.xml</filename> file</para>
+			<programlisting language="xml">&lt;pluginRepositories&gt;
+  &lt;pluginRepository&gt;
+    &lt;id&gt;com.springsource.repository.bundles.@release.type@&lt;/id&gt;
+    &lt;name&gt;SpringSource Enterprise Bundle Repository&lt;/name&gt;
+    &lt;url&gt;http://repository.springsource.com/maven/bundles/@release.type@&lt;/url&gt;
+  &lt;/pluginRepository&gt;
+  ...
+&lt;/pluginRepositories&gt;</programlisting>
+		</listitem>
+		<listitem>
+			<para>
+				Use the <literal>bundlor</literal> plugin in the <filename>pom.xml</filename> file. See
+				<xref linkend="usage.maven"/> for details about the parameters of the plugin.
+			</para>
+			<programlisting language="xml">&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.eclipse.virgo.bundlor&lt;/groupId&gt;
+      &lt;artifactId&gt;org.eclipse.virgo.bundlor.maven&lt;/artifactId&gt;
+      &lt;version&gt;@bundle.version@&lt;/version&gt;
+      &lt;executions&gt;
+        &lt;execution&gt;
+          &lt;id&gt;bundlor&lt;/id&gt;
+          &lt;goals&gt;
+            &lt;goal&gt;bundlor&lt;/goal&gt;
+          &lt;/goals&gt;
+        &lt;/execution&gt;
+      &lt;/executions&gt;
+    &lt;/plugin&gt;
+    ...
+  &lt;/plugins&gt;
+  ...
+&lt;/build&gt;</programlisting>
+		</listitem>
+	</orderedlist>
+</section>

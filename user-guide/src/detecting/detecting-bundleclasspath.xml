@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="detecting.bundleclasspath">
+	<title><literal>Bundle-Classpath</literal> File Detection Criteria</title>
+	<para>
+		Bundlor scans for JAR files located anywhere in the bundle.  If it detects this file, it runs the entire set of
+		analyzers against it. The imports and exports of the JAR file are added to the outer bundle's manifest and the
+		JAR file is placed on the outer bundle's <literal>Bundle-Classpath</literal>.
+	</para>
+</section>

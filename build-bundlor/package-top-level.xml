@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="package-top-level">
+
+	<target name="package">
+		<delete dir="${package.output.dir}" quiet="true"/>
+		<mkdir dir="${package.output.dir}"/>
+		<delete file="${package.output.file}" quiet="true"/>
+		<mkdir dir="${artifacts.dir}"/>
+
+		<all-bundles target="package">
+			<property name="package.output.dir" value="${package.output.dir}"/>
+		</all-bundles>
+
+		<copy todir="${package.output.dir}" failonerror="false">
+			<fileset dir="resources"/>
+		</copy>
+
+		<copy todir="${package.output.dir}/bin" failonerror="false">
+			<fileset dir="scripts"/>
+		</copy>
+
+		<path id="doc.projects">
+			<path location="${basedir}/../user-guide"/>
+		</path>
+
+ 		<all-bundles target="doc" buildpathRef="doc.projects"/>
+		<all-bundles target="package" buildpathRef="doc.projects">
+			<property name="package.output.dir" value="${package.output.dir}"/>
+		</all-bundles>
+
+		<copy todir="${package.output.dir}/projects">
+			<fileset dir="${basedir}/..">
+				<exclude name=".git/**"/>
+				<exclude name="**/target/**"/>
+				<exclude name="**/integration-repo/**"/>
+				<exclude name="**/ivy-cache/**"/>
+				<exclude name="**/virgo-build/lib/docbook/**" />
+				<exclude name="**/virgo-build/lib/findbugs/**" />
+				<exclude name="**/*OLD*/**"/>
+			</fileset>
+		</copy>
+
+		<chmod perm="755">
+			<fileset dir="${package.output.dir}">
+				<include name="**/*.sh"/>
+			</fileset>
+		</chmod>
+
+		<replaceregexp match="build.stamp.*\n" replace="" flags="g"
+				file="${package.output.dir}/projects/build.properties"/>
+		<replaceregexp match="release.type=.*" replace="release.type=integration" flags="g"
+				file="${package.output.dir}/projects/build.properties"/>
+
+		<zip destfile="${package.output.file}">
+			<zipfileset dir="${package.dir}" includes="${package.basename}/**/*.sh" filemode="755"/>
+			<zipfileset dir="${package.dir}" excludes="${package.basename}/**/*.sh"/>
+		</zip>
+	</target>
+
+</project>

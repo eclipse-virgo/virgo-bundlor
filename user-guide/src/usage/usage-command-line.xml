@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="usage.command.line">
+	<title>Command-Line Usage</title>
+
+	<para>The command line client allows Bundlor to be run from the command line of any platform</para>
+
+	<section id="usage.command.line.syntax">
+		<title>Command Syntax</title>
+		<para>To use Bundlor run the following for UNIX and Windows respectively.</para>
+		<programlisting>$BUNDLOR_HOME/bin/bundlor.sh [options] </programlisting>
+		<programlisting>%BUNDLOR_HOME%\bin\bundlor.bat [options] </programlisting>
+	</section>
+
+	<section id="usage.command.line.reference">
+		<title>Command Line Reference</title>
+
+		<section>
+			<title>Command Line Parameters</title>
+			<para>
+				The following table lists all the parameters that you can specify for the <literal>bundlor</literal>
+				command line client.
+			</para>
+			<table>
+				<title>Attributes</title>
+				<tgroup cols="3">
+					<thead>
+						<row>
+							<entry>Attribute</entry>
+							<entry>Description</entry>
+							<entry>Required</entry>
+						</row>
+					</thead>
+					<tbody>
+						<row>
+							<entry>-f</entry>
+							<entry>
+								Whether Bundlor should cause a build failure when there are warnings warnings about the
+								resulting manifest
+							</entry>
+							<entry>No - defaults to <literal>false</literal></entry>
+						</row>
+						<row>
+							<entry>-i &lt;path&gt;</entry>
+							<entry>
+								The path to the input to create a manifest for. This can either be a directory or a JAR
+								file.
+							</entry>
+							<entry>Yes</entry>
+						</row>
+						<row>
+							<entry>-m &lt;path&gt;</entry>
+							<entry>
+								The path to the manifest template. See <xref linkend="manifest.template"/> for details.
+							</entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry>-p &lt;path&gt;</entry>
+							<entry>
+								The path to the OSGi profile.  See <xref linkend="osgi.profile"/> for details.
+							</entry>
+							<entry>No</entry>
+						</row>
+						<row>
+							<entry>-o &lt;path&gt;</entry>
+							<entry>
+								<para>
+									The path to write the manifest to. This can either be a directory, a JAR file, or
+									not specified.
+								</para>
+								<para>
+									If a directory is specified, the manifest will be written to
+									<literal>${directory}/META-INF/MANIFEST.MF</literal>.
+								</para>
+								<para>
+									If a JAR file is specified, the manifest will be written as the manifest for that
+									JAR file.
+								</para>
+								<para>
+									If nothing is specified, the manifest will be written to
+									<literal>System.out</literal>.
+								</para>
+							</entry>
+							<entry>No - defaults to <literal>System.out</literal></entry>
+						</row>
+						<row>
+							<entry>-r &lt;path&gt;</entry>
+							<entry>
+								The path to a properties file used for substitution.  See
+								<xref linkend="manifest.template.property"/> for details.
+							</entry>
+							<entry>No</entry>
+						</row>
+					</tbody>
+				</tgroup>
+			</table>
+		</section>
+
+		<section>
+			<title>Command Line Property Values</title>
+			<para>
+				Property substitution values can be optionally specified on the command line instead of as an external file
+				using the <literal>-Dproperty=value</literal> parameter.
+			</para>
+			<programlisting>% ./bundlor.sh \
+-i ./org.springframework.integration.jar \
+-m ./template.mf \
+-o ./target/org.springframework.integration.jar \
+-Dname="Spring Integration"
+
+Transformed bundle written to ./target/org.springframework.integration.jar
+%</programlisting>
+			<para>See <xref linkend="manifest.template.property"/> for details.</para>
+		</section>
+	</section>
+
+	<section id="usage.command.line.example">
+		<title>ANT Task Examples</title>
+		<section>
+			<title>Creating a manifest</title>
+			<programlisting>% ./bundlor.sh \
+-i ./org.springframework.integration.jar \
+-m ./template.mf \
+-o ./target/org.springframework.integration.jar
+
+Transformed bundle written to ./target/org.springframework.integration.jar
+%</programlisting>
+		</section>
+
+		<section>
+			<title>Creating a manifest with placeholder replacement</title>
+			<programlisting>% ./bundlor.sh \
+-i ./org.springframework.integration.jar \
+-m ./template.mf \
+-o ./target/org.springframework.integration.jar \
+-Dname="Spring Integration"
+
+Transformed bundle written to ./target/org.springframework.integration.jar
+%</programlisting>
+		</section>
+	</section>
+</section>

@@ -1,0 +1,53 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="detecting.java">
+	<title>Java Detection Criteria</title>
+	<para>
+		Bundlor scans any Java class it can find in the artifact created by the underlying build system. This means
+		that if a build process has custom behavior (i.e. weaving with AspectJ or <literal>jarjar</literal>ing),
+		Bundlor will be able to see and analyze the changes made by that process as long as the changes are in the
+		artifact created by the build system.
+	</para>
+	<para>
+		There are a number of places in a Java class that another Java type can be referenced from. Bundlor detects
+		these references and adds manifest requirements for them.
+	</para>
+
+	<section>
+		<title>Export Package</title>
+		<para>
+			Bundlor exports any package that contains a class.
+		</para>
+	</section>
+
+	<section>
+		<title>Import Package</title>
+		<para>
+			The following is a list of the places that Bundlor will search for type names
+			<itemizedlist>
+				<listitem>Declared Type Superclass Types</listitem>
+				<listitem>Declared Type Implemented Interfaces Types</listitem>
+				<listitem>Declared Type Annotation Types</listitem>
+				<listitem>Declared Field Types</listitem>
+				<listitem>Declared Field Values Types</listitem>
+				<listitem>Declared Method Argument Types</listitem>
+				<listitem>Declared Method Return Types</listitem>
+				<listitem>Declared Method Exception Types</listitem>
+				<listitem>Declared Method Annotation Types</listitem>
+				<listitem>Reference To Field Owner Type</listitem>
+				<listitem>Reference To Field Type</listitem>
+				<listitem>Declared Local Variable Type</listitem>
+				<listitem>Reference to Method Declaring Type</listitem>
+				<listitem>Reference to Method Return Type</listitem>
+				<listitem>Reference to Method Argument Types</listitem>
+				<listitem>Allocation of Array Type</listitem>
+				<listitem>Declared Parameter Annotation Types</listitem>
+				<listitem>Caught Exception Type</listitem>
+				<listitem>Instantiated Type</listitem>
+				<listitem>Cast Target Type</listitem>
+				<listitem>Instanceof Type</listitem>
+				<listitem>Declared Constant Type</listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</section>

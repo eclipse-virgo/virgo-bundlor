@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+		http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:flow="http://www.springframework.org/schema/webflow-config" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:lang="http://www.springframework.org/schema/lang" xmlns:osgi="http://www.springframework.org/schema/osgi"
+	xmlns:util="http://www.springframework.org/schema/util">
+
+	<aop:config>
+		<aop:aspect>
+			<aop:declare-parents implement-interface="xml.org.springframework.aop.implementinterface.A" default-impl="xml.org.springframework.aop.defaultimpl.A"
+				types-matching="*"/>
+		</aop:aspect>
+	</aop:config>
+
+	<context:component-scan base-package="xml.org.springframework.context.basepackage" name-generator="xml.org.springframework.context.namegenerator.A"
+		scope-resolver="xml.org.springframework.context.scoperesolver.A"/>
+
+	<context:load-time-weaver weaver-class="xml.org.springframework.context.loadtimeweaver.A"/>
+
+	<jee:jndi-lookup id="jndiLookup" jndi-name="ejb/jndiName" expected-type="xml.org.springframework.jee.jndilookup.expectedtype.A"
+		proxy-interface="xml.org.springframework.jee.jndilookup.proxyinteface.A"/>
+
+	<jee:local-slsb id="localSlsb" jndi-name="ejb/jndiName" business-interface="xml.org.springframework.jee.localslsb.businessinterface.A"/>
+
+	<jee:remote-slsb id="remoteSlsb" jndi-name="ejb/jndiName" business-interface="xml.org.springframework.jee.remoteslsb.businessinterface.A"
+		home-interface="xml.org.springframework.jee.remoteslsb.homeinterface.A"/>
+
+	<jms:listener-container container-class="xml.org.springframework.jms.listenercontainer.containerclass.A"/>
+
+	<lang:jruby script-interfaces="xml.org.springframework.jruby.scripinterfaces.a.A, xml.org.springframework.jruby.scripinterfaces.b.B"
+		script-source="foo.ruby"/>
+
+	<lang:bsh script-interfaces="xml.org.springframework.bsh.scripinterfaces.a.A, xml.org.springframework.bsh.scripinterfaces.b.B"
+		script-source="foo.ruby"/>
+
+	<osgi:reference id="osgiReference" interface="xml.org.springframework.osgi.reference.interface.A">
+		<osgi:interfaces>
+			<value>xml.org.springframework.osgi.reference.interface.b.B</value>
+			<value>xml.org.springframework.osgi.reference.interface.c.C</value>
+		</osgi:interfaces>
+	</osgi:reference>
+
+	<osgi:service interface="xml.org.springframework.osgi.service.interface.A">
+		<osgi:interfaces>
+			<value>xml.org.springframework.osgi.service.interface.b.B</value>
+			<value>xml.org.springframework.osgi.service.interface.c.C</value>
+		</osgi:interfaces>
+	</osgi:service>
+
+	<util:list id="list" list-class="xml.org.springframework.util.list.listclass.A"/>
+
+	<util:map id="map" map-class="xml.org.springframework.util.map.mapclass.A"/>
+
+	<util:set id="set" set-class="xml.org.springframework.util.set.setclass.A"/>
+	<bean id="someBean" class="org.springframework.somebean.TestBean">
+		<property name="foo">
+			<bean class="org.springframework.somebean4.TestBean"/>
+		</property>
+	</bean>
+
+	<bean id="someBean2" class="org.springframework.somebean2.TestBean"/>
+</beans>

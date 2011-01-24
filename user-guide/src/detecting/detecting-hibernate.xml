@@ -1,0 +1,95 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="detecting.hibernate">
+	<title>Hibernate Mapping File Detection Criteria</title>
+	<para>
+		Bundlor scans for any file that ends with a <literal>.hbm</literal> extension. If it detects one of these files
+		it scans the file for a number of attributes that can contain class names. If the class name is unqualified
+		(i.e. has no '<literal>.</literal>' in it), the classname is prepended with the content of the
+		<literal>hibernate-mapping</literal> tag's <literal>package</literal> attribute. Many of the attributes that can
+		contain class names can also contain Hibernate keywords corresponding to Hibernate-known types. When these are
+		detected, no manifest requirements are added.
+	</para>
+
+	<section>
+		<title>Hibernate Attributes</title>
+		<para>
+			Using XPath syntax, the following is a list of attributes searched for type names
+			<itemizedlist>
+				<listitem><literal>//class/@name</literal></listitem>
+				<listitem><literal>//id/@type</literal></listitem>
+				<listitem><literal>//generator/@class</literal></listitem>
+				<listitem><literal>//composite-id/@class</literal></listitem>
+				<listitem><literal>//discriminator/@type</literal></listitem>
+				<listitem><literal>//property/@type</literal></listitem>
+				<listitem><literal>//many-to-one/@class</literal></listitem>
+				<listitem><literal>//one-to-one/@class</literal></listitem>
+				<listitem><literal>//one-to-many/@class</literal></listitem>
+				<listitem><literal>//many-to-many/@class</literal></listitem>
+				<listitem><literal>//version/@type</literal></listitem>
+				<listitem><literal>//component/@class</literal></listitem>
+				<listitem><literal>//dynamic-component/@class</literal></listitem>
+				<listitem><literal>//subclass/@name</literal></listitem>
+				<listitem><literal>//joined-subclass/@name</literal></listitem>
+				<listitem><literal>//union-subclass/@name</literal></listitem>
+				<listitem><literal>//import/@class</literal></listitem>
+			</itemizedlist>
+		</para>
+	</section>
+
+	<section>
+		<title>Hibernate Keywords</title>
+		<para>
+			The following is a list of reserved Hibernate keywords that will not trigger the addition of manifest
+			requirements
+    		<itemizedlist>
+				<listitem><literal>assigned</literal></listitem>
+				<listitem><literal>big_decimal</literal></listitem>
+				<listitem><literal>big_integer</literal></listitem>
+				<listitem><literal>binary</literal></listitem>
+				<listitem><literal>blob</literal></listitem>
+				<listitem><literal>boolean</literal></listitem>
+				<listitem><literal>byte</literal></listitem>
+				<listitem><literal>calendar</literal></listitem>
+				<listitem><literal>calendar_date</literal></listitem>
+				<listitem><literal>character</literal></listitem>
+				<listitem><literal>class</literal></listitem>
+				<listitem><literal>clob</literal></listitem>
+				<listitem><literal>currency</literal></listitem>
+				<listitem><literal>date</literal></listitem>
+				<listitem><literal>double</literal></listitem>
+				<listitem><literal>float</literal></listitem>
+				<listitem><literal>foreign</literal></listitem>
+				<listitem><literal>guid</literal></listitem>
+				<listitem><literal>hilo</literal></listitem>
+				<listitem><literal>identity</literal></listitem>
+				<listitem><literal>imm_binary</literal></listitem>
+				<listitem><literal>imm_calendar</literal></listitem>
+				<listitem><literal>imm_calendar_date</literal></listitem>
+				<listitem><literal>imm_date</literal></listitem>
+				<listitem><literal>imm_serializable</literal></listitem>
+				<listitem><literal>imm_time</literal></listitem>
+				<listitem><literal>imm_timestamp</literal></listitem>
+				<listitem><literal>increment</literal></listitem>
+				<listitem><literal>integer</literal></listitem>
+				<listitem><literal>locale</literal></listitem>
+				<listitem><literal>long</literal></listitem>
+				<listitem><literal>native</literal></listitem>
+				<listitem><literal>select</literal></listitem>
+				<listitem><literal>seqhilo</literal></listitem>
+				<listitem><literal>sequence</literal></listitem>
+				<listitem><literal>sequence-identity</literal></listitem>
+				<listitem><literal>serializable</literal></listitem>
+				<listitem><literal>short</literal></listitem>
+				<listitem><literal>string</literal></listitem>
+				<listitem><literal>text</literal></listitem>
+				<listitem><literal>time</literal></listitem>
+				<listitem><literal>timestamp</literal></listitem>
+				<listitem><literal>timezone</literal></listitem>
+				<listitem><literal>true_false</literal></listitem>
+				<listitem><literal>uuid</literal></listitem>
+				<listitem><literal>yes_no</literal></listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</section>

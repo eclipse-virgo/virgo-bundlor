@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+
+    <bean class="beans1.TestComponent"/>
+
+    <bean class="beans1.TestComponent">
+        <property>
+            <bean class="beans2.TestComponent"/>
+        </property>
+    </bean>
+
+    <service interface="service1.TestComponent"/>
+
+    <bean class="beans1.TestComponent">
+        <property>
+            <service interface="service2.TestComponent"/>
+        </property>
+    </bean>
+
+    <reference interface="reference1.TestComponent"/>
+
+    <bean class="beans1.TestComponent">
+        <property>
+            <reference interface="reference2.TestComponent"/>
+        </property>
+    </bean>
+
+    <reference-list interface="referenceList1.TestComponent"/>
+
+    <bean class="beans1.TestComponent">
+        <property>
+            <reference-list interface="referenceList2.TestComponent"/>
+        </property>
+    </bean>
+
+    <bean class="beans1.TestComponent">
+        <property>
+            <interfaces>
+                <value>interfaces1.TestComponent</value>
+                <value>interfaces2.TestComponent</value>
+            </interfaces>
+        </property>
+    </bean>
+
+    <bean class="beans3.TestComponent">
+        <property>
+            <service interface="service2.TestComponent"/>
+        </property>
+    </bean>
+
+</blueprint>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="bundlor-sample-ant"
+		xmlns:bundlor="antlib:org.eclipse.virgo.bundlor.ant">
+		<!-- Define a bundlor namespace to reference the tasks -->
+
+	<property file="${basedir}/../../build.properties"/>
+	<property file="${basedir}/../../build.versions"/>
+	<import file="${basedir}/../../virgo-build/standard/default.xml"/>
+
+	<property name="bundlor.home" value="${basedir}/../../.."/>
+
+	<tstamp>
+		<format property="timestamp" pattern="yyyyMMddHHmmss" timezone="GMT"/>
+	</tstamp>
+
+	<target name="bundlor.init">
+		<!-- Define the bundlor task using an antlib URI -->
+		<taskdef resource="org/eclipse/virgo/bundlor/ant/antlib.xml" uri="antlib:org.eclipse.virgo.bundlor.ant">
+			<classpath>
+				<fileset dir="${bundlor.home}/dist"/>
+				<fileset dir="${bundlor.home}/lib"/>
+			</classpath>
+		</taskdef>
+	</target>
+
+	<target name="without-template" depends="resolve, bundlor.init"
+			description="Runs Bundlor against a JAR without passing in a template.  This is expected to fail and demonstrate the diagnostic information of Bundlor.">
+		<delete dir="${basedir}/target" quiet="true"/>
+		<mkdir dir="${basedir}/target" />
+		
+		<bundlor:bundlor
+				inputPath="${basedir}/../ivy-cache/repository/org.springframework.integration/org.springframework.integration/1.0.1.RELEASE/org.springframework.integration-1.0.1.RELEASE.jar"
+				outputPath="${basedir}/target/org.springframework.integration.jar"
+				bundleVersion="1.0.2.BUILD-${timestamp}"
+				failOnWarnings="true"/>
+	</target>
+	
+	<target name="with-template" depends="resolve, bundlor.init"
+			description="Runs Bundlor against a JAR passing in a template.  This is expected to pass and demonstrate the final result of a Bundlor run.">
+		<delete dir="${basedir}/target" quiet="true"/>
+		<mkdir dir="${basedir}/target" />
+		
+		<bundlor:bundlor
+				inputPath="${basedir}/../ivy-cache/repository/org.springframework.integration/org.springframework.integration/1.0.1.RELEASE/org.springframework.integration-1.0.1.RELEASE.jar"
+				outputPath="${basedir}/target/org.springframework.integration.jar"
+				bundleVersion="1.0.2.BUILD-${timestamp}"
+				manifestTemplatePath="${basedir}/template.mf"
+				failOnWarnings="true"/>
+	</target>
+
+</project>

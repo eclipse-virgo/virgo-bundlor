@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="warning.exportimport">
+	<title>Import of Exported Packages Warning Criteria</title>
+	<para>
+		Bundlor checks that the manifest does not import any package that it exports. This behavior is usually
+		indicative of a package split between two bundles.
+	</para>
+</section>

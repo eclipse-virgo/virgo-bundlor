@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+      "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="rhinoceros">
+
+		<class name="alpaca.Alpaca"/>
+
+		<id type="bird.Bird"/>
+
+		<generator class="cat.Cat"/>
+		
+		<composite-id class="dog.Dog"/>
+		
+		<discriminator type="emu.Emu"/>
+		
+		<version type="frog.Frog"/>
+		
+		<property type="giraffe.Giraffe"/>
+		
+		<many-to-one class="hippopotamus.Hippopotamus"/>
+		
+		<one-to-one class="iguana.Iguana"/>
+		
+		<one-to-many class="jaguar.Jaguar"/>
+		
+		<many-to-many class="kangaroo.Kangaroo"/>
+		
+		<component class="lemur.Lemur"/>
+		
+		<dynamic-component class="manatee.Manatee"/>
+		
+		<subclass name="newt.Newt"/>
+		
+		<joined-subclass name="ocelot.Ocelot"/>
+		
+		<union-subclass name="porcupine.Porcupine"/>
+		
+		<import class="quoll.Quoll"/>
+		
+		<class name="Rhinoceros"/>
+
+</hibernate-mapping>

@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="warning.signedjar">
+	<title>Signed JAR Warning Criteria</title>
+	<para>
+		Bundlor checks that the manifest does not contain headers indicating that it is from a signed JAR. Running
+		Bundlor against a signed JAR will render that JAR invalid as the manifest will have changed from the when it was
+		signed.
+	</para>
+</section>

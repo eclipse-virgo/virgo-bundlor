@@ -1,0 +1,11 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+   version="1.0">
+   <persistence-unit name="manager1" transaction-type="JTA">
+      <provider>com.springsource.provider.providerClass</provider>
+      <mapping-file>com.springsource.mapping.mapping-file.xml</mapping-file>
+      <class>com.springsource.class1.Class1</class>
+      <class>com.springsource.class2.Class2</class>
+   </persistence-unit>
+</persistence>

@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="detecting.jsp">
+	<title>JSP File Detection Criteria</title>
+	<para>
+		Bundlor scans for the JSP files. If it detects this file, it scans the file for a number of values that contain
+		class names.
+	</para>
+
+	<section>
+		<title>JSP Values</title>
+		<para>
+			Using Regular expression syntax, the following is a list of values searched for type names
+			<itemizedlist>
+				<listitem><literal>&lt;%@ page.*import=\&quot;(.*?)\&quot;.*%&gt;</literal></listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</section>
