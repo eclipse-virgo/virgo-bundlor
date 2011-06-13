@@ -22,9 +22,9 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.apache.commons/com.springsource.org.apache.commons.cli/1.2.0/com.springsource.org.apache.commons.cli-1.2.0.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.apache.commons/com.springsource.org.apache.commons.cli/1.2.0/com.springsource.org.apache.commons.cli-sources-1.2.0.jar"/>
-	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.parser.manifest/2.2.0.M01/org.eclipse.virgo.util.parser.manifest-2.2.0.M01.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.parser.manifest/2.0.0.RELEASE/org.eclipse.virgo.util.parser.manifest-sources-2.0.0.RELEASE.jar"/>
+	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.parser.manifest/3.0.0.M05/org.eclipse.virgo.util.parser.manifest-3.0.0.M05.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.parser.manifest/2.0.0.RELEASE/org.eclipse.virgo.util.parser.manifest-sources-2.0.0.RELEASE.jar"/>
 	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.junit/com.springsource.org.junit/4.7.0/com.springsource.org.junit-4.7.0.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.junit/com.springsource.org.junit/4.4.0/com.springsource.org.junit-sources-4.4.0.jar"/>
-	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.osgi/2.2.0.M01/org.eclipse.virgo.util.osgi-2.2.0.M01.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.osgi/2.0.0.RELEASE/org.eclipse.virgo.util.osgi-sources-2.0.0.RELEASE.jar"/>
+	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.osgi/3.0.0.M05/org.eclipse.virgo.util.osgi-3.0.0.M05.jar" sourcepath="/BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.osgi/2.0.0.RELEASE/org.eclipse.virgo.util.osgi-sources-2.0.0.RELEASE.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.virgo.bundlor"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.virgo.bundlor.blint"/>
 	<classpathentry kind="output" path="target/classes"/>
