@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 public final class MavenVersionNumberConverter {
 
-    private static final Pattern VERSION_PATTERN = Pattern.compile("(\\d)(\\.\\d)?(\\.\\d)?([\\.-]{1}.*)?");
+    private static final Pattern VERSION_PATTERN = Pattern.compile("(\\d+)(\\.\\d+)?(\\.\\d+)?([\\.-]{1}.*)?");
 
     public String convertToOsgi(String mavenVersionNumber) {
         VersionBuilder versionBuilder = new VersionBuilder();

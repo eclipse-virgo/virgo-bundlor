@@ -25,13 +25,18 @@ public class MavenVersionNumberConverterTests {
     }
 
     @Test
-    public void minor() {
-        assertEquals("1.0.0.SNAPSHOT", converter.convertToOsgi("1.0-SNAPSHOT"));
+    public void major10() {
+        assertEquals("10.0.0.SNAPSHOT", converter.convertToOsgi("10-SNAPSHOT"));
+    }
+    
+    @Test
+    public void minor10() {
+        assertEquals("1.10.0.SNAPSHOT", converter.convertToOsgi("1.10-SNAPSHOT"));
     }
 
     @Test
     public void micro() {
-        assertEquals("1.0.0.SNAPSHOT", converter.convertToOsgi("1.0.0-SNAPSHOT"));
+        assertEquals("1.0.10.SNAPSHOT", converter.convertToOsgi("1.0.10-SNAPSHOT"));
     }
 
     @Test
