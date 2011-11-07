@@ -21,7 +21,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.parser.manifest/3.0.0.M05/org.eclipse.virgo.util.parser.manifest-3.0.0.M05.jar" sourcepath="/BUNDLOR_IVY_CACHE/com.springsource.util/com.springsource.util.parser.manifest/2.0.0.RELEASE/com.springsource.util.parser.manifest-sources-2.0.0.RELEASE.jar"/>
+	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.eclipse.virgo.util/org.eclipse.virgo.util.parser.manifest/3.0.1.RELEASE/org.eclipse.virgo.util.parser.manifest-3.0.1.RELEASE.jar" sourcepath="/BUNDLOR_IVY_CACHE/com.springsource.util/com.springsource.util.parser.manifest/2.0.0.RELEASE/com.springsource.util.parser.manifest-sources-2.0.0.RELEASE.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.virgo.bundlor"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.virgo.bundlor.blint"/>
 	<classpathentry kind="var" path="BUNDLOR_IVY_CACHE/org.apache.maven/maven-plugin-api/2.2.1/maven-plugin-api-2.2.1.jar"/>
