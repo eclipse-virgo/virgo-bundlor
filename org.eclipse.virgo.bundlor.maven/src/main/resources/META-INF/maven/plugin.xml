@@ -4,7 +4,7 @@
   <description></description>
   <groupId>org.eclipse.virgo.bundlor</groupId>
   <artifactId>org.eclipse.virgo.bundlor.maven</artifactId>
-  <version>1.1.0.M01</version>
+  <version>1.1.0.M02</version>
   <goalPrefix>org.eclipse.virgo.bundlor.</goalPrefix>
   <isolatedRealm>false</isolatedRealm>
   <inheritedByDefault>true</inheritedByDefault>
@@ -201,13 +201,13 @@
       <groupId>org.eclipse.virgo.util</groupId>
       <artifactId>org.eclipse.virgo.util.common</artifactId>
       <type>jar</type>
-      <version>3.0.1.RELEASE</version>
+      <version>3.0.2.RELEASE</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.virgo.util</groupId>
       <artifactId>org.eclipse.virgo.util.math</artifactId>
       <type>jar</type>
-      <version>3.0.1.RELEASE</version>
+      <version>3.0.2.RELEASE</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.virgo.bundlor</groupId>
@@ -219,13 +219,13 @@
       <groupId>org.eclipse.virgo.util</groupId>
       <artifactId>org.eclipse.virgo.util.osgi</artifactId>
       <type>jar</type>
-      <version>3.0.1.RELEASE</version>
+      <version>3.0.2.RELEASE</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.virgo.util</groupId>
       <artifactId>org.eclipse.virgo.util.parser.manifest</artifactId>
       <type>jar</type>
-      <version>3.0.1.RELEASE</version>
+      <version>3.0.2.RELEASE</version>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
