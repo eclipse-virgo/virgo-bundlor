@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="package-bundle">
+<project name="package-bundle" xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<target name="package" depends="ivy.init">
 		<dist-jar/>
-		<src-jar/>
+		<!-- <src-jar/> source jars -->
 		<ext-jars/>
 	</target>
-
+	
 </project>

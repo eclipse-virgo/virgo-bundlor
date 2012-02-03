@@ -20,10 +20,14 @@
 		<dependency org="org.junit" name="com.springsource.org.junit" rev="${org.junit}" conf="test->runtime"/>
 
 		<dependency org="org.osgi" name="org.osgi.core" rev="${org.osgi.core}" conf="compile->runtime"/>
+		<dependency org="org.osgi" name="org.osgi.compendium" rev="${org.osgi.compendium}" conf="compile->runtime"/>
 		<dependency org="org.eclipse.virgo.bundlor" name="org.eclipse.virgo.bundlor" rev="latest.integration" conf="provided->runtime"/>
 		<dependency org="org.eclipse.virgo.util" name="org.eclipse.virgo.util.math" rev="${org.eclipse.virgo.util}" conf="compile->runtime"/>
 		<dependency org="org.eclipse.virgo.util" name="org.eclipse.virgo.util.osgi" rev="${org.eclipse.virgo.util}" conf="compile->runtime"/>
 		<dependency org="org.eclipse.virgo.util" name="org.eclipse.virgo.util.parser.manifest" rev="${org.eclipse.virgo.util}" conf="compile->runtime"/>
+		
+		<dependency org="org.slf4j" name="com.springsource.slf4j.api" rev="${org.slf4j}" conf="compile->runtime"/>
+		<dependency org="org.slf4j" name="com.springsource.slf4j.nop" rev="${org.slf4j}" conf="compile->runtime"/>
 	</dependencies>
 
 </ivy-module>

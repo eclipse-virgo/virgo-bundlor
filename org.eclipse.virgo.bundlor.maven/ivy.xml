@@ -22,8 +22,7 @@
 		<dependency org="org.eclipse.virgo.bundlor" name="org.eclipse.virgo.bundlor.blint" rev="latest.integration" conf="ant,provided->runtime"/>
 		<dependency org="org.eclipse.virgo.util" name="org.eclipse.virgo.util.osgi" rev="${org.eclipse.virgo.util}" conf="compile->runtime"/>
 		<dependency org="org.eclipse.virgo.util" name="org.eclipse.virgo.util.parser.manifest" rev="${org.eclipse.virgo.util}" conf="compile->runtime"/>
-		
-		<dependency org="org.apache.maven" name="maven-plugin-api" rev="${org.apache.maven}" />
+		<dependency org="org.apache.maven" name="com.springsource.org.apache.maven.plugin-api" rev="${org.apache.maven}" conf="compile->runtime"/>
 	</dependencies>
 
 </ivy-module>

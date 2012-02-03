@@ -1,20 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="build-bundlor" default="precommit">
-
-	<target name="precommit" depends="clean, clean-integration, test"
-			description="Performs a CI server-like build, should be run prior to performing an svn commit"/>
-
+	
+	<target name="precommit" depends="clean, clean-integration, test" description="Performs a CI server-like build, should be run prior to performing an svn commit"/>
+	
 	<path id="bundles">
 		<pathelement location="../org.eclipse.virgo.bundlor"/>
-		<pathelement location="../org.eclipse.virgo.bundlor.blint" />
+		<pathelement location="../org.eclipse.virgo.bundlor.diff"/>
+		<pathelement location="../org.eclipse.virgo.bundlor.blint"/>
 		<pathelement location="../org.eclipse.virgo.bundlor.commandline"/>
 		<pathelement location="../org.eclipse.virgo.bundlor.ant"/>
 		<pathelement location="../org.eclipse.virgo.bundlor.maven"/>
 	</path>
-
+	
 	<property file="${basedir}/../build.properties"/>
 	<property file="${basedir}/../build.versions"/>
-	<import file="${basedir}/package-top-level.xml"/>
 	<import file="${basedir}/../virgo-build/multi-bundle/default.xml"/>
+	
+	<!-- <target name="package">  SAVED FOR REFERENCE IF THE P2 PACKAGING TARGET NEED WORK
+		<delete dir="${package.output.dir}" quiet="true"/>
+		<mkdir dir="${package.output.dir}"/>
+		<delete file="${package.output.file}" quiet="true"/>
+		<mkdir dir="${artifacts.dir}"/>
 
+		<all-bundles target="package">
+			<property name="package.output.dir" value="${package.output.dir}"/>
+		</all-bundles>
+
+		<copy todir="${package.output.dir}" failonerror="false">
+			<fileset dir="resources"/>
+		</copy>
+
+		<copy todir="${package.output.dir}/bin" failonerror="false">
+			<fileset dir="scripts"/>
+		</copy>
+
+		<path id="doc.projects">
+			<path location="${basedir}/../user-guide"/>
+		</path>
+
+ 		<all-bundles target="doc" buildpathRef="doc.projects"/>
+		<all-bundles target="package" buildpathRef="doc.projects">
+			<property name="package.output.dir" value="${package.output.dir}"/>
+		</all-bundles>
+
+		<copy todir="${package.output.dir}/projects">
+			<fileset dir="${basedir}/..">
+				<exclude name=".git/**"/>
+				<exclude name="**/target/**"/>
+				<exclude name="**/integration-repo/**"/>
+				<exclude name="**/ivy-cache/**"/>
+				<exclude name="**/virgo-build/lib/docbook/**" />
+				<exclude name="**/virgo-build/lib/findbugs/**" />
+				<exclude name="**/*OLD*/**"/>
+			</fileset>
+		</copy>
+
+		<chmod perm="755">
+			<fileset dir="${package.output.dir}">
+				<include name="**/*.sh"/>
+			</fileset>
+		</chmod>
+
+		<replaceregexp match="build.stamp.*\n" replace="" flags="g"
+				file="${package.output.dir}/projects/build.properties"/>
+		<replaceregexp match="release.type=.*" replace="release.type=integration" flags="g"
+				file="${package.output.dir}/projects/build.properties"/>
+
+		<zip destfile="${package.output.file}">
+			<zipfileset dir="${package.dir}" includes="${package.basename}/**/*.sh" filemode="755"/>
+			<zipfileset dir="${package.dir}" excludes="${package.basename}/**/*.sh"/>
+		</zip>
+	</target> -->
+
+	<target name="package" description="Package a Zip and P2 repo of Bundlor">
+		<delete dir="${package.output.dir}" quiet="true"/>
+		<mkdir dir="${package.output.dir}"/>
+		<mkdir dir="${artifacts.dir}"/>
+		<all-bundles target="package">
+			<property name="package.output.dir" value="${target.dir}/assembly/plugins"/>
+		</all-bundles>
+		
+		<!-- Prepare the features for publishing -->
+		<copy todir="${target.dir}/assembly/features" failonerror="false">
+			<fileset dir="${basedir}/publish_resources/features" excludes="keystore"/>
+			<filterset>
+				<filter token="BUNDLOR.VERSION" value="${bundle.version}"/>
+			</filterset>
+		</copy>
+		
+		<antcall target="fetch-unzipped-virgo-build-tools"/>
+		<antcall target="p2.generate-inf">
+			<param name="source" value="${target.dir}/assembly/features"/>
+		</antcall>
+
+		<!-- Add in the resources -->
+		<zip destfile="${target.dir}/binary/resources.zip">
+			<zipfileset dir="${basedir}/resources"/>
+		</zip>
+		<antcall target="p2.publish-binary">
+			<param name="repository" value="${p2.repository.dir}"/>
+			<param name="source" value="${target.dir}/binary/resources.zip"/>
+		</antcall>
+		<echo message="Published the resources and scripts to ${p2.repository.dir}."/>
+		
+		<!-- Publish some features in to the P2 repo -->
+		<antcall target="p2.publish-bundles-features">
+			<param name="repository" value="${p2.repository.dir}"/>
+			<param name="source" value="${target.dir}/assembly"/>
+		</antcall>
+		<echo message="Published bundles and features to ${p2.repository.dir}."/>
+
+		<antcall target="p2.publish-product">
+			<param name="repository" value="${p2.repository.dir}"/>
+			<param name="product.file.location" value="${basedir}/publish_resources/products/bundlor/bundlor.product"/>
+		</antcall>
+		<echo message="Published bundlor product to ${p2.repository.dir}."/>
+
+		<!-- Create the zipped updatesite -->
+		<zip destfile="${updatesite.output.file}">
+			<zipfileset dir="${p2.repository.dir}"/>
+		</zip>
+
+		<!-- Prepare the Bundlor zip -->
+		<antcall target="p2.install-virgo-product">
+			<param name="repository" value="${p2.repository.dir}"/>
+			<param name="destination" value="${package.output.dir}"/>
+			<param name="product.iu" value="bundlor.product"/>
+		</antcall>
+		<echo message="Installed Bundlor for distribution purposes."/>
+
+		<zip destfile="${package.output.file}">
+			<zipfileset dir="${package.dir}" includes="${package.basename}/**/*.sh" filemode="755"/>
+			<zipfileset dir="${package.dir}" excludes="${package.basename}/**/*.sh"/>
+		</zip>
+		
+		<!-- Tidy up -->
+		<delete dir="${target.dir}/assembly" quiet="true"/>
+		
+	</target>
+	
+	<target name="publish-updatesite-download">
+		<fail message="The 'project.key' property must be set on this project.">
+			<condition>
+				<not>
+					<isset property="project.key"/>
+				</not>
+			</condition>
+		</fail>
+		<checksum 
+			file="${updatesite.output.file}" 
+			algorithm="sha1"/>
+		<sshexec 
+			host="build.eclipse.org" 
+			username="${eclipse.committerId}" 
+			keyfile="${key.file}" 
+			passphrase="${passphrase}" 
+			command="mkdir -pv /home/data/httpd/download.eclipse.org/virgo/${adjusted.release.type}/${project.key}/${bundle.version}"/>
+		<scp 
+			localFile="${updatesite.output.file}" 
+			todir="${eclipse.committerId}@build.eclipse.org:/home/data/httpd/download.eclipse.org/virgo/${adjusted.release.type}/${project.key}" 
+			keyfile="${key.file}" 
+			passphrase="${passphrase}"/>
+		<sshexec 
+			host="build.eclipse.org" 
+			username="${eclipse.committerId}" 
+			keyfile="${key.file}" 
+			passphrase="${passphrase}" 
+			command="unzip /home/data/httpd/download.eclipse.org/virgo/${adjusted.release.type}/${project.key}/${updatesite.file.name} -d /home/data/httpd/download.eclipse.org/virgo/${adjusted.release.type}/${project.key}/${bundle.version}"/>
+		<sshexec 
+			host="build.eclipse.org" 
+			username="${eclipse.committerId}" 
+			keyfile="${key.file}" 
+			passphrase="${passphrase}" 
+			command="rm /home/data/httpd/download.eclipse.org/virgo/${adjusted.release.type}/${project.key}/${updatesite.file.name}"/>
+	</target>
+	
 </project>

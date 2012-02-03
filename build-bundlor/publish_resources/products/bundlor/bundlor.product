@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="Eclipse Virgo Bundlor Product" uid="bundlor.product" version="1.0.0" useFeatures="true" includeLaunchers="false">
+
+   <configIni use="default">
+   </configIni>
+   
+   <vm>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+   <feature id="org.eclipse.virgo.bundlor" version="0.0.0"/>
+   <feature id="org.eclipse.virgo.bundlor.ant" version="0.0.0"/>
+   <feature id="org.eclipse.virgo.bundlor.maven" version="0.0.0"/>
+   <feature id="org.eclipse.virgo.bundlor.commandline" version="0.0.0"/>
+   </features>
+
+</product>
