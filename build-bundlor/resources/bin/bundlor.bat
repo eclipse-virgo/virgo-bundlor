@@ -10,11 +10,8 @@ SET SCRIPT_DIR=%~dp0%
 
 set CLASSPATH=
 
-PUSHD "%SCRIPT_DIR%"..\dist
+PUSHD "%SCRIPT_DIR%"..\plugins
 FOR %%G IN (*.*) DO CALL:APPEND_TO_CLASSPATH dist %%G
-POPD
-PUSHD "%SCRIPT_DIR%"..\lib
-FOR %%G IN (*.*) DO CALL:APPEND_TO_CLASSPATH lib %%G
 POPD
 GOTO Continue
 

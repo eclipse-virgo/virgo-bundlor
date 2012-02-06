@@ -20,25 +20,11 @@ while [ -h "$SCRIPT" ] ; do
   fi
 done
 
-DIST_DIR=`dirname "$SCRIPT"`/../dist
-LIB_DIR=`dirname "$SCRIPT"`/../lib
+PLUGINS_DIR=`dirname "$SCRIPT"`/../plugins
 
 CLASSPATH=""
 
-for file in $DIST_DIR/*
-do
-	if [[ $file == *.jar ]]
-	then
-	    if [ $CLASSPATH ]
-		then	
-	        CLASSPATH=$CLASSPATH:$file
-	    else
-	        CLASSPATH=$file
-	    fi
-	fi
-done
-
-for file in $LIB_DIR/*
+for file in $PLUGINS_DIR/*
 do
 	if [[ $file == *.jar ]]
 	then

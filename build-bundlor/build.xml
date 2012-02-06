@@ -94,12 +94,12 @@
 		</antcall>
 
 		<!-- Add in the resources -->
-		<zip destfile="${target.dir}/binary/resources.zip">
+		<zip destfile="${target.dir}/resources/binary/bundlor_resources">
 			<zipfileset dir="${basedir}/resources"/>
 		</zip>
 		<antcall target="p2.publish-binary">
 			<param name="repository" value="${p2.repository.dir}"/>
-			<param name="source" value="${target.dir}/binary/resources.zip"/>
+			<param name="source" value="${target.dir}/resources/"/>
 		</antcall>
 		<echo message="Published the resources and scripts to ${p2.repository.dir}."/>
 		
@@ -130,8 +130,10 @@
 		<echo message="Installed Bundlor for distribution purposes."/>
 
 		<zip destfile="${package.output.file}">
-			<zipfileset dir="${package.dir}" includes="${package.basename}/**/*.sh" filemode="755"/>
-			<zipfileset dir="${package.dir}" excludes="${package.basename}/**/*.sh"/>
+			<zipfileset dir="${package.dir}" includes="${package.basename}/bin/*.sh" filemode="755"/>
+			<zipfileset dir="${package.dir}">
+				<exclude name="${package.basename}/bin/*.sh"/>
+			</zipfileset>
 		</zip>
 		
 		<!-- Tidy up -->
