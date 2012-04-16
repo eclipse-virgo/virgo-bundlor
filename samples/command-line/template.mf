@@ -1,6 +1,5 @@
 Bundle-SymbolicName: org.springframework.integration
 Bundle-Name: Spring Integration Core
-Bundle-Vendor: SpringSource
 Bundle-Version: 1.0.2.BUILD-SNAPSHOT
 Bundle-ManifestVersion: 2
 Import-Template: 

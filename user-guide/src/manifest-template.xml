@@ -272,7 +272,6 @@
 <emphasis role="bold">Bundle-ManifestVersion</emphasis>: 2
 <emphasis role="bold">Bundle-SymbolicName</emphasis>: org.springframework.binding
 Bundle-Name: ${bundle.name}
-Bundle-Vendor: SpringSource
 Import-Package: 
  ognl;version="[2.6.9, 3.0.0)";resolution:=optional,
  org.jboss.el;version="[2.0.0, 3.0.0)";resolution:=optional
@@ -299,7 +298,6 @@ Import-Template:
 				use a property placeholder <literal>${bundle.name}</literal>, which at runtime Bundlor will substitute
 				with an actual value, such as <literal>Spring Binding</literal>.
 			</listitem>
-			<listitem><literal>Bundle-Vendor</literal>: specifies the bundle's vendor</listitem>
 			<listitem>
 				<literal>Import-Package</literal>: hard-codes two packages that will be imported (
 				<literal>ognl</literal> and <literal>org.jboss.el</literal> in the generated manifest. Bundlor isn't

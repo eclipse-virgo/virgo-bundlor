@@ -1,6 +1,5 @@
 Bundle-ManifestVersion: 2
 Bundle-Name: Bundlor ANT Tasks
-Bundle-Vendor: SpringSource Inc.
 Bundle-SymbolicName: org.eclipse.virgo.bundlor.ant
 Bundle-Version: 0
 Excluded-Exports: 

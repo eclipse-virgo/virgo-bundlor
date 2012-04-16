@@ -1,6 +1,5 @@
 Bundle-SymbolicName: org.eclipse.virgo.bundlor.sample.maven
 Bundle-Name: Bundlor Maven Transform Sample
-Bundle-Vendor: SpringSource
 Bundle-ManifestVersion: 2
 Export-Template: 
  *;version=${project.version};provider=bundlor

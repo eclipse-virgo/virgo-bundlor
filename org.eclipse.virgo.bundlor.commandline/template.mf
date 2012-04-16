@@ -1,6 +1,5 @@
 Bundle-ManifestVersion: 2
 Bundle-Name: Bundlor Command Line Interface
-Bundle-Vendor: SpringSource Inc.
 Bundle-SymbolicName: org.eclipse.virgo.bundlor.commandline
 Bundle-Version: 0
 Import-Template: 

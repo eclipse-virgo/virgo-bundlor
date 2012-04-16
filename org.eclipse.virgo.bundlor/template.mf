@@ -1,6 +1,5 @@
 Bundle-ManifestVersion: 2
 Bundle-Name: Bundlor Core
-Bundle-Vendor: SpringSource Inc.
 Bundle-SymbolicName: org.eclipse.virgo.bundlor
 Bundle-Version: 0
 Import-Template: 
