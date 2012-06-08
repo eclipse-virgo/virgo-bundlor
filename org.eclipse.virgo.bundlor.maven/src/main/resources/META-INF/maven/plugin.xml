@@ -5,7 +5,7 @@
   <groupId>org.eclipse.virgo.bundlor</groupId>
   <artifactId>org.eclipse.virgo.bundlor.maven</artifactId>
   <version>1.1.0.M04</version>
-  <goalPrefix>org.eclipse.virgo.bundlor.</goalPrefix>
+  <goalPrefix>bundlor</goalPrefix>
   <isolatedRealm>false</isolatedRealm>
   <inheritedByDefault>true</inheritedByDefault>
   <mojos>
