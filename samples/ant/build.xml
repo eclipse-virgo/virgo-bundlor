@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="bundlor-sample-ant"
+    	xmlns:ivy="antlib:org.apache.ivy.ant"
 		xmlns:bundlor="antlib:org.eclipse.virgo.bundlor.ant">
 		<!-- Define a bundlor namespace to reference the tasks -->
 
@@ -7,21 +8,20 @@
 	<property file="${basedir}/../../build.versions"/>
 	<import file="${basedir}/../../virgo-build/standard/default.xml"/>
 
-	<property name="bundlor.home" value="${basedir}/../../.."/>
+	<property environment="env"/>
+	<property name="bundlor.home" value="${env.BUNDLOR_HOME}"/>
 
 	<tstamp>
 		<format property="timestamp" pattern="yyyyMMddHHmmss" timezone="GMT"/>
 	</tstamp>
-
+	
 	<target name="bundlor.init">
-		<!-- Define the bundlor task using an antlib URI -->
-		<taskdef resource="org/eclipse/virgo/bundlor/ant/antlib.xml" uri="antlib:org.eclipse.virgo.bundlor.ant">
-			<classpath>
-				<fileset dir="${bundlor.home}/dist"/>
-				<fileset dir="${bundlor.home}/lib"/>
-			</classpath>
-		</taskdef>
-	</target>
+    		<ivy:cachepath resolveId="bundlor.classpath" pathid="bundlor.classpath" organisation="org.eclipse.virgo.bundlor"
+     				module="org.eclipse.virgo.bundlor.ant" revision="1.1.0.M05" conf="ant" inline="true"
+     				type="jar"/>
+     		<taskdef resource="org/eclipse/virgo/bundlor/ant/antlib.xml" uri="antlib:org.eclipse.virgo.bundlor.ant"
+     				classpathref="bundlor.classpath"/>
+    </target>
 
 	<target name="without-template" depends="resolve, bundlor.init"
 			description="Runs Bundlor against a JAR without passing in a template.  This is expected to fail and demonstrate the diagnostic information of Bundlor.">
