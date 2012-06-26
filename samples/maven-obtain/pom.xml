@@ -4,62 +4,41 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eclipse.virgo.bundlor</groupId>
-	<artifactId>org.eclipse.virgo.bundlor.maven.sample</artifactId>
+	<artifactId>org.eclipse.virgo.bundlor.maven.obtain.sample</artifactId>
 	<version>1.0.0.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>Bundlor Maven Plugin Transform Sample</name>
+	<name>Bundlor Maven Plugin Obtain Sample</name>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.eclipse.virgo.bundlor</groupId>
-				<artifactId>org.eclipse.virgo.bundlor.maven</artifactId>
-				<version>1.1.0.M05</version>
-				<executions>
-					<execution>
-						<id>bundlor</id>
-						<goals>
-							<goal>bundlor</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<archive>
-						<manifestFile>
-							target/classes/META-INF/MANIFEST.MF
-						</manifestFile>
-					</archive>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+	<dependencies>
+    	<dependency>
+      		<groupId>org.eclipse.virgo.bundlor</groupId>
+      		<artifactId>org.eclipse.virgo.bundlor.maven</artifactId>
+      		<version>1.1.0.M05</version>
+      		<scope>compile</scope>
+    	</dependency>
+  	</dependencies>
 
-	<pluginRepositories>
-		<pluginRepository>
+	<repositories>
+		<repository>
 			<id>eclipse.virgo.build.bundles.snapshot</id>
 			<name>Eclipse Virgo Build</name>
 			<url>http://build.eclipse.org/rt/virgo/maven/bundles/snapshot</url>
-		</pluginRepository>
-		<pluginRepository>
+		</repository>
+		<repository>
 			<id>eclipse.virgo.build.bundles.milestone</id>
 			<name>Eclipse Virgo Build</name>
 			<url>http://build.eclipse.org/rt/virgo/maven/bundles/milestone</url>
-		</pluginRepository>
-		<pluginRepository>
+		</repository>
+		<repository>
 			<id>eclipse.virgo.build.bundles.release</id>
 			<name>Eclipse Virgo Build</name>
 			<url>http://build.eclipse.org/rt/virgo/maven/bundles/release</url>
-		</pluginRepository>
-		<pluginRepository>
+		</repository>
+		<repository>
     		<id>com.springsource.repository.bundles.external</id>
     		<name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
     		<url>http://repository.springsource.com/maven/bundles/external</url>
-		</pluginRepository>
-	</pluginRepositories>
+		</repository>
+	</repositories>
 
 </project>

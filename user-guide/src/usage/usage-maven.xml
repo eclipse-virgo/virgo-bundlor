@@ -48,6 +48,18 @@
         &lt;/execution&gt;
       &lt;/executions&gt;
     &lt;/plugin&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+      &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+      &lt;version&gt;2.4&lt;/version&gt;
+      &lt;configuration&gt;
+        &lt;archive&gt;
+          &lt;manifestFile&gt;
+            target/classes/META-INF/MANIFEST.MF
+          &lt;/manifestFile&gt;
+        &lt;/archive&gt;
+      &lt;/configuration&gt;
+    &lt;/plugin&gt;
     ...
   &lt;/plugins&gt;
   ...
@@ -93,7 +105,7 @@
 						<row>
 							<entry>failOnWarnings</entry>
 							<entry>
-								Whether Bundlor should cause a build failure when there are warnings warnings about the
+								Whether Bundlor should cause a build failure when there are warnings about the
 								resulting manifest
 							</entry>
 							<entry>No - defaults to <literal>false</literal></entry>
@@ -114,9 +126,9 @@
 							<entry>No - defaults to <literal>${basedir}/template.mf</literal></entry>
 						</row>
 						<row>
-							<entry>osgiProfilePath</entry>
+							<entry>OSGiProfilePath</entry>
 							<entry>
-								The path to the OSGi profile.  See <xref linkend="osgi.profile"/> for details.
+								The path to the OSGi profile.  See <xref linkend="OSGi.profile"/> for details.
 							</entry>
 							<entry>No</entry>
 						</row>
@@ -166,7 +178,6 @@
     &lt;manifestTemplate&gt;
 Bundle-ManifestVersion: 2
 Bundle-Name: Bundlor Core
-Bundle-Vendor: SpringSource Inc.
 Bundle-SymbolicName: org.eclipse.virgo.bundlor
 Bundle-Version: 0
     &lt;/manifestTemplate&gt;
@@ -178,8 +189,8 @@ Bundle-Version: 0
 		<section>
 			<title>Inline OSGi Profile</title>
 			<para>
-				OSGI profiles can be optionally specified inline instead of as an external file using the
-				<literal>&lt;osgiProfile/&gt;</literal> element.
+				OSGi profiles can be optionally specified inline instead of as an external file using the
+				<literal>&lt;OSGiProfile/&gt;</literal> element.
 			</para>
 			<programlisting language="xml">&lt;execution&gt;
   &lt;id&gt;bundlor&lt;/id&gt;
@@ -187,24 +198,25 @@ Bundle-Version: 0
     &lt;goal&gt;bundlor&lt;/goal&gt;
   &lt;/goals&gt;
   &lt;configuration&gt;
-    &lt;osgiProfile&gt;
-org.osgi.framework.system.packages = \
-  javax.accessibility,\
-  javax.activation,\
-  javax.activation;version="1.1.0",\
-  javax.activity,\
-  javax.annotation,\
+    &lt;OSGiProfile&gt;
+org.OSGi.framework.system.packages = \
+ org.eclipse.virgo.osgi.extensions.equinox.hooks,\
+ javax.accessibility,\
+ javax.activation,\
+ javax.activation;version="1.1.1",\
+ javax.activity,\
+ javax.annotation,\
 ...
-  
-org.osgi.framework.bootdelegation = \
-  com_cenqua_clover,\
-  com.cenqua.*,\
-  com.yourkit.*,\
+
+org.OSGi.framework.bootdelegation = \
+ org.eclipse.virgo.kernel.authentication,\
+ com.sun.*,\
+ javax.xml.*,\
 ...
-    &lt;/osgiProfile&gt;
+    &lt;/OSGiProfile&gt;
   &lt;/configuration&gt;
 &lt;/execution&gt;</programlisting>
-			<para>See <xref linkend="osgi.profile"/> for details.</para>
+			<para>See <xref linkend="OSGi.profile"/> for details.</para>
 		</section>
 
 		<section>

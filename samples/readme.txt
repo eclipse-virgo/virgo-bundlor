@@ -42,3 +42,8 @@ This sample demonstrates how to use Bundlor with Apache Maven.
 Runs Bundlor against a JAR file and manifest template outputting a new OSGi
 bundle in the target/ directory. This bundle is ready for use in an OSGi
 runtime.
+
+
+Apache Maven Obtain Sample
+--------------------------
+This sample demonstrates how to download Bundlor using Apache Maven.

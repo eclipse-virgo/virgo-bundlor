@@ -35,7 +35,7 @@
 						<row>
 							<entry>-f</entry>
 							<entry>
-								Whether Bundlor should cause a build failure when there are warnings warnings about the
+								Whether Bundlor should cause a build failure when there are warnings about the
 								resulting manifest
 							</entry>
 							<entry>No - defaults to <literal>false</literal></entry>
@@ -115,29 +115,4 @@ Transformed bundle written to ./target/org.springframework.integration.jar
 		</section>
 	</section>
 
-	<section id="usage.command.line.example">
-		<title>ANT Task Examples</title>
-		<section>
-			<title>Creating a manifest</title>
-			<programlisting>% ./bundlor.sh \
--i ./org.springframework.integration.jar \
--m ./template.mf \
--o ./target/org.springframework.integration.jar
-
-Transformed bundle written to ./target/org.springframework.integration.jar
-%</programlisting>
-		</section>
-
-		<section>
-			<title>Creating a manifest with placeholder replacement</title>
-			<programlisting>% ./bundlor.sh \
--i ./org.springframework.integration.jar \
--m ./template.mf \
--o ./target/org.springframework.integration.jar \
--Dname="Spring Integration"
-
-Transformed bundle written to ./target/org.springframework.integration.jar
-%</programlisting>
-		</section>
-	</section>
 </section>

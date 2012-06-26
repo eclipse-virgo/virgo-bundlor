@@ -1,9 +1,9 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter id="osgi.profile">
-	<title>OSGI Profiles and Bundlor</title>
+<chapter id="OSGi.profile">
+	<title>OSGi Profiles and Bundlor</title>
 	<para>
-		When managing and transforming the many bundles included in the SpringSource Enterprise Bundle Repository, it
+		When managing and transforming bundles it
 		can become difficult to remember which packages are boot delegated, which are exported from the system bundle,
 		and which are from other bundles in your system. This information is important because you typically do not want
 		to import packages into your own application that are boot delegated, you want to import system bundle packages
@@ -13,77 +13,78 @@
 	</para>
 	<para>
 		To solve this problem, you can specify that Bundlor take an
-		<xref linkend="osgi-profiles.about">OSGI profile</xref> as input and automatically add template entries for boot
+		<link linkend="OSGi-profiles.about">OSGi profile</link> as input and automatically add template entries for boot
 		delegated packages and system bundles. These import entries would ignore boot-delegated packages and set the
 		version of system bundles to <literal>version="0"</literal>. This feature is available for all Bundlor front
 		ends: command-line, ANT and Maven.
 	</para>
 
-	<section id="osgi-profiles.about">
-		<title>Overview of OSGI profiles</title>
+	<section id="OSGi-profiles.about">
+		<title>Overview of OSGi profiles</title>
 		<para>
-			An OSGi profile defines the packages that a particular OSGI runtime (such as dm Server) exports from the
-			system bundle and the packages that it delegates to the boot class loader. An OSGI profile isn't an actual
+			An OSGi profile defines the packages that a particular OSGi runtime (such as Virgo) exports from the
+			system bundle and the packages that it delegates to the boot class loader. An OSGi profile isn't an actual
 			file; rather, it is two properties that are well known to an OSGi runtime. However, when you pass these
 			properties to Bundlor, you pass them as a file, as described in the next section. The properties that make
-			up an OSGI profile are as follows.
+			up an OSGi profile are as follows.
 		</para>
 		<itemizedlist>
 			<listitem>
-				The <literal>org.osgi.framework.system.packages</literal> property defines the packages exported from
+				The <literal>org.OSGi.framework.system.packages</literal> property defines the packages exported from
 				the system bundle.
 			</listitem>
 			<listitem>
-				The <literal>org.osgi.framework.bootdelegation</literal> property defines the packages that are boot
+				The <literal>org.OSGi.framework.bootdelegation</literal> property defines the packages that are boot
 				delegated.
 			</listitem>
 		</itemizedlist>
 		<para>
-			If you are using dm Server as your OSGI runtime, see the file
-			<literal>DM_SERVER_HOME/lib/java6-server.profile</literal> for its OSGI profile, where
-			<literal>DM_SERVER_HOME</literal> refers to the main installation directory of dm Server. If you are using
-			another OSGI runtime, such as Equinox, then see their documentation for their OSGI profile.
+			If you are using Virgo as your OSGi runtime, see the file
+			<literal>$VIRGO_HOME/configuration/java6-server.profile</literal> for its OSGi profile, where
+			<literal>$VIRGO_HOME</literal> refers to the main installation directory of Virgo. If you are using
+			another OSGi runtime, such as Equinox, then see their documentation for their OSGi profile.
 		</para>
 		<para>
-			For additional information about the syntax of the values of these properties, see sections 3.8.3 and 3.8.5
-			of the <ulink url="http://www.osgi.org/Specifications/HomePage">OSGI specification</ulink>.
+			For additional information about the syntax of the values of these properties, see 
+			the <ulink url="http://www.OSGi.org/Specifications/HomePage">OSGi Core specification</ulink>.
 		</para>
 	</section>
 
-	<section id="osgi-profiles.using">
-		<title>Using OSGI profiles with Bundlor</title>
+	<section id="OSGi-profiles.using">
+		<title>Using OSGi profiles with Bundlor</title>
 		<para>
-			The first step in using OSGI profiles with Bundlor is to create a file that contains a textual
-			representation of the two properties that make up an OSGI profile:
-			<literal>org.osgi.framework.system.packages</literal> and
-			<literal>org.osgi.framework.bootdelegation</literal>. What you include in this file is up to you, but
-			typically you start with the OSGI profile of the OSGI runtime you are using, and then customize it to fit
+			The first step in using OSGi profiles with Bundlor is to create a file that contains a textual
+			representation of the two properties that make up an OSGi profile:
+			<literal>org.OSGi.framework.system.packages</literal> and
+			<literal>org.OSGi.framework.bootdelegation</literal>. What you include in this file is up to you, but
+			typically you start with the OSGi profile of the OSGi runtime you are using, and then customize it to fit
 			your environment.
 		</para>
 		<para>
-			If you are using dm Server as your OSGI runtime, you can start by copying the section of the file
-			<literal>$DM_SERVER_HOME/lib/java6-server.profile</literal> that refers to the two properties and pasting it
+			If you are using Virgo as your OSGi runtime, you can start by copying the section of the file
+			<literal>$VIRGO_HOME/configuration/java6-server.profile</literal> that refers to the two properties and pasting it
 			into your text file. If you are using another runtime, consult their documentation.
 		</para>
 		<para>
-			The following snippet shows a partial OSGI profile for dm Server; for clarity only a few packages are shown.
-			The example shows the format in which you should create your own OSGI profile file.
+			The following snippet shows a partial OSGi profile for Virgo; for clarity only a few packages are shown.
+			The example shows the format in which you should create your own OSGi profile file.
 		</para>
-		<programlisting>org.osgi.framework.system.packages = \
+		<programlisting>org.OSGi.framework.system.packages = \
+ org.eclipse.virgo.osgi.extensions.equinox.hooks,\
  javax.accessibility,\
  javax.activation,\
- javax.activation;version="1.1.0",\
+ javax.activation;version="1.1.1",\
  javax.activity,\
  javax.annotation,\
 ...
 
-org.osgi.framework.bootdelegation = \
- com_cenqua_clover,\
- com.cenqua.*,\
- com.yourkit.*,\
+org.OSGi.framework.bootdelegation = \
+ org.eclipse.virgo.kernel.authentication,\
+ com.sun.*,\
+ javax.xml.*,\
 ...</programlisting>
 		<para>
-			Once you've created your OSGI profile file, the method of passing it to Bundlor depends on the front end you
+			Once you've created your OSGi profile file, the method of passing it to Bundlor depends on the front end you
 			are using to generate a manifest. For detailed information about using the various front ends, see
 			<xref linkend="usage"/>.
 		</para>

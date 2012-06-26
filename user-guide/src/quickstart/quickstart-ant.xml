@@ -2,7 +2,7 @@
 <!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <section id="quickstart.ant">
 	<title>Apache ANT Quickstart</title>
-	<para>The ANT task allows Bundlor to be run from inside any ANT based build system</para>
+	<para>The ANT task allows Bundlor to be run from inside any ANT based build system.</para>
 	<orderedlist>
 		<listitem>
 			<para>Define a <literal>bundlor</literal> namespace</para>
@@ -18,10 +18,6 @@
   &lt;taskdef resource=&quot;org/eclipse/virgo/bundlor/ant/antlib.xml&quot; uri=&quot;antlib:org.eclipse.virgo.bundlor.ant&quot;
            classpathref=&quot;bundlor.classpath&quot;/&gt;
 &lt;/target&gt;</programlisting>
-			<para>
-				This example uses a very simplistic method for building the <literal>bundlor</literal> task classpath.
-				It is possible to use a dependency manager such as Ivy to better manage the classpath of Bundlor.
-			</para>
 		</listitem>
 		<listitem>
 			<para>

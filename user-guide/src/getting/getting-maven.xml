@@ -2,22 +2,35 @@
 <!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <section id="getting.maven">
 	<title>Getting Bundlor with Maven</title>
-	<para>Eclipse Virgo Bundlor can be obtained from a Maven repository</para>
+	<para>Eclipse Virgo Bundlor can be obtained from a Maven repository.</para>
 	<orderedlist>
 		<listitem>
 			<para>
-				Add the Eclipse Virgo build and SpringSource Enterprise Bundle Repository plugin resolvers to the <literal>pom.xml</literal> file
+				Add the Eclipse Virgo build and SpringSource Enterprise Bundle Repository resolvers to the <literal>pom.xml</literal> file
 			</para>
-			<programlisting language="xml">&lt;pluginRepository&gt;
+			<programlisting language="xml">&lt;repository&gt;
   &lt;id&gt;eclipse.virgo.build.bundles.@release.type@&lt;/id&gt;
   &lt;name&gt;Eclipse Virgo Build&lt;/name&gt;
   &lt;url&gt;http://build.eclipse.org/rt/virgo/maven/bundles/@release.type@&lt;/url&gt;
-&lt;/pluginRepository&gt;
-&lt;pluginRepository&gt;
+&lt;/repository&gt;
+&lt;repository&gt;
   &lt;id&gt;com.springsource.repository.bundles.external&lt;/id&gt;
   &lt;name&gt;SpringSource Enterprise Bundle Repository - External Bundle Releases&lt;/name&gt;
   &lt;url&gt;http://repository.springsource.com/maven/bundles/external&lt;/url&gt;
-&lt;/pluginRepository&gt;</programlisting>
+&lt;/repository&gt;</programlisting>
+		</listitem>
+		<listitem>
+			<para>
+				Add a dependency to the <literal>pom.xml</literal> file
+			</para>
+			<programlisting language="xml">&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.eclipse.virgo.bundlor&lt;/groupId&gt;
+	&lt;artifactId&gt;org.eclipse.virgo.bundlor.maven&lt;/artifactId&gt;
+	&lt;version&gt;@bundle.version@&lt;/version&gt;
+	&lt;scope&gt;compile&lt;/scope&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;</programlisting>
 		</listitem>
 	</orderedlist>
 </section>

@@ -5,6 +5,6 @@
 	<para>
 		Bundlor checks that all entries in the <literal>Import-Package</literal> header have a sensible version range
 		declared. This ensures that there are no version ranges that are reversed (<literal>[2, 1)</literal>), and no
-		version ranges that are exclusive (<literal>[1, 1]</literal>).
+		version ranges that are empty (<literal>[1, 1)</literal>).
 	</para>
 </section>

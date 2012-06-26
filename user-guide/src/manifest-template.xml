@@ -17,8 +17,8 @@
 		</para>
 		<para>
 			You can also specify property placeholders, or variables, in your manifest template that Bundlor substitutes
-			with real values at runtime. With this feature, your manifest templates become more dynamic and useful
-			across a variety of your projects. A particularly useful use case for this feature is to tell Bundlor to
+			with actual values at runtime. With this feature, your manifest templates become more dynamic and useful
+			across a variety of your projects. A particularly handy use for this feature is to tell Bundlor to
 			automatically expand versions of imports based on a pattern of your choosing. See
 			<xref linkend="manifest.template.property"/> for details.
 		</para>
@@ -45,7 +45,8 @@
 						<entry><literal>Excluded-Exports</literal></entry>
 						<entry>
 							A comma-separated list of packages that must not be added to the manifest's
-							<literal>Export-Package</literal> header.
+							<literal>Export-Package</literal> header. This is useful for preventing implementation
+							packages from being exported.
 						</entry>
 					</row>
 					<row>
@@ -127,24 +128,24 @@
 		<title>Specifying automatic version expansion of imported packages based on a pattern</title>
 		<para>
 			When you use the <literal>Import-Template</literal> template header to augment package imports that Bundlor
-			generates in the manifest file, you use the <literal>version</literal> directive to specify a version or
+			generates in the manifest file, you use the <literal>version</literal> attribute to specify a
 			version range of the imported package.
 		</para>
 		<programlisting>Import-Template: 
- com.springsource.kernel*;version="[1.2.0, 2.0.0)"
+ org.eclipse.virgo.kernel.*;version="[1.2.0, 2.0.0)"
  org.apache.commons.logging;version="[1.1.1, 2.0.0)"</programlisting>
 		<para>
-			The preceding example specifies that Bundlor should version the <literal>com.springsource.*</literal>
-			packages at <literal>[2.5.4.A, 3.0.0)</literal> and the <literal>org.apache.commons.logging</literal>
-			package at <literal>[1.1.1, 2.0.0)</literal> in the generated manifest file. This works just fine for many
+			The preceding example specifies that Bundlor should import the <literal>org.eclipse.virgo.kernel.*</literal>
+			packages in the range <literal>[1.2.0, 2.0.0)</literal> and the <literal>org.apache.commons.logging</literal>
+			package in the range <literal>[1.1.1, 2.0.0)</literal> in the generated manifest file. This works just fine for many
 			use cases, but sometimes the use of literal versions in this manner can be restrictive.
 		</para>
 		<para>
 			In order to make the manifest template more dynamic and useful, you can specify that Bundlor automatically
 			expand the package version into a version range using an expansion pattern of your choosing. The pattern
 			uses as a base a property placeholder that you define (as described in
-			<xref linkend="manifest.template.property"/>) and set to a valid OSGI version number. Then, based on the
-			expansion pattern you specify, Bundlor generates a version range using the 4 parts of an OSGI version:
+			<xref linkend="manifest.template.property"/>) and set to a valid OSGi version number. Then, based on the
+			expansion pattern you specify, Bundlor generates a version range using the 4 parts of an OSGi version:
 			major, minor, micro, and qualifier.
 		</para>
 		<para>
@@ -155,7 +156,7 @@
 			example is described in detail after the table.
 		</para>
 		<programlisting>Import-Template: 
- com.springsource.kernel.*;version="${com.springsource.kernel:[=.=.=.=, +1.0.0)}",
+ org.eclipse.virgo.kernel.*;version="${org.eclipse.virgo.kernel:[=.=.=.=, +1.0.0)}",
  org.apache.commons.logging.*;version="${org.apache.commons.logging:[=.=.=.=, =.=.+1)}"</programlisting>
 		<para>The following table lists the symbols you can use in the expansion pattern.</para>
 		<table>
@@ -187,7 +188,7 @@
 						</entry>
 					</row>
 					<row>
-						<entry>-n</entry>
+						<entry>n</entry>
 						<entry>
 							Substitute this value for the one in the variable. Typically you only use this for putting
 							in a <literal>0</literal>.
@@ -206,9 +207,9 @@
 		</table>
 		<para>
 			Based on the descriptions of the symbols, we can now understand how the examples above work. First assume
-			that you have set the property <literal>${com.springsource.kernel}</literal> to the value
+			that you have set the property <literal>${org.eclipse.virgo.kernel}</literal> to the value
 			<literal>1.2.0</literal>. Based on the expansion pattern, Bundlor sets the version range of the imported
-			<literal>com.springsource.kernel.*</literal> packages to <literal>[1.2.0, 2.0.0)</literal>. The pattern in
+			<literal>org.eclipse.virgo.kernel.*</literal> packages to <literal>[1.2.0, 2.0.0)</literal>. The pattern in
 			this case first specifies that the beginning of the version range stay exactly the same as the value of the
 			property. The pattern then specifies that at the end of the version range, the major part of the version
 			should be one integer larger than what the property is originally set to (<literal>1</literal>); the pattern
@@ -252,13 +253,11 @@
  org.apache.commons.codec.*;version="${org.apache.commons.codec:apache}",
  org.apache.commons.logging.*;version="${org.apache.commons.logging:apache}",
  org.hibernate.*;version="${org.hibernate:hibernate}"
- org.myorg.*;version="${org.myorg:(=.=.=.=, =.+1.0.=]}"</programlisting>
+ org.myorg.*;version="${org.myorg:[]=.=.=.=, =.+1.0.=)}"</programlisting>
 			<para>
 				In the example, the <literal>apache</literal> named pattern is used twice, for the two
 				<literal>org.apache</literal> imports, and the <literal>hibernate</literal> pattern is used once. Also
-				note that you can also include an import whose version is specified with an in-line pattern. The in-line
-				pattern shows a more unusual usage. It will create a version range from, but not including, the provided
-				version up to and including the next minor version with the same qualifier.
+				note that you can also include an import whose version is specified with an in-line pattern.
 			</para>
 		</section>
 	</section>

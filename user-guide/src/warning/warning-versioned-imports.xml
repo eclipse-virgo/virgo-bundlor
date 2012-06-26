@@ -3,6 +3,6 @@
 <section id="warning.versionedimports">
 	<title>Versioned Imports Warning Criteria</title>
 	<para>
-		Bundlor checks that all entries in the <literal>Import-Package</literal> header have a version declared.
+		Bundlor checks that all entries in the <literal>Import-Package</literal> header have a version range declared.
 	</para>
 </section>
