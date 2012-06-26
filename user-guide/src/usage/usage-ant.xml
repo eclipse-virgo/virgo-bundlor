@@ -17,14 +17,12 @@
 			</listitem>
 			<listitem>
 				<para>Import the <literal>bundlor</literal> task into your build</para>
-				<programlisting language="xml">&lt;target name="bundlor.init"&gt;
-  &lt;taskdef resource="com/springsource/bundlor/ant/antlib.xml"
-      uri="antlib:org.eclipse.virgo.bundlor.ant"&gt;
-    &lt;classpath id="bundlor.classpath"&gt;
-      &lt;fileset dir="${bundlor.home}/dist"/&gt;
-      &lt;fileset dir="${bundlor.home}/lib"/&gt;
-    &lt;/classpath&gt;
-  &lt;/taskdef&gt;
+			<programlisting language="xml">&lt;target name=&quot;bundlor.init&quot;&gt;
+  &lt;ivy:cachepath resolveId=&quot;bundlor.classpath&quot; pathid=&quot;bundlor.classpath&quot; organisation=&quot;org.eclipse.virgo.bundlor&quot;
+                 module=&quot;org.eclipse.virgo.bundlor.ant&quot; revision=&quot;@bundle.version@&quot; conf=&quot;ant&quot; inline=&quot;true&quot;
+                 type=&quot;jar&quot; log=&quot;download-only&quot;/&gt;
+  &lt;taskdef resource=&quot;org/eclipse/virgo/bundlor/ant/antlib.xml&quot; uri=&quot;antlib:org.eclipse.virgo.bundlor.ant&quot;
+           classpathref=&quot;bundlor.classpath&quot;/&gt;
 &lt;/target&gt;</programlisting>
 				<para>
 					This example uses a very simplistic method for building the <literal>bundlor</literal> task

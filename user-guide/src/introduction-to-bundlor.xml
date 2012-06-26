@@ -6,32 +6,25 @@
     	<title>About Bundlor</title>
 		<para>
 			With the increasing focus on OSGi in Enterprise Java, there has been increasing focus on creating OSGi
-			bundles for deployment. When a development team is creating their own bundles, it is easy for them to focus
-			on identifying Imports and Exports and ensuring that their manifests are correct. When it comes time to use
-			third-party enterprise libraries however, things start to break down.
+			bundles for deployment.
+			When a development team is creating their own bundles, bundlor simplifies the creation and maintenance of
+			the OSGi metadata of each bundle.
 		</para>
 		<para>
-			Many of these libraries are not packaged as OSGi bundles. In fact, many of them have internal architectures
-			and designs that do not lend themselves to controls that OSGi provides. In this case, a user must retrofit
-			OSGi directives to the library before use.
+			Bundlor also helps in the use of third-party enterprise libraries, many of which are not packaged as OSGi bundles.
+			In this case, developers must add OSGi metadata to the library before use.
 		</para>
 		<para>
-			This is where Bundlor comes in. It can be very hard for a developer to know exactly what
-			dependencies are needed by a library using simple inspection. Bundlor is a tool that automates the detection
+			Bundlor helps in both these scenarios. It can be very hard for developers to keep track of the
+			dependencies needed by a JAR file. Bundlor is a tool that automates the detection
 			of dependencies and the creation of OSGi manifest directives for JARs after their creation. Bundlor takes as
 			input a JAR and a template consisting of a superset of the standard OSGi manifest headers. Bundlor analyses
 			the source code and support files contained in the JAR, applies the template to the results, and generates a
 			manifest.
 		</para>
 		<para>
-			The use of Bundlor can take different forms, from tasks for Apache ANT and plugins for Apache Maven, to
-			simple command line execution for integration into any existing build system.
-		</para>
-		<para>
-			Before you start using Bundlor, please take a moment to look at the SpringSource Enterprise Bundle
-			Repository; you may find that what you are looking for has already been updated. If you convert a library
-			for your own use and think that it might be useful to the community at large, please submit your bundle
-			information to the Enterprise Bundle Repository for inclusion.
+			The use of Bundlor can take different forms, from an Apache ANT task and an Apache Maven plugin, to
+			simple command line execution.
 		</para>
 	</section>
 </chapter>

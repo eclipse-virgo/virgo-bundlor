@@ -2,17 +2,8 @@
 <!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <preface id="copyright">
 	<title>Copyright</title>
-
-	<mediaobject>
-		<imageobject role="fo">
-			<imagedata fileref="images/springsource.jpg" format="JPG" align="left" valign="bottom"/>
-		</imageobject>
-		<imageobject role="html">
-			<imagedata fileref="images/springsource.jpg" format="JPG" align="left" valign="bottom"/>
-		</imageobject>
-	</mediaobject>
 	<para>
-		Copyright 2008-2010, VMWare
+		Copyright 2008-2012, VMware Inc.
 	</para>
 	<para>
 		Licensed Under the terms and conditions of the Eclipse Public License Version 1.0 ("EPL").  
