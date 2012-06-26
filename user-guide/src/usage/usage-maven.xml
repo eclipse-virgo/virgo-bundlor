@@ -13,12 +13,17 @@
 
 		<orderedlist>
 			<listitem>
-				<para>Add the SpringSource Enterprise Bundle Repository to the <filename>pom.xml</filename> file.</para>
+				<para>Add the Eclipse Virgo build and SpringSource Enterprise Bundle Repository to the <filename>pom.xml</filename> file.</para>
 				<programlisting language="xml">&lt;pluginRepositories&gt;
   &lt;pluginRepository&gt;
-    &lt;id&gt;com.springsource.repository.bundles.@release.type@&lt;/id&gt;
-    &lt;name&gt;SpringSource Enterprise Bundle Repository&lt;/name&gt;
-    &lt;url&gt;http://repository.springsource.com/maven/bundles/@release.type@&lt;/url&gt;
+    &lt;id&gt;eclipse.virgo.build.bundles.@release.type@&lt;/id&gt;
+    &lt;name&gt;Eclipse Virgo Build&lt;/name&gt;
+    &lt;url&gt;http://build.eclipse.org/rt/virgo/maven/bundles/@release.type@&lt;/url&gt;
+  &lt;/pluginRepository&gt;
+  &lt;pluginRepository&gt;
+    &lt;id&gt;com.springsource.repository.bundles.external&lt;/id&gt;
+    &lt;name&gt;SpringSource Enterprise Bundle Repository - External Bundle Releases&lt;/name&gt;
+    &lt;url&gt;http://repository.springsource.com/maven/bundles/external&lt;/url&gt;
   &lt;/pluginRepository&gt;
   ...
 &lt;/pluginRepositories&gt;</programlisting>

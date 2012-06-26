@@ -9,7 +9,7 @@
 				Add the Virgo resolver to the <literal>ivysettings.xml</literal>
 				file
 			</para>
-			<programlisting language="xml">&lt;url name=&quot;eclipse.build.read.resolver&quot;&gt;
+			<programlisting language="xml">&lt;url name=&quot;eclipse.virgo.build.read.resolver&quot;&gt;
   &lt;ivy pattern=&quot;http://build.eclipse.org/rt/virgo/ivy/bundles/@release.type@/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]&quot;/&gt;
   &lt;artifact pattern=&quot;http://build.eclipse.org/rt/virgo/ivy/bundles/@release.type@/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]&quot;/&gt;
 &lt;/url&gt;</programlisting> 

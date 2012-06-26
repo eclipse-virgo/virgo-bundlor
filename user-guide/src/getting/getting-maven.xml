@@ -6,12 +6,18 @@
 	<orderedlist>
 		<listitem>
 			<para>
-				Add the SpringSource Enterprise Bundle Repository resolvers to the <literal>pom.xml</literal> file
+				Add the Eclipse Virgo build and SpringSource Enterprise Bundle Repository plugin resolvers to the <literal>pom.xml</literal> file
 			</para>
-			<programlisting language="xml">&lt;repository&gt;
-  &lt;id&gt;com.springsource.repository.bundles.@release.type@&lt;/id&gt;
-  &lt;url&gt;http://repository.springsource.com/maven/bundles/@release.type@&lt;/url&gt;
-&lt;/repository&gt;</programlisting>
+			<programlisting language="xml">&lt;pluginRepository&gt;
+  &lt;id&gt;eclipse.virgo.build.bundles.@release.type@&lt;/id&gt;
+  &lt;name&gt;Eclipse Virgo Build&lt;/name&gt;
+  &lt;url&gt;http://build.eclipse.org/rt/virgo/maven/bundles/@release.type@&lt;/url&gt;
+&lt;/pluginRepository&gt;
+&lt;pluginRepository&gt;
+  &lt;id&gt;com.springsource.repository.bundles.external&lt;/id&gt;
+  &lt;name&gt;SpringSource Enterprise Bundle Repository - External Bundle Releases&lt;/name&gt;
+  &lt;url&gt;http://repository.springsource.com/maven/bundles/external&lt;/url&gt;
+&lt;/pluginRepository&gt;</programlisting>
 		</listitem>
 	</orderedlist>
 </section>
