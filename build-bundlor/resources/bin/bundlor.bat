@@ -11,7 +11,7 @@ SET SCRIPT_DIR=%~dp0%
 set CLASSPATH=
 
 PUSHD "%SCRIPT_DIR%"..\plugins
-FOR %%G IN (*.*) DO CALL:APPEND_TO_CLASSPATH dist %%G
+FOR %%G IN (*.*) DO CALL:APPEND_TO_CLASSPATH plugins %%G
 POPD
 GOTO Continue
 
