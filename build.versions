@@ -1,4 +1,4 @@
-org.eclipse.virgo.util=3.0.1.RELEASE
+org.eclipse.virgo.util=3.5.0.RELEASE
 org.apache.ant=1.7.0
 org.apache.commons.cli=1.2.0
 org.osgi.core=4.3.0
