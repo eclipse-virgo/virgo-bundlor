@@ -8,6 +8,7 @@
  * Contributors:
  *   VMware Inc. - initial contribution
  *******************************************************************************/
+package org.eclipse.virgo.bundlor
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -28,10 +29,13 @@ public class BundlorPlugin implements Plugin<Project> {
     public void apply(Project project) {
 
         project.configurations { bundlorconf }
+
+	    project.repositories.maven( {name = 'bundlor'; url = 'http://build.eclipse.org/rt/virgo/maven/bundles/release'})
+        project.repositories.maven( {name = 'springsource'; url = 'http://repository.springsource.com/maven/bundles/external'})
         project.dependencies {
-            bundlorconf 'com.springsource.bundlor:com.springsource.bundlor.ant:1.0.0.RELEASE',
-                    'com.springsource.bundlor:com.springsource.bundlor:1.0.0.RELEASE',
-                    'com.springsource.bundlor:com.springsource.bundlor.blint:1.0.0.RELEASE'
+             bundlorconf 'org.eclipse.virgo.bundlor:org.eclipse.virgo.bundlor.ant:1.1.1.RELEASE',
+                         'org.eclipse.virgo.bundlor:org.eclipse.virgo.bundlor:1.1.1.RELEASE',
+                         'org.eclipse.virgo.bundlor:org.eclipse.virgo.bundlor.blint:1.1.1.RELEASE'
         }
 
         project.tasks.add("bundlor") {
@@ -49,9 +53,14 @@ public class BundlorPlugin implements Plugin<Project> {
                 bundleSymbolicName = null
                 bundleManifestVersion = '2'
                 importTemplate = []
+		        exportTemplate = []
+		        excludedImports = []
+		        excludedExports = []
                 manifestTemplate = null
+		        manifestTemplatePath = null
 
                 outputDir = new File("${project.buildDir}/bundlor")
+		        propertiesFile = new File("${project.projectDir}/gradle.properties")
             }
 			
             def manifest = new File("${outputDir}/META-INF/MANIFEST.MF")
@@ -92,7 +101,7 @@ public class BundlorPlugin implements Plugin<Project> {
                     bundleName = project.description
 
                 project.ant.taskdef(
-                    resource: 'com/springsource/bundlor/ant/antlib.xml',
+                    resource: 'org/eclipse/virgo/bundlor/ant/antlib.xml',
                     classpath: project.configurations.bundlorconf.asPath)
 
                 // the bundlor ant task writes directly to standard out
@@ -110,9 +119,12 @@ public class BundlorPlugin implements Plugin<Project> {
                         enabled: enabled,
                         inputPath: project.sourceSets.main.output.classesDir,
                         outputPath: outputDir,
-                        bundleVersion: bundleVersion,
+                        bundleVersion: bundleVersion, 
                         failOnWarnings: failOnWarnings) {
-                    if (manifestTemplate == null) {
+		            if (manifestTemplatePath != null) {
+                        logger.info('Using explicit bundlor manifest template:')
+			            manifestTemplate = project.file(manifestTemplatePath).text
+                    } else if (manifestTemplate == null) {
                         assert bundleSymbolicName != null
                         assert bundleVendor != null
                         assert bundleName != null
@@ -123,25 +135,34 @@ public class BundlorPlugin implements Plugin<Project> {
                             Bundle-ManifestVersion: ${bundleManifestVersion}
                             Bundle-SymbolicName: ${bundleSymbolicName}
                         """.stripIndent()
-                        if (!importTemplate.isEmpty()) {
-                            manifestTemplate += "Import-Template: "
-                            importTemplate.each { entry ->
-                                manifestTemplate += "\n " + entry
-                                if (entry != importTemplate.last()) {
-                                    manifestTemplate += ','
-                                }
-                            }
-                        }
+                        manifestTemplate += generateTemplateDirective(importTemplate,  "Import-Template")
+                        manifestTemplate += generateTemplateDirective(exportTemplate,  "Export-Template")
+                        manifestTemplate += generateTemplateDirective(excludedExports, "Excluded-Exports")
+                        manifestTemplate += generateTemplateDirective(excludedImports, "Excluded-Imports")
+                        
                         logger.info('Using generated bundlor manifest template:')
-                    } else {
-                        logger.info('Using explicit bundlor manifest template:')
                     }
+		            manifestTemplate(manifestTemplate)
                     logger.info('-------------------------------------------------')
-                    logger.info(manifestTemplate)
-                    logger.info('-------------------------------------------------')
-                    manifestTemplate(manifestTemplate)
+	                logger.info(manifestTemplate)
+        	        logger.info('-------------------------------------------------')
                 }
             }
         }
+    }
+
+    def generateTemplateDirective(list, name) {
+        def template = ""
+        if (!list.isEmpty()) {
+            template += "${name}: "
+            list.each { entry ->
+                template += "\n " + entry
+                if (entry != list.last()) {
+                    template += ','
+                }
+            }
+            template += "\n"
+        }
+        return template
     }
 }
