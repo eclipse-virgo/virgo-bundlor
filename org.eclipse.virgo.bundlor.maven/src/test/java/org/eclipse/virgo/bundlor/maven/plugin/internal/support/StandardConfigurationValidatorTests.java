@@ -94,14 +94,29 @@ public class StandardConfigurationValidatorTests {
         this.validator.manifestTemplate("src/test/resources/does-not-exist.mf", null, "test.symbolic.name", "test.version");
     }
 
+    @Test
+    public void inlineAndPathDoesntExist() throws MojoExecutionException {
+        this.validator.manifestTemplate("src/test/resources/does-not-exist.mf", "Manifest-Version:1.0", "test.symbolic.name", "test.version");
+    }
+
     @Test(expected = MojoExecutionException.class)
     public void pathDirectory() throws MojoExecutionException {
         this.validator.manifestTemplate("src/test/resources", null, "test.symbolic.name", "test.version");
     }
 
     @Test
+    public void inlineAndPathDirectory() throws MojoExecutionException {
+        this.validator.manifestTemplate("src/test/resources", "Manifest-Version:1.0", "test.symbolic.name", "test.version");
+    }
+
+    @Test
     public void path() throws MojoExecutionException {
         this.validator.manifestTemplate("src/test/resources/test-template.mf", null, "test.symbolic.name", "test.version");
+    }
+
+   @Test
+    public void inlineAndPath() throws MojoExecutionException {
+        this.validator.manifestTemplate("src/test/resources/test-template.mf", "Manifest-Version:1.0", "test.symbolic.name", "test.version");
     }
 
     // OSGi Profile

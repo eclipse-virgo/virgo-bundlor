@@ -119,6 +119,14 @@
 							<entry>No - defaults to <literal>${project.build.outputDirectory}</literal></entry>
 						</row>
 						<row>
+							<entry>manifestTemplate</entry>
+							<entry>
+								An inline manifest template. See <xref linkend="inline.manifest.template"/> for details.
+							</entry>
+							<entry>No</entry>
+						</row>
+
+						<row>
 							<entry>manifestTemplatePath</entry>
 							<entry>
 								The path to the manifest template. See <xref linkend="manifest.template"/> for details.
@@ -163,11 +171,12 @@
 			</table>
 		</section>
 
-		<section>
+		<section id="inline.manifest.template">
 			<title>Inline Manifest Template</title>
 			<para>
 				Manifest templates can be optionally specified inline instead of as an external file using the
 				<literal>&lt;manifestTemplate/&gt;</literal> element.
+				For example:
 			</para>
 			<programlisting language="xml">&lt;execution&gt;
   &lt;id&gt;bundlor&lt;/id&gt;
@@ -184,6 +193,11 @@ Bundle-Version: 0
   &lt;/configuration&gt;
 &lt;/execution&gt;</programlisting>
 			<para>See <xref linkend="manifest.template"/> for details.</para>
+			<para>
+				If a <literal>&lt;manifestTemplate/&gt;</literal> element is specified,
+				any <literal>&lt;manifestTemplatePath/&gt;</literal> element is ignored.
+			</para>
+
 		</section>
 
 		<section>
