@@ -73,7 +73,7 @@ public final class StandardConfigurationValidator implements ConfigurationValida
 
     void manifestTemplate(String manifestTemplatePath, String manifestTemplate, String bundleSymbolicName, String bundleVersion)
         throws MojoExecutionException {
-        if (StringUtils.hasText(manifestTemplatePath)) {
+        if (!StringUtils.hasText(manifestTemplate) && StringUtils.hasText(manifestTemplatePath)) {
             File manifestTemplateFile = new File(manifestTemplatePath);
             if (!manifestTemplateFile.exists()) {
                 throw new MojoExecutionException(String.format("Manifest template path '%s' does not exist", manifestTemplatePath));
