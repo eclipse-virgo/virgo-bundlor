@@ -58,7 +58,7 @@
 						<row>
 							<entry>-p &lt;path&gt;</entry>
 							<entry>
-								The path to the OSGi profile.  See <xref linkend="osgi.profile"/> for details.
+								The path to the OSGi profile.  See <xref linkend="OSGi.profile"/> for details.
 							</entry>
 							<entry>No</entry>
 						</row>
