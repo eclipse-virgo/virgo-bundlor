@@ -12,7 +12,9 @@ package org.eclipse.virgo.bundlor
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.JavaPlugin
+import org.gradle.api.DefaultTask
+
+//import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.logging.LogLevel
 
 /**
@@ -27,47 +29,35 @@ import org.gradle.api.logging.LogLevel
 public class BundlorPlugin implements Plugin<Project> {
 
     public void apply(Project project) {
+        project.extensions.create("bundlor", BundlorPluginExtension)
+        project.bundlor.with {
+            outputDir = new File("${project.buildDir}/bundlor")
+            propertiesPath = project.rootProject.file('gradle.properties')
+            bundleVersion = project.version
+            bundleVendor = 'Eclipse Virgo Project'
+            bundlorVersion = '1.1.2.RELEASE'
+        }
 
         project.configurations { bundlorconf }
 
-	    project.repositories.maven( {name = 'bundlor'; url = 'http://build.eclipse.org/rt/virgo/maven/bundles/release'})
+        project.repositories.maven( {name = 'bundlor'; url = 'http://build.eclipse.org/rt/virgo/maven/bundles/release'})
         project.repositories.maven( {name = 'springsource'; url = 'http://repository.springsource.com/maven/bundles/external'})
+
         project.dependencies {
-             bundlorconf 'org.eclipse.virgo.bundlor:org.eclipse.virgo.bundlor.ant:1.1.1.RELEASE',
-                         'org.eclipse.virgo.bundlor:org.eclipse.virgo.bundlor:1.1.1.RELEASE',
-                         'org.eclipse.virgo.bundlor:org.eclipse.virgo.bundlor.blint:1.1.1.RELEASE'
+            bundlorconf group: 'org.eclipse.virgo.bundlor', name: 'org.eclipse.virgo.bundlor', version: project.bundlor.bundlorVersion, configuration: 'runtime'
+            bundlorconf group: 'org.eclipse.virgo.bundlor', name: 'org.eclipse.virgo.bundlor.ant', version: project.bundlor.bundlorVersion, configuration: 'runtime'
+            bundlorconf group: 'org.eclipse.virgo.bundlor', name: 'org.eclipse.virgo.bundlor.blint', version: project.bundlor.bundlorVersion, configuration: 'runtime'
         }
 
-        project.tasks.add("bundlor") {
-			
-            ext {
-                dependsOn project.compileJava
-                group = 'Build'
-                description = 'Generates an OSGi-compatibile MANIFEST.MF file.'
+        project.task('bundlor', type: DefaultTask, dependsOn: 'compileJava') {
+            group = 'Build'
+            description = 'Generates an OSGi-compatibile MANIFEST.MF file.'
 
-                enabled = true
-                failOnWarnings = true
-                bundleName = null
-                bundleVersion = project.version
-                bundleVendor = 'SpringSource'
-                bundleSymbolicName = null
-                bundleManifestVersion = '2'
-                importTemplate = []
-		        exportTemplate = []
-		        excludedImports = []
-		        excludedExports = []
-                manifestTemplate = null
-		        manifestTemplatePath = null
-
-                outputDir = new File("${project.buildDir}/bundlor")
-		        propertiesFile = new File("${project.projectDir}/gradle.properties")
-            }
-			
-            def manifest = new File("${outputDir}/META-INF/MANIFEST.MF")
+            def manifest = new File("${project.bundlor.outputDir}/META-INF/MANIFEST.MF")
 
             // inform gradle what directory this task writes so that
             // it can be removed when issuing `gradle cleanBundlor`
-            outputs.dir outputDir
+            outputs.dir project.bundlor.outputDir
 
             // incremental build configuration
             //   if the manifest output file already exists, the bundlor
@@ -76,15 +66,16 @@ public class BundlorPlugin implements Plugin<Project> {
             //   * main classpath dependencies have been changed
             //   * main java sources for this project have been modified
             outputs.files manifest
+
             /* TODO ask gradle team how to do this such that inputs are lazy
-            inputs.property 'bundleName', bundleName
-            inputs.property 'bundleVersion', bundleVersion
-            inputs.property 'bundleVendor', bundleVendor
-            inputs.property 'bundleSymbolicName', bundleSymbolicName
-            inputs.property 'bundleManifestVersion', bundleManifestVersion
-            inputs.property 'manifestTemplate', manifestTemplate
-            inputs.property 'importTemplate', importTemplate
-            */
+             inputs.property 'bundleName', bundleName
+             inputs.property 'bundleVersion', bundleVersion
+             inputs.property 'bundleVendor', bundleVendor
+             inputs.property 'bundleSymbolicName', bundleSymbolicName
+             inputs.property 'bundleManifestVersion', bundleManifestVersion
+             inputs.property 'manifestTemplate', manifestTemplate
+             inputs.property 'importTemplate', importTemplate
+             */
             inputs.files project.sourceSets.main.runtimeClasspath
 
             // the bundlor manifest should be evaluated as part of the jar task's
@@ -97,12 +88,12 @@ public class BundlorPlugin implements Plugin<Project> {
             project.jar.manifest.from manifest
 
             doFirst {
-                if (bundleName == null)
-                    bundleName = project.description
+                if (project.bundlor.bundleName == null)
+                    project.bundlor.bundleName = project.description
 
                 project.ant.taskdef(
-                    resource: 'org/eclipse/virgo/bundlor/ant/antlib.xml',
-                    classpath: project.configurations.bundlorconf.asPath)
+                        resource: 'org/eclipse/virgo/bundlor/ant/antlib.xml',
+                        classpath: project.configurations.bundlorconf.asPath)
 
                 // the bundlor ant task writes directly to standard out
                 // redirect it to INFO level logging, which gradle will
@@ -110,43 +101,43 @@ public class BundlorPlugin implements Plugin<Project> {
                 logging.captureStandardOutput(LogLevel.INFO)
 
                 // the ant task will throw unless this dir exists
-                if (!outputDir.isDirectory())
-                    outputDir.mkdir()
-
+                if (!project.bundlor.outputDir.isDirectory())
+                    project.bundlor.outputDir.mkdir()
 
                 // execute the ant task, and write out the manifest file
                 project.ant.bundlor(
-                        enabled: enabled,
+                        enabled: project.bundlor.enabled,
                         inputPath: project.sourceSets.main.output.classesDir,
-                        outputPath: outputDir,
-                        bundleVersion: bundleVersion, 
-                        failOnWarnings: failOnWarnings) {
-		            if (manifestTemplatePath != null) {
-                        logger.info('Using explicit bundlor manifest template:')
-			            manifestTemplate = project.file(manifestTemplatePath).text
-                    } else if (manifestTemplate == null) {
-                        assert bundleSymbolicName != null
-                        assert bundleVendor != null
-                        assert bundleName != null
-                        manifestTemplate = """\
-                            Bundle-Vendor: ${bundleVendor}
-                            Bundle-Version: ${bundleVersion}
-                            Bundle-Name: ${bundleName}
-                            Bundle-ManifestVersion: ${bundleManifestVersion}
-                            Bundle-SymbolicName: ${bundleSymbolicName}
-                        """.stripIndent()
-                        manifestTemplate += generateTemplateDirective(importTemplate,  "Import-Template")
-                        manifestTemplate += generateTemplateDirective(exportTemplate,  "Export-Template")
-                        manifestTemplate += generateTemplateDirective(excludedExports, "Excluded-Exports")
-                        manifestTemplate += generateTemplateDirective(excludedImports, "Excluded-Imports")
-                        
-                        logger.info('Using generated bundlor manifest template:')
-                    }
-		            manifestTemplate(manifestTemplate)
-                    logger.info('-------------------------------------------------')
-	                logger.info(manifestTemplate)
-        	        logger.info('-------------------------------------------------')
-                }
+                        propertiesPath: project.bundlor.propertiesPath,
+                        outputPath: project.bundlor.outputDir,
+                        bundleVersion: project.bundlor.bundleVersion,
+                        failOnWarnings: project.bundlor.failOnWarnings) {
+                            if (project.bundlor.manifestTemplatePath != null) {
+                                logger.info('Using explicit bundlor manifest template:')
+                                project.bundlor.manifestTemplate = project.file(project.bundlor.manifestTemplatePath).text
+                            } else if (project.bundlor.manifestTemplate == null) {
+                                assert project.bundlor.bundleSymbolicName != null
+                                assert project.bundlor.bundleVendor != null
+                                assert project.bundlor.bundleName != null
+                                project.bundlor.manifestTemplate = """\
+                                            Bundle-Vendor: ${project.bundlor.bundleVendor}
+                                            Bundle-Version: ${project.bundlor.bundleVersion}
+                                            Bundle-Name: ${project.bundlor.bundleName}
+                                            Bundle-ManifestVersion: ${project.bundlor.bundleManifestVersion}
+                                            Bundle-SymbolicName: ${project.bundlor.bundleSymbolicName}
+                                        """.stripIndent()
+                                project.bundlor.manifestTemplate += generateTemplateDirective(project.bundlor.importTemplate,  "Import-Template")
+                                project.bundlor.manifestTemplate += generateTemplateDirective(project.bundlor.exportTemplate,  "Export-Template")
+                                project.bundlor.manifestTemplate += generateTemplateDirective(project.bundlor.excludedExports, "Excluded-Exports")
+                                project.bundlor.manifestTemplate += generateTemplateDirective(project.bundlor.excludedImports, "Excluded-Imports")
+
+                                logger.info('Using generated bundlor manifest template:')
+                            }
+                            manifestTemplate(project.bundlor.manifestTemplate)
+                            logger.info('-------------------------------------------------')
+                            logger.info(project.bundlor.manifestTemplate)
+                            logger.info('-------------------------------------------------')
+                        }
             }
         }
     }

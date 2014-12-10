@@ -1,63 +1,6 @@
-buildscript {
-    repositories {
-        maven { url 'https://repo.springsource.org/plugins-release' }
-    }
-    dependencies {
-        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:2.0.12'
-    }
-}
-
-allprojects {
-    apply plugin: 'artifactory'
-}
-
-subprojects {
-    apply plugin: 'groovy'
-    apply plugin: 'maven'
-    apply plugin: 'eclipse'
-
-    group = 'org.springframework.build.gradle'
-
-    repositories {
-        maven { url 'https://repo.springsource.org/libs-release' }
-    }
-
-    dependencies {
-        compile gradleApi()
-        groovy localGroovy()
-    }
-}
-
 project(':bundlor-plugin') {
     version = bundlorPluginVersion
     // dependencies are configured within BundlorPlugin
 }
 
-repoUser = project.properties['REPO_USERNAME']
-repoPass = project.properties['REPO_PASSWORD']
-
-artifactory {
-    contextUrl = 'https://repo.springsource.org'
-    publish {
-        repository {
-            repoKey = 'plugins-snapshot-local'
-            username = repoUser
-            password = repoPass
-        }
-        defaults {
-            publishConfigs('archives')
-        }
-    }
-    resolve {
-        repository {
-            repoKey = 'libs-releases'
-            username = repoUser
-            password = repoPass
-            maven = true
-        }
-    }
-}
-
-task wrapper(type:Wrapper) {
-    gradleVersion='1.0'
-}
+task wrapper(type:Wrapper) { gradleVersion='2.0' }

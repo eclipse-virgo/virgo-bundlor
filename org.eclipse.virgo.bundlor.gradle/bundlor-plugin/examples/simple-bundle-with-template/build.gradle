@@ -1,0 +1,6 @@
+apply plugin: "java"
+apply plugin: 'bundlor'
+
+bundlor {
+    manifestTemplatePath = "template.mf"
+}

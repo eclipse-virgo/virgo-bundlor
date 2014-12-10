@@ -1,0 +1,21 @@
+
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+ext {  junitVersion = '4.7' // PB CQ3480
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+
+    testCompile group: 'junit', name: 'junit', version: junitVersion
+}
+
+group = 'org.eclipse.virgo.bundlor'
+
+apply from: file('gradle/publish.gradle')
