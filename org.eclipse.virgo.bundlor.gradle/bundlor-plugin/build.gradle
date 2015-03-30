@@ -2,18 +2,21 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
 
-ext {  junitVersion = '4.7' // PB CQ3480
+ext {  junitVersion = '4.7.0.v4_7_0_v20130308-0411' // PB CQ3480
 }
 
 repositories {
-    mavenCentral()
+    ivy {
+        url "http://build.eclipse.org/rt/virgo/ivy/bundles/release/"
+        layout "pattern", { artifact "[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" }
+    }
 }
 
 dependencies {
     compile gradleApi()
     compile localGroovy()
 
-    testCompile group: 'junit', name: 'junit', version: junitVersion
+    testCompile group: 'org.eclipse.virgo.mirrored', name: 'org.junit', version: junitVersion, configuration: "compile", ext: "jar"
 }
 
 group = 'org.eclipse.virgo.bundlor'
