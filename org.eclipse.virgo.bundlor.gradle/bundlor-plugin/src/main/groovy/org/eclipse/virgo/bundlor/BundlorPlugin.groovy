@@ -31,6 +31,7 @@ public class BundlorPlugin implements Plugin<Project> {
     public void apply(Project project) {
         project.extensions.create("bundlor", BundlorPluginExtension)
         project.bundlor.with {
+            inputPath = project.sourceSets.main.output.classesDir
             outputDir = new File("${project.buildDir}/bundlor")
             propertiesPath = project.rootProject.file('gradle.properties')
             bundleVersion = project.version
@@ -107,7 +108,7 @@ public class BundlorPlugin implements Plugin<Project> {
                 // execute the ant task, and write out the manifest file
                 project.ant.bundlor(
                         enabled: project.bundlor.enabled,
-                        inputPath: project.sourceSets.main.output.classesDir,
+                        inputPath: project.bundlor.inputPath,
                         propertiesPath: project.bundlor.propertiesPath,
                         outputPath: project.bundlor.outputDir,
                         bundleVersion: project.bundlor.bundleVersion,

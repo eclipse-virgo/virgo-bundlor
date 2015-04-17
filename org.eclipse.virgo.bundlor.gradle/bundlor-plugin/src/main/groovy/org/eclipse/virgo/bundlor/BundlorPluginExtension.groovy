@@ -23,5 +23,6 @@ class BundlorPluginExtension {
     List excludedImports = []
     List excludedExports = []
 
+    File inputPath
     File outputDir
 }
