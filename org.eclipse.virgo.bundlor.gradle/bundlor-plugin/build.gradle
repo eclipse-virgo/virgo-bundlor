@@ -1,8 +1,30 @@
+buildscript {
+    repositories {
+        // Maven home of the plugin-publish-plugin
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies { classpath "com.gradle.publish:plugin-publish-plugin:0.9.3" }
+}
 
 apply plugin: 'groovy'
 apply plugin: 'maven'
+apply plugin: "com.gradle.plugin-publish"
 
-ext {  junitVersion = '4.7.0.v4_7_0_v20130308-0411' // PB CQ3480
+group = 'org.eclipse.virgo.bundlor'
+version = '0.2'
+
+pluginBundle {
+    website = 'https://www.eclipse.org/virgo/'
+    vcsUrl = ' 	git://git.eclipse.org/gitroot/virgo/org.eclipse.virgo.bundlor.git'
+    description = 'Gradle plug-in to create OSGi Bundles'
+    tags = ['virgo', 'osgi']
+
+    plugins {
+        greetingsPlugin {
+            id = 'org.eclipse.virgo.bundlor'
+            displayName = 'Gradle bundlor plugin'
+        }
+    }
 }
 
 repositories {
@@ -18,7 +40,5 @@ dependencies {
 
     testCompile group: 'org.eclipse.virgo.mirrored', name: 'org.junit', version: junitVersion, configuration: "compile", ext: "jar"
 }
-
-group = 'org.eclipse.virgo.bundlor'
 
 apply from: file('gradle/publish.gradle')

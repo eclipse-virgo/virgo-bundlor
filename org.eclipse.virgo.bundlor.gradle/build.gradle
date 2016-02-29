@@ -1,6 +1,1 @@
-project(':bundlor-plugin') {
-    version = bundlorPluginVersion
-    // dependencies are configured within BundlorPlugin
-}
-
 task wrapper(type:Wrapper) { gradleVersion='2.0' }

@@ -17,7 +17,7 @@ public class BundlorPluginTests {
     public void bundlorPluginAddsDefaultTaskToProject() {
         Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'java'
-        project.apply plugin: 'bundlor'
+        project.apply plugin: 'org.eclipse.virgo.bundlor'
 
         assertTrue project.tasks.bundlor instanceof DefaultTask
     }
