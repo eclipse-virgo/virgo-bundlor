@@ -150,5 +150,5 @@ configure(subprojects) {
 task wrapper(type: Wrapper) {
     description 'Creates a local Gradle Wrapper'
     group = 'Build Setup'
-    gradleVersion = '3.0'
+    gradleVersion = '3.1'
 }
