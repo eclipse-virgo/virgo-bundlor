@@ -37,7 +37,8 @@ public class HibernateMappingArtifactAnalyzerTests {
         assertFalse(analyzer.canAnalyse(artifactName + "1"));
     }
 
-    @Ignore("Ignoring because XSD resolution runs into proxy issue on hudson build")
+    
+    @Ignore("Bug 501842: Ignoring HibernateMapping test due to proxy issue")
     @Test
     public void testAnalyze() throws Exception {
         ReadablePartialManifest partialManifest = new StandardReadablePartialManifest();
