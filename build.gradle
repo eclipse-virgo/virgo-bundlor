@@ -14,7 +14,7 @@ description = 'Bundlor is a tool that automates the detection of dependencies an
 
 def timestamp = new Date().format('yyyyMMddHHmmss', TimeZone.getTimeZone('GMT'))
 
-defaultTasks 'clean', 'build'
+defaultTasks 'clean', 'build', 'javadoc', 'sourcesJar', 'javadocJar', 'collectArtifacts'
 
 allprojects {
     apply plugin: 'base'
@@ -76,6 +76,26 @@ configure(subprojects) {
             layout "pattern", { artifact "[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" }
         }
     }
+    task sourcesJar(type: Jar, dependsOn: classes) {
+    	description 'Assembles a jar archive containing the sources.'
+    	group = 'build'
+	    classifier = 'sources'
+    	from sourceSets.main.allSource
+	}
+	task javadocJar(type: Jar, dependsOn: javadoc) {
+	    description 'Assembles a jar archive containing the javadocs.'
+    	group = 'build'
+	    classifier = 'javadoc'
+	    from javadoc.destinationDir
+	}
+	task collectArtifacts(type: Copy, dependsOn: []) {
+		description 'Collects generated jar archives.'
+    	group = 'dist'
+    	from jar
+    	from sourcesJar
+    	from javadocJar
+    	into "${rootProject.buildDir}/artifacts"
+	}
 }
 
 configure(subprojects) {
