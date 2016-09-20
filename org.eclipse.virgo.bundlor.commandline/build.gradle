@@ -1,0 +1,16 @@
+description = 'Bundlor for command line'
+
+dependencies {
+    ecj group: "org.eclipse.jdt.core.compiler", name: "ecj", version: "${ecjVersion}"
+
+    compile project(':org.eclipse.virgo.bundlor')
+    compile project(':org.eclipse.virgo.bundlor.blint')
+
+    compile "org.osgi:org.osgi.core:${osgiCoreVersion}"
+    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi:${eclipseVirgoUtilVersion}"
+    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:${eclipseVirgoUtilVersion}"
+    compile group: "org.apache.commons", name: "com.springsource.org.apache.commons.cli", version: "${apacheCommonsCliVersion}", configuration: "compile"
+
+    testCompile group: "org.junit", name: "com.springsource.org.junit", version: "${junitVersion}", configuration: "compile"
+}
+

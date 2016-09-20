@@ -11,13 +11,12 @@
 
 package org.eclipse.virgo.bundlor.support.asm;
 
+import org.eclipse.virgo.bundlor.support.partialmanifest.PartialManifest;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
-import org.objectweb.asm.commons.EmptyVisitor;
-
-import org.eclipse.virgo.bundlor.support.partialmanifest.PartialManifest;
 
 /**
  * ASM {@link MethodVisitor} to scan method bodies for imports.
@@ -30,7 +29,7 @@ import org.eclipse.virgo.bundlor.support.partialmanifest.PartialManifest;
  * @author Rob Harrop
  * @author Christian Dupuis
  */
-final class ArtifactAnalyzerMethodVisitor extends EmptyVisitor implements MethodVisitor {
+final class ArtifactAnalyzerMethodVisitor extends MethodVisitor {
 
     /**
      * The <code>PartialManifest</code> being updated.
@@ -48,6 +47,7 @@ final class ArtifactAnalyzerMethodVisitor extends EmptyVisitor implements Method
      * @param partialManifest the <code>PartialManifest</code>.
      */
     public ArtifactAnalyzerMethodVisitor(PartialManifest partialManifest, Type type) {
+    	super(Opcodes.ASM5);
         this.partialManifest = partialManifest;
         this.type = type;
     }
@@ -81,7 +81,7 @@ final class ArtifactAnalyzerMethodVisitor extends EmptyVisitor implements Method
     /**
      * @inheritDoc
      */
-    public void visitMethodInsn(int opcode, String owner, String name, String desc) {
+    public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
         Type t = Type.getObjectType(owner);
         VisitorUtils.recordReferencedTypes(partialManifest, t);
         VisitorUtils.recordReferencedTypes(partialManifest, Type.getReturnType(desc));

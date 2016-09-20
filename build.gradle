@@ -1,0 +1,154 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.org.eclipse.virgo.bundlor:bundlor-plugin:0.2"
+    }
+}
+
+description = 'Bundlor is a tool that automates the detection of dependencies and the creation of OSGi manifest directives for JARs after their creation. Bundlor takes as input a JAR and a template consisting of a superset of the standard OSGi manifest headers.'
+
+def timestamp = new Date().format('yyyyMMddHHmmss', TimeZone.getTimeZone('GMT'))
+
+defaultTasks 'clean', 'build'
+
+allprojects {
+    apply plugin: 'base'
+    if (System.properties['ci.build'] == 'true') {
+        version = version + '.' + timestamp
+    } else {
+        version = version + '.SNAPSHOT-' + timestamp
+    }
+}
+
+configure(subprojects) {
+    apply plugin: 'java'
+    apply plugin: 'jacoco'
+
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+
+    compileJava {
+        options.encoding = 'UTF-8'
+        options.fork = true
+        doFirst {
+            options.forkOptions.with {
+                executable = 'java'
+                jvmArgs = [
+                    '-cp',
+                    configurations.ecj.asPath,
+                    'org.eclipse.jdt.internal.compiler.batch.Main',
+                    '-warn:-unused']
+            }
+        }
+    }
+    compileTestJava {
+        options.encoding = 'UTF-8'
+        options.fork = true
+        doFirst {
+            options.forkOptions.with {
+                executable = 'java'
+                jvmArgs = [
+                    '-cp',
+                    configurations.ecj.asPath,
+                    'org.eclipse.jdt.internal.compiler.batch.Main',
+                    '-warn:-unused']
+            }
+        }
+    }
+    configurations {ecj {}}
+    repositories {
+        mavenCentral()
+        ivy {
+            url "http://build.eclipse.org/rt/virgo/ivy/bundles/release/"
+            layout "pattern", { artifact "[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" }
+        }
+        ivy {
+            url "http://repository.springsource.com/ivy/bundles/release/"
+            layout "pattern", { artifact "[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" }
+        }
+        ivy {
+            url "http://repository.springsource.com/ivy/bundles/external/"
+            layout "pattern", { artifact "[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" }
+        }
+    }
+}
+
+configure(subprojects) {
+    apply plugin: 'org.eclipse.virgo.bundlor'
+	
+	task('addProjectVersionToGradlePropertiesTask', type: Copy) {
+		ext.outputDir = new File(buildDir, 'bundlor-properties')
+		inputs.file project.rootProject.file('gradle.properties')
+		outputs.dir ext.outputDir
+		from project.rootProject.file('gradle.properties')
+		into ext.outputDir
+		doLast {
+			def gradleProperties = new Properties()
+			gradleProperties.load(new FileReader("${buildDir}/bundlor-properties/gradle.properties"))
+			gradleProperties.setProperty('bundleName', "${archivesBaseName}")
+			gradleProperties.setProperty('timestamp', "${timestamp}")
+			def writer = new FileWriter("${buildDir}/bundlor-properties/gradle.properties")
+   			try {
+      			gradleProperties.store(writer, 'modified during build process')
+      			writer.flush()
+   			} finally {
+      			writer.close()
+   			}
+		}
+	}
+	task('mergeClassesAndResources', type: Copy, dependsOn: 'compileJava') {
+		ext.bundlorInputPath = new File(buildDir, 'bundlor-inputPath')
+		inputs.file sourceSets.main.output.classesDir
+		inputs.file sourceSets.main.resources
+		outputs.dir ext.bundlorInputPath
+		from sourceSets.main.output.classesDir
+		from sourceSets.main.resources
+		into ext.bundlorInputPath
+	}
+	project.tasks.'bundlor'.dependsOn('addProjectVersionToGradlePropertiesTask', 'mergeClassesAndResources')
+    bundlor {
+    	ext.bundlorInputPath = new File(buildDir, 'bundlor-inputPath')
+		project.tasks['bundlor'].inputs.file ext.bundlorInputPath
+        manifestTemplatePath = "template.mf"
+        propertiesPath = new File("${project.buildDir}/bundlor-properties/gradle.properties")
+		inputPath = ext.bundlorInputPath
+        failOnWarnings = true
+    }
+}
+
+configure(subprojects) {
+    apply plugin: 'eclipse'
+
+    eclipse {
+        jdt {
+            sourceCompatibility = 1.8
+            targetCompatibility = 1.8
+            file.withProperties { p ->
+            	p.setProperty('org.eclipse.jdt.core.compiler.problem.discouragedReference','warning')
+            	p.setProperty('org.eclipse.jdt.core.compiler.problem.forbiddenReference', 'warning')
+            }
+        }
+        project {
+            file.beforeMerged {
+                project.natures.clear()
+            }
+            natures = ['org.eclipse.buildship.core.gradleprojectnature']
+        }
+    }
+    cleanEclipse.doLast {
+        delete '.settings'
+        delete 'bin'
+        delete '.springBeans'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    description 'Creates a local Gradle Wrapper'
+    group = 'Build Setup'
+    gradleVersion = '3.0'
+}

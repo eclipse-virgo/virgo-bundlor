@@ -36,6 +36,7 @@ import eg.DependsViaEnum;
 import eg.DependsViaField;
 import eg.DependsViaFieldAnnotation;
 import eg.DependsViaInstanceOf;
+import eg.DependsViaInstanceOfInSimpleLambda;
 import eg.DependsViaInterface;
 import eg.DependsViaLocal;
 import eg.DependsViaMethodAnnotation;
@@ -48,6 +49,7 @@ import eg.DependsViaReturn;
 import eg.DependsViaStaticFieldAnnotation;
 import eg.DependsViaStaticMethodAnnotation;
 import eg.DependsViaStaticMethodCall;
+import eg.DependsViaStaticMethodCallInDefaultImplementation;
 import eg.DependsViaStaticWithArgType;
 import eg.DependsViaSuperClass;
 import eg.DependsViaThrowable;
@@ -333,13 +335,30 @@ public class AsmTypeArtifactAnalyzerTests {
     }
 
     @Test
+    public void viaInstanceOfInSimpleLamda() throws Exception {
+    	ReadablePartialManifest model = analyse(DependsViaInstanceOfInSimpleLambda.class.getName());
+        assertExportsPackage(model, "eg");
+        assertImportsPackage(model, "deps");
+        assertNotUses(model, "eg", "deps");
+    }
+    
+    @Test
+    public void viaDefaultInterfaceImplementation() throws Exception {
+    	ReadablePartialManifest model = analyse(DependsViaStaticMethodCallInDefaultImplementation.class.getName());
+        assertExportsPackage(model, "eg");
+        assertImportsPackage(model, "deps");
+        assertNotUses(model, "eg", "deps");
+    }
+    
+    @Test
     public void viaJava14CompiledClassLiteral() throws Exception {
-        JarFile jarFile = new JarFile("../ivy-cache/repository/org.apache.wicket/com.springsource.org.apache.wicket.injection/1.3.3/com.springsource.org.apache.wicket.injection-1.3.3.jar");
+        JarFile jarFile = new JarFile("build/test-jars/com.springsource.org.apache.wicket.injection-1.3.3.jar");
         InputStream inputStream = jarFile.getInputStream(jarFile.getEntry("org/apache/wicket/injection/Injector.class"));
-        ReadablePartialManifest model = analyse(inputStream, "org/apache/wicket/injection/Injector.class");
+        ReadablePartialManifest model = analyse(inputStream, "org/apache/wicket/injection/Injector.class");        
         assertImportsPackage(model, "org.apache.wicket.markup.html");
         assertImportsPackage(model, "org.apache.wicket.markup.html.panel");
         assertImportsPackage(model, "org.apache.wicket");
+        jarFile.close();
     }
 
     @Test

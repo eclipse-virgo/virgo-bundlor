@@ -1,0 +1,24 @@
+description = 'Bundlor Core'
+
+dependencies {
+    ecj group: "org.eclipse.jdt.core.compiler", name: "ecj", version: "${ecjVersion}"
+		
+	compile "org.ow2.asm:asm-all:${objectwebAsmVersion}"    
+    compile "org.osgi:org.osgi.core:${osgiCoreVersion}"
+    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.common:${eclipseVirgoUtilVersion}"
+    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.math:${eclipseVirgoUtilVersion}"
+    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi:${eclipseVirgoUtilVersion}"
+    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi.manifest:${eclipseVirgoUtilVersion}"
+    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:${eclipseVirgoUtilVersion}"
+
+    testCompile group: "org.junit", name: "com.springsource.org.junit", version: "${junitVersion}", configuration: "compile"
+    testCompile group: "org.apache.wicket", name: "com.springsource.org.apache.wicket.injection", version: "${apacheWicketInjectionVersion}", configuration: "compile"
+}
+
+test.dependsOn('copyTestJars')
+
+task copyTestJars(type: Copy) {
+    into "$buildDir/test-jars"
+    from configurations.testCompile
+}
+

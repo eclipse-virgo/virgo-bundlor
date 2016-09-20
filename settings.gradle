@@ -1,0 +1,6 @@
+rootProject.name = 'bundlor-root'
+include ':org.eclipse.virgo.bundlor'
+include ':org.eclipse.virgo.bundlor.ant'
+include ':org.eclipse.virgo.bundlor.blint'
+include ':org.eclipse.virgo.bundlor.commandline'
+

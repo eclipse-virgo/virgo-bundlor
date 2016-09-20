@@ -11,15 +11,13 @@
 
 package org.eclipse.virgo.bundlor.support.asm;
 
+import org.eclipse.virgo.bundlor.support.partialmanifest.PartialManifest;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
-import org.objectweb.asm.commons.EmptyVisitor;
-
-import org.eclipse.virgo.bundlor.support.partialmanifest.PartialManifest;
 
 /**
  * ASM {@link ClassVisitor} for scanning class files.
@@ -31,7 +29,7 @@ import org.eclipse.virgo.bundlor.support.partialmanifest.PartialManifest;
  * 
  * @author Rob Harrop
  */
-final class ArtifactAnalyzerClassVisitor extends EmptyVisitor implements ClassVisitor {
+final class ArtifactAnalyzerClassVisitor extends ClassVisitor {
 
     private static final String CLASS_NAME_PREFIX = "class$";
 
@@ -51,6 +49,7 @@ final class ArtifactAnalyzerClassVisitor extends EmptyVisitor implements ClassVi
      * @param partialManifest the <code>PartialManifest</code> to scan.
      */
     public ArtifactAnalyzerClassVisitor(PartialManifest partialManifest) {
+    	super(Opcodes.ASM5);
         this.partialManifest = partialManifest;
     }
 

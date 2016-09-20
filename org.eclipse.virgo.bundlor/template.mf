@@ -1,11 +1,11 @@
 Bundle-ManifestVersion: 2
 Bundle-Name: Bundlor Core
-Bundle-SymbolicName: org.eclipse.virgo.bundlor
-Bundle-Version: 0
+Bundle-SymbolicName: ${bundleName}
+Bundle-Version: ${version}
 Import-Template: 
- org.eclipse.virgo.util.*;version="${org.eclipse.virgo.util:[=.=.=, +1.0.0)}",
+ org.eclipse.virgo.util.*;version="${eclipseVirgoUtilVersion:[=.=.=, +1.0.0)}",
  javax.xml.*;version="0",
- org.objectweb.asm.*;version="${org.objectweb.asm:[=.=.=, +1.0.0)}",
+ org.objectweb.asm.*;version="${objectwebAsmVersion:[=.=.=, +1.0.0)}",
  org.osgi.framework;version="0",
  org.w3c.dom.*;version="0",
  org.xml.*;version="0"
