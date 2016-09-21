@@ -10,8 +10,6 @@ buildscript {
     }
 }
 
-description = 'Bundlor is a tool that automates the detection of dependencies and the creation of OSGi manifest directives for JARs after their creation. Bundlor takes as input a JAR and a template consisting of a superset of the standard OSGi manifest headers.'
-
 def timestamp = new Date().format('yyyyMMddHHmmss', TimeZone.getTimeZone('GMT'))
 
 defaultTasks 'clean', 'build', 'javadoc', 'sourcesJar', 'javadocJar'
@@ -19,7 +17,12 @@ defaultTasks 'clean', 'build', 'javadoc', 'sourcesJar', 'javadocJar'
 allprojects {
     apply plugin: 'base'
     if (System.properties['ci.build'] == 'true') {
-        version = version + '.' + timestamp
+        def buildQualifier = System.properties['ci.build.qualifier']
+        if(buildQualifier) { 
+            version = version + '.' + buildQualifier
+        } else {
+            version = version + '.' + timestamp
+        }
     } else {
         version = version + '.SNAPSHOT-' + timestamp
     }
@@ -177,6 +180,42 @@ configure(subprojects) {
         delete '.settings'
         delete 'bin'
         delete '.springBeans'
+    }
+}
+
+configure(subprojects) {
+    apply plugin: 'maven-publish'
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.java
+                artifact sourcesJar
+                artifact javadocJar
+                groupId 'org.eclipse.virgo.bundlor'
+                pom.withXml {
+                    asNode().with {
+                        appendNode('description', 'Bundlor is a tool that automates the detection of dependencies and the creation of OSGi manifest directives for JARs after their creation. Bundlor takes as input a JAR and a template consisting of a superset of the standard OSGi manifest headers.')
+                        appendNode('url', 'http://www.eclipse.org/virgo/')
+                        appendNode('licenses').appendNode('license').with {
+                            appendNode('name', 'Eclipse Public License Version 1.0')
+                            appendNode('url', 'http://www.eclipse.org/legal/epl-v10.html')
+                        }
+                        appendNode('developers').appendNode('developer').with {
+                            appendNode('id', 'virgo-dev')
+                            appendNode('name', 'Virgo Developer List')
+                            appendNode('email', 'virgo-dev@eclipse.org')
+                            appendNode('url', 'http://projects.eclipse.org/projects/rt.virgo/who/')
+                            appendNode('roles').appendNode('role', 'Developer')
+                        }
+                        appendNode('scm').with {
+                            appendNode('connection', 'http://wiki.eclipse.org/Virgo/Source#Virgo_git_Repositories')
+                            appendNode('url', 'http://wiki.eclipse.org/Virgo/Source#Virgo_git_Repositories')
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
