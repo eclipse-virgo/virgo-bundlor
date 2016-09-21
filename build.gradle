@@ -81,7 +81,7 @@ configure(subprojects) {
         }
     }
     jar.doLast {
-        if(System.properties['ci.build.signjars'] == true) {
+        if(System.properties['ci.build.signjars'] == 'true') {
             println '|--> Signing Jar File: ' + archivePath
             exec {
                 workingDir destinationDir
