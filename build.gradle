@@ -89,7 +89,7 @@ configure(subprojects) {
                             '-o',
                             archiveName,
                             '-F',
-                            "file=${archiveName}",
+                            "file=@${archiveName}",
                             '--show-error',
                             'http://build.eclipse.org:31338/sign'
             }
