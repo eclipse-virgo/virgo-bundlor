@@ -68,6 +68,9 @@ configure(subprojects) {
     repositories {
         mavenCentral()
     }
+    jar {
+        from "$rootDir/build-bundlor/resources/about/notice.html"
+    }
     jar.doLast {
         if(System.properties['ci.build.signjars'] == 'true') {
             println '|--> Signing Jar File: ' + archivePath
