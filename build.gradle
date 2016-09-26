@@ -12,7 +12,7 @@ buildscript {
 
 def timestamp = new Date().format('yyyyMMddHHmmss', TimeZone.getTimeZone('GMT'))
 
-defaultTasks 'clean', 'build', 'javadoc', 'sourcesJar', 'javadocJar'
+defaultTasks 'clean', 'build', 'javadoc', 'sourcesJar', 'javadocJar', 'collectArtifacts', 'buildCommandlineDist'
 
 allprojects {
     apply plugin: 'base'
@@ -225,8 +225,26 @@ configure(subprojects) {
     }
 }
 
+task buildCommandlineDist(type: Zip) {
+    description 'Creates a local Gradle Wrapper'
+    group = 'dist'
+    archiveName "bundlor-${version}"
+    duplicatesStrategy 'exclude'
+    into("bundlor-${version}/plugins") {
+        from project(':org.eclipse.virgo.bundlor.commandline').jar
+        from project(':org.eclipse.virgo.bundlor.commandline').configurations.runtime
+    }
+    into("bundlor-${version}/bin") {
+        from "$rootDir/build-bundlor/resources/bin"
+    }
+    into("bundlor-${version}") {
+        from "$rootDir/build-bundlor/resources/about"
+    }
+}
+
 task wrapper(type: Wrapper) {
     description 'Creates a local Gradle Wrapper'
     group = 'Build Setup'
     gradleVersion = '3.1'
 }
+
