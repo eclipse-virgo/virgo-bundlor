@@ -14,3 +14,9 @@ dependencies {
     testCompile "junit:junit:${junitVersion}"
 }
 
+// Bug 384139: replace ${version} token in plugin.xml with current version of project
+processResources {
+	filter { line ->
+		line.replace('${version}', version)
+	}
+}

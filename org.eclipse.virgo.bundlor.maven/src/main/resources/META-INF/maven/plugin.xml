@@ -4,7 +4,7 @@
   <description></description>
   <groupId>org.eclipse.virgo.bundlor</groupId>
   <artifactId>org.eclipse.virgo.bundlor.maven</artifactId>
-  <version>1.1.3.M01</version>
+  <version>${version}</version>
   <goalPrefix>bundlor</goalPrefix>
   <isolatedRealm>false</isolatedRealm>
   <inheritedByDefault>true</inheritedByDefault>
