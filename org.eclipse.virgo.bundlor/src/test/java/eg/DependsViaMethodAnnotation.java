@@ -12,11 +12,17 @@
 package eg;
 
 import deps.AnAnnotation;
+import deps.neg.NotARuntimeRetentionAnnotation;
 
 public class DependsViaMethodAnnotation {
 
     @AnAnnotation
     public void m() {
 
+    }
+    
+    @NotARuntimeRetentionAnnotation
+    public void n() {
+        
     }
 }

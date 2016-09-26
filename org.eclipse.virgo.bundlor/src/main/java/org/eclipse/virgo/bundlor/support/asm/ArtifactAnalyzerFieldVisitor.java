@@ -45,7 +45,7 @@ final class ArtifactAnalyzerFieldVisitor extends FieldVisitor {
      * @param partialManifest the <code>PartialManifest</code> to scan.
      */
     ArtifactAnalyzerFieldVisitor(PartialManifest partialManifest, Type type) {
-    	super(Opcodes.ASM5);
+        super(Opcodes.ASM5);
         this.partialManifest = partialManifest;
         this.type = type;
     }
@@ -54,9 +54,11 @@ final class ArtifactAnalyzerFieldVisitor extends FieldVisitor {
      * {@inheritDoc}
      */
     public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
-        Type t = Type.getType(desc);
-        VisitorUtils.recordReferencedTypes(partialManifest, t);
-        VisitorUtils.recordUses(partialManifest, this.type, t);
+        if (visible) {
+            Type t = Type.getType(desc);
+            VisitorUtils.recordReferencedTypes(partialManifest, t);
+            VisitorUtils.recordUses(partialManifest, this.type, t);
+        }
         return null;
     }
 

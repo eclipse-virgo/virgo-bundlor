@@ -47,7 +47,7 @@ final class ArtifactAnalyzerMethodVisitor extends MethodVisitor {
      * @param partialManifest the <code>PartialManifest</code>.
      */
     public ArtifactAnalyzerMethodVisitor(PartialManifest partialManifest, Type type) {
-    	super(Opcodes.ASM5);
+        super(Opcodes.ASM5);
         this.partialManifest = partialManifest;
         this.type = type;
     }
@@ -56,9 +56,11 @@ final class ArtifactAnalyzerMethodVisitor extends MethodVisitor {
      * @inheritDoc
      */
     public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
-        Type t = Type.getType(desc);
-        VisitorUtils.recordReferencedTypes(partialManifest, t);
-        VisitorUtils.recordUses(partialManifest, this.type, t);
+        if (visible) {
+            Type t = Type.getType(desc);
+            VisitorUtils.recordReferencedTypes(partialManifest, t);
+            VisitorUtils.recordUses(partialManifest, this.type, t);
+        }
         return null;
     }
 

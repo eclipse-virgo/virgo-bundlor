@@ -75,7 +75,6 @@ public class AsmTypeArtifactAnalyzerTests {
         assertImportsPackage(model, "deps");
         assertNotUses(model, "eg", "deps");
     }
-
     @Test
     public void viaFieldAnnotation() throws Exception {
         ReadablePartialManifest model = analyse(DependsViaFieldAnnotation.class.getName());
@@ -129,6 +128,7 @@ public class AsmTypeArtifactAnalyzerTests {
         ReadablePartialManifest model = analyse(DependsViaMethodAnnotation.class.getName());
         assertExportsPackage(model, "eg");
         assertImportsPackage(model, "deps");
+        assertNotImportsPackage(model, "deps.neg");
         assertUses(model, "eg", "deps");
     }
 
