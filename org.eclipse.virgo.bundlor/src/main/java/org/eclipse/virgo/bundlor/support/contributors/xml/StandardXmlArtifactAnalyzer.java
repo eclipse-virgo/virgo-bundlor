@@ -110,10 +110,6 @@ final class StandardXmlArtifactAnalyzer implements XmlArtifactAnalyzer {
         DocumentBuilderFactory xmlFact = DocumentBuilderFactory.newInstance();
         xmlFact.setNamespaceAware(isNamespaceAware());
 
-        if (System.getProperty("not-load-external-dtd") != null) {
-            xmlFact.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-        }
-
         DocumentBuilder builder = xmlFact.newDocumentBuilder();
         if (entityResolver != null) {
             builder.setEntityResolver(entityResolver);

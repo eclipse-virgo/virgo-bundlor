@@ -68,6 +68,14 @@ configure(subprojects) {
     repositories {
         mavenCentral()
     }
+    test {
+    	System.properties.each { k,v ->
+    		if(k.startsWith('http.') || k.startsWith('https.') || k.startsWith('ftp')) {    		
+    			systemProperty k,v
+    		}
+    	}
+    	println allJvmArgs
+    }
     jar {
         from "$rootDir/build-bundlor/resources/about/notice.html"
     }
