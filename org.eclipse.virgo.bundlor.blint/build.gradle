@@ -12,6 +12,6 @@ dependencies {
     compile "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi.manifest:${eclipseVirgoUtilVersion}"
     compile "org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:${eclipseVirgoUtilVersion}"
 
-    testCompile group: "org.junit", name: "com.springsource.org.junit", version: "${junitVersion}", configuration: "compile"
+    testCompile "junit:junit:${junitVersion}"
 }
 

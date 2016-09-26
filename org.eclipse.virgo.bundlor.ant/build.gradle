@@ -8,7 +8,8 @@ dependencies {
 
     compile "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi:${eclipseVirgoUtilVersion}"
     compile "org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:${eclipseVirgoUtilVersion}"
-    compile group: "org.apache.ant", name: "com.springsource.org.apache.tools.ant", version: "${apacheAntVersion}", configuration: "compile"
+    compile "org.apache.ant:ant:${apacheAntVersion}"
 
-    testCompile group: "org.junit", name: "com.springsource.org.junit", version: "${junitVersion}", configuration: "compile"
+    testCompile "junit:junit:${junitVersion}"
 }
+

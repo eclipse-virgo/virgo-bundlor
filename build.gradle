@@ -67,18 +67,6 @@ configure(subprojects) {
     configurations {ecj {}}
     repositories {
         mavenCentral()
-        ivy {
-            url "http://build.eclipse.org/rt/virgo/ivy/bundles/release/"
-            layout "pattern", { artifact "[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" }
-        }
-        ivy {
-            url "http://repository.springsource.com/ivy/bundles/release/"
-            layout "pattern", { artifact "[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" }
-        }
-        ivy {
-            url "http://repository.springsource.com/ivy/bundles/external/"
-            layout "pattern", { artifact "[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" }
-        }
     }
     jar.doLast {
         if(System.properties['ci.build.signjars'] == 'true') {

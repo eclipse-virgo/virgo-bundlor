@@ -9,8 +9,8 @@ dependencies {
     compile "org.osgi:org.osgi.core:${osgiCoreVersion}"
     compile "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi:${eclipseVirgoUtilVersion}"
     compile "org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:${eclipseVirgoUtilVersion}"
-    compile group: "org.apache.maven", name: "com.springsource.org.apache.maven.plugin-api", version: "${apacheMavenVersion}", configuration: "compile"
+    compile "org.apache.maven:maven-plugin-api:${apacheMavenVersion}"
 
-    testCompile group: "org.junit", name: "com.springsource.org.junit", version: "${junitVersion}", configuration: "compile"
+    testCompile "junit:junit:${junitVersion}"
 }
 
