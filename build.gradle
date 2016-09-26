@@ -228,7 +228,7 @@ configure(subprojects) {
 task buildCommandlineDist(type: Zip) {
     description 'Creates a local Gradle Wrapper'
     group = 'dist'
-    archiveName "bundlor-${version}"
+    archiveName "bundlor-${version}.zip"
     duplicatesStrategy 'exclude'
     into("bundlor-${version}/plugins") {
         from project(':org.eclipse.virgo.bundlor.commandline').jar
