@@ -19,11 +19,9 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Set;
 
-import org.junit.Ignore;
-import org.junit.Test;
-
 import org.eclipse.virgo.bundlor.support.partialmanifest.ReadablePartialManifest;
 import org.eclipse.virgo.bundlor.support.partialmanifest.StandardReadablePartialManifest;
+import org.junit.Test;
 
 public class HibernateMappingArtifactAnalyzerTests {
 
@@ -37,8 +35,6 @@ public class HibernateMappingArtifactAnalyzerTests {
         assertFalse(analyzer.canAnalyse(artifactName + "1"));
     }
 
-    
-    @Ignore("Bug 501842: Ignoring HibernateMapping test due to proxy issue")
     @Test
     public void testAnalyze() throws Exception {
         ReadablePartialManifest partialManifest = new StandardReadablePartialManifest();

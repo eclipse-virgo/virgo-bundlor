@@ -46,13 +46,13 @@ final class StandardXmlArtifactAnalyzer implements XmlArtifactAnalyzer {
         this(inputStream, null, null);
     }
 
-    StandardXmlArtifactAnalyzer(InputStream inputStream, EntityResolver entityResolver) throws ParserConfigurationException, SAXException,
-        IOException {
+    StandardXmlArtifactAnalyzer(InputStream inputStream, EntityResolver entityResolver)
+        throws ParserConfigurationException, SAXException, IOException {
         this(inputStream, null, entityResolver);
     }
 
-    StandardXmlArtifactAnalyzer(InputStream inputStream, Map<String, String> namespaceMappings) throws ParserConfigurationException, SAXException,
-        IOException {
+    StandardXmlArtifactAnalyzer(InputStream inputStream, Map<String, String> namespaceMappings)
+        throws ParserConfigurationException, SAXException, IOException {
         this(inputStream, namespaceMappings, null);
     }
 
@@ -105,10 +105,14 @@ final class StandardXmlArtifactAnalyzer implements XmlArtifactAnalyzer {
         return this.namespaceContext != null;
     }
 
-    private Document getDocument(InputStream inputStream, EntityResolver entityResolver) throws ParserConfigurationException, SAXException,
-        IOException {
+    private Document getDocument(InputStream inputStream, EntityResolver entityResolver)
+        throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory xmlFact = DocumentBuilderFactory.newInstance();
         xmlFact.setNamespaceAware(isNamespaceAware());
+
+        if (System.getProperty("not-load-external-dtd") != null) {
+            xmlFact.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+        }
 
         DocumentBuilder builder = xmlFact.newDocumentBuilder();
         if (entityResolver != null) {
