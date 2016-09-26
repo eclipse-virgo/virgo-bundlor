@@ -11,6 +11,7 @@
 
 package org.eclipse.virgo.bundlor.support.contributors;
 
+import java.io.File;
 import java.io.InputStream;
 
 import org.eclipse.virgo.bundlor.support.ArtifactAnalyzer;
@@ -32,9 +33,10 @@ public final class StaticResourceArtifactAnalyzer implements ArtifactAnalyzer {
      * {@inheritDoc}
      */
     public void analyse(InputStream artefact, String artefactName, PartialManifest partialManifest) throws Exception {
-        int index = artefactName.lastIndexOf('/');
+        char osPathSeparator = File.separatorChar;
+        int index = artefactName.lastIndexOf(osPathSeparator);
         if (index > -1) {
-            String packageName = artefactName.substring(0, index).replace('/', '.');
+            String packageName = artefactName.substring(0, index).replace(osPathSeparator, '.');
             if (packageName.matches("([a-zA-Z$_][a-zA-Z0-9$_]+)+(\\.[a-zA-Z$_][a-zA-Z0-9$_]+)*")) {
                 partialManifest.recordExportPackage(packageName.trim());
             }
