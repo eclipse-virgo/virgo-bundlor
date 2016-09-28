@@ -4,4 +4,5 @@ include ':org.eclipse.virgo.bundlor.ant'
 include ':org.eclipse.virgo.bundlor.blint'
 include ':org.eclipse.virgo.bundlor.commandline'
 include ':org.eclipse.virgo.bundlor.maven'
+include ':org.eclipse.virgo.bundlor.gradle'
 

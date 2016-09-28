@@ -1,1 +1,60 @@
-task wrapper(type:Wrapper) { gradleVersion='2.0' }
+plugins {
+	id 'groovy'
+	id 'eclipse'
+	id 'java-gradle-plugin'
+	id 'maven-publish'
+}
+
+description = 'Bundlor Gradle Plugin'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile localGroovy()
+//	runtime project(':org.eclipse.virgo.bundlor.ant')
+	testCompile "junit:junit:${junitVersion}"
+}
+
+gradlePlugin {
+	plugins {
+		bundlor {
+			id = 'org.eclipse.virgo.bundlor'
+			implementationClass = 'org.eclipse.virgo.bundlor.BundlorPlugin'
+		}
+	}
+}
+
+publishing {
+	repositories {
+		mavenLocal()
+	}
+	publications {
+		maven(MavenPublication) {
+			from components.java
+			pom.withXml {
+				asNode().with {
+					appendNode('name', 'bundlor-plugin')
+					appendNode('description', 'Gradle plugin for bundlor.')
+					appendNode('url', 'http://www.eclipse.org/virgo/')
+					appendNode('licenses').appendNode('license').with {
+						appendNode('name', 'Eclipse Public License Version 1.0')
+						appendNode('url', 'http://www.eclipse.org/legal/epl-v10.html')
+					}
+					appendNode('developers').appendNode('developer').with {
+						appendNode('id', 'virgo-dev')
+						appendNode('name', 'Virgo Developer List')
+						appendNode('email', 'virgo-dev@eclipse.org')
+						appendNode('url', 'http://projects.eclipse.org/projects/rt.virgo/who/')
+						appendNode('roles').appendNode('role', 'Developer')
+					}
+					appendNode('scm').with {
+						appendNode('connection', 'http://wiki.eclipse.org/Virgo/Source#Virgo_git_Repositories')
+						appendNode('url', 'http://wiki.eclipse.org/Virgo/Source#Virgo_git_Repositories')
+					}
+				}
+			}
+		}
+	}
+}

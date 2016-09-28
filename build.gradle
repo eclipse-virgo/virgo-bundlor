@@ -14,6 +14,14 @@ def timestamp = new Date().format('yyyyMMddHHmmss', TimeZone.getTimeZone('GMT'))
 
 defaultTasks 'clean', 'build', 'javadoc', 'sourcesJar', 'javadocJar', 'collectArtifacts', 'buildCommandlineDist'
 
+ext.javaProjects = [
+    project(':org.eclipse.virgo.bundlor'),
+    project(':org.eclipse.virgo.bundlor.ant'),
+    project(':org.eclipse.virgo.bundlor.blint'),
+    project(':org.eclipse.virgo.bundlor.commandline'),
+    project(':org.eclipse.virgo.bundlor.maven')    
+]
+
 allprojects {
     apply plugin: 'base'
     if (System.properties['ci.build'] == 'true') {
@@ -28,7 +36,7 @@ allprojects {
     }
 }
 
-configure(subprojects) {
+configure(javaProjects) {
     apply plugin: 'java'
     apply plugin: 'jacoco'
     apply plugin: 'findbugs'
@@ -130,7 +138,7 @@ configure(subprojects) {
 	}
 }
 
-configure(subprojects) {
+configure(javaProjects) {
     apply plugin: 'org.eclipse.virgo.bundlor'
 	
 	task('addProjectVersionToGradlePropertiesTask', type: Copy) {
@@ -144,6 +152,7 @@ configure(subprojects) {
 			gradleProperties.load(new FileReader("${buildDir}/bundlor-properties/gradle.properties"))
 			gradleProperties.setProperty('bundleName', "${archivesBaseName}")
 			gradleProperties.setProperty('timestamp', "${timestamp}")
+			gradleProperties.setProperty('version', "${version}")
 			def writer = new FileWriter("${buildDir}/bundlor-properties/gradle.properties")
    			try {
       			gradleProperties.store(writer, 'modified during build process')
@@ -173,7 +182,7 @@ configure(subprojects) {
     }
 }
 
-configure(subprojects) {
+configure(javaProjects) {
     apply plugin: 'eclipse'
 
     eclipse {
@@ -199,7 +208,7 @@ configure(subprojects) {
     }
 }
 
-configure(subprojects) {
+configure(javaProjects) {
     apply plugin: 'maven-publish'
 
     publishing {
@@ -257,4 +266,3 @@ task wrapper(type: Wrapper) {
     group = 'Build Setup'
     gradleVersion = '3.1'
 }
-

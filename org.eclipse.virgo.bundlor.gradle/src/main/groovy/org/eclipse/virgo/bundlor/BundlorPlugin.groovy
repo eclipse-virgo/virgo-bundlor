@@ -14,7 +14,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.DefaultTask
 
-//import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.logging.LogLevel
 
 /**
@@ -30,29 +29,34 @@ public class BundlorPlugin implements Plugin<Project> {
 
     public void apply(Project project) {
         project.extensions.create("bundlor", BundlorPluginExtension)
-        project.bundlor.with {
+        
+		project.bundlor.with {
             inputPath = project.sourceSets.main.output.classesDir
             outputDir = new File("${project.buildDir}/bundlor")
             propertiesPath = project.rootProject.file('gradle.properties')
             bundleVersion = project.version
             bundleVendor = 'Eclipse Virgo Project'
-            bundlorVersion = '1.1.2.RELEASE'
+            bundlorVersion = '1.1.3.M01'
         }
 
-        project.configurations { bundlorconf }
+        project.configurations { 
+			bundlorconf 
+		}
 
-        project.repositories.maven( {name = 'bundlor'; url = 'http://build.eclipse.org/rt/virgo/maven/bundles/release'})
-        project.repositories.maven( {name = 'springsource'; url = 'http://repository.springsource.com/maven/bundles/external'})
+		project.repositories {
+			mavenLocal()
+			mavenCentral()
+		}
 
         project.dependencies {
-            bundlorconf group: 'org.eclipse.virgo.bundlor', name: 'org.eclipse.virgo.bundlor', version: project.bundlor.bundlorVersion, configuration: 'runtime'
-            bundlorconf group: 'org.eclipse.virgo.bundlor', name: 'org.eclipse.virgo.bundlor.ant', version: project.bundlor.bundlorVersion, configuration: 'runtime'
-            bundlorconf group: 'org.eclipse.virgo.bundlor', name: 'org.eclipse.virgo.bundlor.blint', version: project.bundlor.bundlorVersion, configuration: 'runtime'
+            bundlorconf "org.eclipse.virgo.bundlor:org.eclipse.virgo.bundlor:${project.bundlor.bundlorVersion}"
+            bundlorconf "org.eclipse.virgo.bundlor:org.eclipse.virgo.bundlor.ant:${project.bundlor.bundlorVersion}"
+            bundlorconf "org.eclipse.virgo.bundlor:org.eclipse.virgo.bundlor.blint:${project.bundlor.bundlorVersion}"
         }
 
         project.task('bundlor', type: DefaultTask, dependsOn: 'compileJava') {
             group = 'Build'
-            description = 'Generates an OSGi-compatibile MANIFEST.MF file.'
+            description = 'Generates an OSGi-compatible MANIFEST.MF file.'
 
             def manifest = new File("${project.bundlor.outputDir}/META-INF/MANIFEST.MF")
 
@@ -89,12 +93,13 @@ public class BundlorPlugin implements Plugin<Project> {
             project.jar.manifest.from manifest
 
             doFirst {
-                if (project.bundlor.bundleName == null)
+                if (project.bundlor.bundleName == null) {
                     project.bundlor.bundleName = project.description
+                }
 
                 project.ant.taskdef(
-                        resource: 'org/eclipse/virgo/bundlor/ant/antlib.xml',
-                        classpath: project.configurations.bundlorconf.asPath)
+					resource: 'org/eclipse/virgo/bundlor/ant/antlib.xml',
+                    classpath: project.configurations.bundlorconf.asPath)
 
                 // the bundlor ant task writes directly to standard out
                 // redirect it to INFO level logging, which gradle will
@@ -102,8 +107,9 @@ public class BundlorPlugin implements Plugin<Project> {
                 logging.captureStandardOutput(LogLevel.INFO)
 
                 // the ant task will throw unless this dir exists
-                if (!project.bundlor.outputDir.isDirectory())
+                if (!project.bundlor.outputDir.isDirectory()) {
                     project.bundlor.outputDir.mkdir()
+                }
 
                 // execute the ant task, and write out the manifest file
                 project.ant.bundlor(

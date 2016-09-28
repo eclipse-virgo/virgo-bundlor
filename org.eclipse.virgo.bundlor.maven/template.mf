@@ -1,9 +1,10 @@
+Implementation-Title: ${bundleName}
+Implementation-Version: ${version}
 Bundle-ManifestVersion: 2
 Bundle-Name: Bundlor Maven Mojo
-Bundle-SymbolicName: org.eclipse.virgo.bundlor.maven
+Bundle-SymbolicName: ${bundleName}
 Bundle-Version: 0
 Excluded-Exports: 
  *
 Excluded-Imports: 
  *
-

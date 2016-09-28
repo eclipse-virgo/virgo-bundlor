@@ -1,6 +1,0 @@
-apply plugin: 'bundlor'
-
-bundlor {
-    bundleSymbolicName = 'simple-bundle'
-    bundleName = 'A simple bundle'
-}

@@ -1,3 +1,5 @@
+Implementation-Title: ${bundleName}
+Implementation-Version: ${version}
 Bundle-ManifestVersion: 2
 Bundle-Name: Bundlor Command Line Interface
 Bundle-SymbolicName: ${bundleName}

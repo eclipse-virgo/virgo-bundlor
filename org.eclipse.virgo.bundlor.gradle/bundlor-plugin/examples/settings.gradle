@@ -1,5 +1,0 @@
-rootProject.name = 'bundlor-plugin-examples'
-
-include 'simple-bundle'
-include 'simple-bundle-with-template'
-include 'simple-bundle-with-handcrafted-manifest'
