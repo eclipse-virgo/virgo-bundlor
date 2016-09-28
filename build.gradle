@@ -32,7 +32,7 @@ allprojects {
             version = version + '.' + timestamp
         }
     } else {
-        version = version + '.SNAPSHOT-' + timestamp
+        version = version + '.SNAPSHOT'
     }
 }
 
@@ -127,14 +127,6 @@ configure(javaProjects) {
     	group = 'build'
 	    classifier = 'javadoc'
 	    from javadoc.destinationDir
-	}
-	task collectArtifacts(type: Copy, dependsOn: []) {
-		description 'Collects generated jar archives.'
-    	group = 'dist'
-    	from jar
-    	from sourcesJar
-    	from javadocJar
-    	into "${rootProject.buildDir}/artifacts"
 	}
 }
 
@@ -244,10 +236,21 @@ configure(javaProjects) {
     }
 }
 
-task buildCommandlineDist(type: Zip) {
-    description 'Creates a local Gradle Wrapper'
-    group = 'dist'
-    archiveName "bundlor-${version}.zip"
+task bundlorJarDist(type: Zip) {
+	description 'Builds Zip file containg all project Jars'
+	group = 'distribution'
+	
+	archiveName "bundlor-dist-${version}.zip"		
+	from javaProjects.jar
+	from javaProjects.sourcesJar
+	from javaProjects.javadocJar
+}
+
+task bundlorCommandlineDist(type: Zip) {
+    description 'Build Bundlor Commandline distribution Zip file'
+    group = 'distribution'
+    
+	archiveName "bundlor-${version}.zip"
     duplicatesStrategy 'exclude'
     into("bundlor-${version}/plugins") {
         from project(':org.eclipse.virgo.bundlor.commandline').jar

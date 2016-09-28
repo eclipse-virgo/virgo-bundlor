@@ -7,19 +7,28 @@ plugins {
 
 description = 'Bundlor Gradle Plugin'
 
+jar {
+	from "$rootDir/build-bundlor/resources/about"
+	from project(':org.eclipse.virgo.bundlor.ant').configurations.runtime.collect {
+		it.isDirectory() ? it : zipTree(it)
+	}
+	duplicatesStrategy 'exclude'
+}
+
 repositories {
 	mavenCentral()
 }
 
 dependencies {
 	compile localGroovy()
-//	runtime project(':org.eclipse.virgo.bundlor.ant')
+	compile project(':org.eclipse.virgo.bundlor.ant')
 	testCompile "junit:junit:${junitVersion}"
 }
 
 gradlePlugin {
 	plugins {
 		bundlor {
+			group = 'org.eclipse.virgo.bundlor'
 			id = 'org.eclipse.virgo.bundlor'
 			implementationClass = 'org.eclipse.virgo.bundlor.BundlorPlugin'
 		}
@@ -33,6 +42,7 @@ publishing {
 	publications {
 		maven(MavenPublication) {
 			from components.java
+			groupId 'org.eclipse.virgo.bundlor'
 			pom.withXml {
 				asNode().with {
 					appendNode('name', 'bundlor-plugin')

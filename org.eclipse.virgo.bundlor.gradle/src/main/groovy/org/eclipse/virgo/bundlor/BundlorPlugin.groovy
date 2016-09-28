@@ -36,22 +36,6 @@ public class BundlorPlugin implements Plugin<Project> {
             propertiesPath = project.rootProject.file('gradle.properties')
             bundleVersion = project.version
             bundleVendor = 'Eclipse Virgo Project'
-            bundlorVersion = '1.1.3.M01'
-        }
-
-        project.configurations { 
-			bundlorconf 
-		}
-
-		project.repositories {
-			mavenLocal()
-			mavenCentral()
-		}
-
-        project.dependencies {
-            bundlorconf "org.eclipse.virgo.bundlor:org.eclipse.virgo.bundlor:${project.bundlor.bundlorVersion}"
-            bundlorconf "org.eclipse.virgo.bundlor:org.eclipse.virgo.bundlor.ant:${project.bundlor.bundlorVersion}"
-            bundlorconf "org.eclipse.virgo.bundlor:org.eclipse.virgo.bundlor.blint:${project.bundlor.bundlorVersion}"
         }
 
         project.task('bundlor', type: DefaultTask, dependsOn: 'compileJava') {
