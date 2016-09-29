@@ -240,7 +240,7 @@ task bundlorJarDist(type: Zip) {
 	description 'Builds Zip file containg all project Jars'
 	group = 'distribution'
 	
-	archiveName "bundlor-dist-${version}.zip"		
+	archiveName "bundlor-jars-${version}.zip"		
 	from javaProjects.jar
 	from javaProjects.sourcesJar
 	from javaProjects.javadocJar
@@ -250,7 +250,7 @@ task bundlorCommandlineDist(type: Zip) {
     description 'Build Bundlor Commandline distribution Zip file'
     group = 'distribution'
     
-	archiveName "bundlor-${version}.zip"
+	archiveName "bundlor-commandline-${version}.zip"
     duplicatesStrategy 'exclude'
     into("bundlor-${version}/plugins") {
         from project(':org.eclipse.virgo.bundlor.commandline').jar

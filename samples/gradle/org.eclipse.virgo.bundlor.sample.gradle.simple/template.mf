@@ -1,0 +1,8 @@
+Bundle-ManifestVersion: 2
+Bundle-Name: Simple Example
+Bundle-SymbolicName: org.eclipse.virgo.bundlor.example.simple
+Bundle-Version: ${version}
+Import-Template: 
+ org.apache.commons.lang3.*;version="[3.4,4)"
+Excluded-Exports: 
+ *.internal.*

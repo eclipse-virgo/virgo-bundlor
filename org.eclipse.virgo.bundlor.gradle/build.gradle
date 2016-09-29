@@ -7,13 +7,21 @@ plugins {
 
 description = 'Bundlor Gradle Plugin'
 
-jar {
-	from "$rootDir/build-bundlor/resources/about"
-	from project(':org.eclipse.virgo.bundlor.ant').configurations.runtime.collect {
-		it.isDirectory() ? it : zipTree(it)
-	}
-	duplicatesStrategy 'exclude'
-}
+//jar {
+//	from "$rootDir/build-bundlor/resources/about"
+//	from project(':org.eclipse.virgo.bundlor.ant').configurations.compile.collect {
+//		it.isDirectory() ? it : zipTree(it)
+//	}
+//	from project(':org.eclipse.virgo.bundlor.ant').configurations.archives.allArtifacts.files.collect {
+//		zipTree(it)
+//	}
+//	duplicatesStrategy 'exclude'
+//	manifest {
+//		attributes(
+//			'Implementation-Version': version
+//		)
+//	}
+//}
 
 repositories {
 	mavenCentral()
@@ -21,7 +29,6 @@ repositories {
 
 dependencies {
 	compile localGroovy()
-	compile project(':org.eclipse.virgo.bundlor.ant')
 	testCompile "junit:junit:${junitVersion}"
 }
 
@@ -40,31 +47,9 @@ publishing {
 		mavenLocal()
 	}
 	publications {
-		maven(MavenPublication) {
+		bundlorGradle(MavenPublication) {
 			from components.java
 			groupId 'org.eclipse.virgo.bundlor'
-			pom.withXml {
-				asNode().with {
-					appendNode('name', 'bundlor-plugin')
-					appendNode('description', 'Gradle plugin for bundlor.')
-					appendNode('url', 'http://www.eclipse.org/virgo/')
-					appendNode('licenses').appendNode('license').with {
-						appendNode('name', 'Eclipse Public License Version 1.0')
-						appendNode('url', 'http://www.eclipse.org/legal/epl-v10.html')
-					}
-					appendNode('developers').appendNode('developer').with {
-						appendNode('id', 'virgo-dev')
-						appendNode('name', 'Virgo Developer List')
-						appendNode('email', 'virgo-dev@eclipse.org')
-						appendNode('url', 'http://projects.eclipse.org/projects/rt.virgo/who/')
-						appendNode('roles').appendNode('role', 'Developer')
-					}
-					appendNode('scm').with {
-						appendNode('connection', 'http://wiki.eclipse.org/Virgo/Source#Virgo_git_Repositories')
-						appendNode('url', 'http://wiki.eclipse.org/Virgo/Source#Virgo_git_Repositories')
-					}
-				}
-			}
 		}
 	}
 }
