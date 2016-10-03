@@ -7,6 +7,18 @@ plugins {
 
 description = 'Bundlor Gradle Plugin'
 
+eclipse {
+	project {
+		file.beforeMerged {
+			project.natures.clear()
+		}
+		natures = [
+			'org.eclipse.jdt.groovy.core.groovyNature',
+			'org.eclipse.jdt.core.javanature'
+		]
+    }
+}
+
 //jar {
 //	from "$rootDir/build-bundlor/resources/about"
 //	from project(':org.eclipse.virgo.bundlor.ant').configurations.compile.collect {
@@ -27,9 +39,26 @@ repositories {
 	mavenCentral()
 }
 
+// Write the plugin's classpath to a file to share with the tests
+task createClasspathManifest {
+	def outputDir = file("$buildDir/$name")
+
+	inputs.files sourceSets.main.runtimeClasspath
+	outputs.dir outputDir
+
+	doLast {
+		outputDir.mkdirs()
+		file("$outputDir/plugin-classpath.txt").text = sourceSets.main.runtimeClasspath.join("\n")
+	}
+}
+
 dependencies {
 	compile localGroovy()
+	compile project(':org.eclipse.virgo.bundlor')
+    compile project(':org.eclipse.virgo.bundlor.blint')
 	testCompile "junit:junit:${junitVersion}"
+	// Add the classpath file to the test runtime classpath
+	testRuntime files(createClasspathManifest)
 }
 
 gradlePlugin {
@@ -37,7 +66,7 @@ gradlePlugin {
 		bundlor {
 			group = 'org.eclipse.virgo.bundlor'
 			id = 'org.eclipse.virgo.bundlor'
-			implementationClass = 'org.eclipse.virgo.bundlor.BundlorPlugin'
+			implementationClass = 'org.eclipse.virgo.bundlor.gradle.BundlorGradlePlugin'
 		}
 	}
 }
@@ -53,3 +82,4 @@ publishing {
 		}
 	}
 }
+
