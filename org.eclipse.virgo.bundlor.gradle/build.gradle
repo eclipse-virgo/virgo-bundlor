@@ -40,17 +40,17 @@ repositories {
 }
 
 // Write the plugin's classpath to a file to share with the tests
-task createClasspathManifest {
-	def outputDir = file("$buildDir/$name")
-
-	inputs.files sourceSets.main.runtimeClasspath
-	outputs.dir outputDir
-
-	doLast {
-		outputDir.mkdirs()
-		file("$outputDir/plugin-classpath.txt").text = sourceSets.main.runtimeClasspath.join("\n")
-	}
-}
+//task createClasspathManifest {
+//	def outputDir = file("$buildDir/$name")
+//
+//	inputs.files sourceSets.main.runtimeClasspath
+//	outputs.dir outputDir
+//
+//	doLast {
+//		outputDir.mkdirs()
+//		file("$outputDir/plugin-classpath.txt").text = sourceSets.main.runtimeClasspath.join("\n")
+//	}
+//}
 
 dependencies {
 	compile localGroovy()
@@ -58,7 +58,7 @@ dependencies {
     compile project(':org.eclipse.virgo.bundlor.blint')
 	testCompile "junit:junit:${junitVersion}"
 	// Add the classpath file to the test runtime classpath
-	testRuntime files(createClasspathManifest)
+//	testRuntime files(createClasspathManifest)
 }
 
 gradlePlugin {
@@ -82,4 +82,3 @@ publishing {
 		}
 	}
 }
-
