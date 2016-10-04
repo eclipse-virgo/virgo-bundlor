@@ -72,7 +72,11 @@ configure(javaProjects) {
             }
         }
     }
-    configurations {ecj {}}
+    configurations {
+    	ecj {}
+		embedded
+		compile.extendsFrom(embedded)
+	}
     repositories {
         mavenCentral()
     }
@@ -86,10 +90,24 @@ configure(javaProjects) {
     		}
     	}
     }
+    classes.doLast {
+    	// including 'embedded' dependencies in archive
+    	// doing this here so that bundlor sees the embedded stuff and is able to generate sound manifest file 
+    	copy {
+    		from project.configurations.embedded.collect { 
+    			println '|--> Embedding: ' + it.name
+    			it.isDirectory() ? it : zipTree(it)
+	    	}
+    		into(project.sourceSets.main.output.classesDir)
+    	}
+    }
     jar {
+    	// add SUA to archive
         from "$rootDir/build-bundlor/resources/about/notice.html"
+		duplicatesStrategy 'exclude'
     }
     jar.doLast {
+    	// signing the archives
         if(System.properties['ci.build.signjars'] == 'true') {
             println '|--> Signing Jar File: ' + archivePath
             exec {
@@ -205,12 +223,8 @@ configure(javaProjects) {
 
     publishing {
         publications {
-            maven(MavenPublication) {
-                from components.java
-                artifact sourcesJar
-                artifact javadocJar
-                groupId 'org.eclipse.virgo.bundlor'
-                pom.withXml {
+        	all {
+        		pom.withXml {
                     asNode().with {
                         appendNode('description', 'Bundlor is a tool that automates the detection of dependencies and the creation of OSGi manifest directives for JARs after their creation. Bundlor takes as input a JAR and a template consisting of a superset of the standard OSGi manifest headers.')
                         appendNode('url', 'http://www.eclipse.org/virgo/')
@@ -230,7 +244,19 @@ configure(javaProjects) {
                             appendNode('url', 'http://wiki.eclipse.org/Virgo/Source#Virgo_git_Repositories')
                         }
                     }
+                    asNode().dependencies.'*'.findAll() {
+                    	if('org.eclipse.virgo.util'.equalsIgnoreCase(it.groupId.text())) {
+                    		println '|--> Excluding groupId:' + it.groupId.text() + ', artifactId:' + it.artifactId.text() + ' from Maven pom'
+                    		it.parent().remove(it)
+                    	} 
+                    }
                 }
+        	}
+            maven(MavenPublication) {
+                from components.java
+                artifact sourcesJar
+                artifact javadocJar
+                groupId 'org.eclipse.virgo.bundlor'
             }
         }
     }

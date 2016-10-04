@@ -5,11 +5,11 @@ dependencies {
 		
 	compile "org.ow2.asm:asm-all:${objectwebAsmVersion}"    
     compile "org.osgi:org.osgi.core:${osgiCoreVersion}"
-    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.common:${eclipseVirgoUtilVersion}"
-    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.math:${eclipseVirgoUtilVersion}"
-    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi:${eclipseVirgoUtilVersion}"
-    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi.manifest:${eclipseVirgoUtilVersion}"
-    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:${eclipseVirgoUtilVersion}"
+    embedded "org.eclipse.virgo.util:org.eclipse.virgo.util.common:${eclipseVirgoUtilVersion}"
+    embedded "org.eclipse.virgo.util:org.eclipse.virgo.util.math:${eclipseVirgoUtilVersion}"
+    embedded "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi:${eclipseVirgoUtilVersion}"
+    embedded "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi.manifest:${eclipseVirgoUtilVersion}"
+    embedded "org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:${eclipseVirgoUtilVersion}"
 
     testCompile "junit:junit:${junitVersion}"
     testCompile "org.apache.wicket:wicket-ioc:${apacheWicketInjectionVersion}"
@@ -21,4 +21,3 @@ task copyTestJars(type: Copy) {
     into "$buildDir/test-jars"
     from configurations.testCompile
 }
-

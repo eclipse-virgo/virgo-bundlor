@@ -5,7 +5,6 @@ Bundle-Name: Bundlor Core
 Bundle-SymbolicName: ${bundleName}
 Bundle-Version: ${version}
 Import-Template: 
- org.eclipse.virgo.util.*;version="${eclipseVirgoUtilVersion:[=.=.=, +1.0.0)}",
  javax.xml.*;version="0",
  org.objectweb.asm.*;version="${objectwebAsmVersion:[=.=.=, +1.0.0)}",
  org.osgi.framework;version="0",
@@ -14,3 +13,6 @@ Import-Template:
 Excluded-Exports: 
  *.internal.*,
  org.springframework.*
+Export-Template:
+ org.eclipse.virgo.bundlor.*;version="${version}",
+ org.eclipse.virgo.util.*;version="${eclipseVirgoUtilVersion}"

@@ -22,20 +22,9 @@ eclipse {
     }
 }
 
-//configurations {
-//	embedded
-//	compile.extendsFrom(embedded)
-//}
-
 jar {
 	manifest.attributes('Implementation-Version': version)
 	from "$rootDir/build-bundlor/resources/about"
-//	from {
-//		configurations.embedded.collect {
-//			it.isDirectory() ? it : zipTree(it)
-//		}
-//	}
-//	duplicatesStrategy 'exclude'
 }
 
 repositories {

@@ -7,8 +7,6 @@ dependencies {
     compile project(':org.eclipse.virgo.bundlor.blint')
 
     compile "org.osgi:org.osgi.core:${osgiCoreVersion}"
-    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi:${eclipseVirgoUtilVersion}"
-    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:${eclipseVirgoUtilVersion}"
     compile "org.apache.maven:maven-plugin-api:${apacheMavenVersion}"
 
     testCompile "junit:junit:${junitVersion}"

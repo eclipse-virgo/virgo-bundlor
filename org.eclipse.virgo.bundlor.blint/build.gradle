@@ -7,10 +7,6 @@ dependencies {
 
     compile "org.osgi:org.osgi.core:${osgiCoreVersion}"
     compile "org.osgi:org.osgi.compendium:${osgiCompendiumVersion}"
-    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.math:${eclipseVirgoUtilVersion}"
-    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi:${eclipseVirgoUtilVersion}"
-    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi.manifest:${eclipseVirgoUtilVersion}"
-    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:${eclipseVirgoUtilVersion}"
 
     testCompile "junit:junit:${junitVersion}"
 }
