@@ -1,3 +1,5 @@
+import javax.security.auth.login.ConfigurationSpi;
+
 plugins {
 	id 'groovy'
 	id 'eclipse'
@@ -20,46 +22,31 @@ eclipse {
     }
 }
 
+//configurations {
+//	embedded
+//	compile.extendsFrom(embedded)
+//}
+
 jar {
-//	from "$rootDir/build-bundlor/resources/about"
-//	from project(':org.eclipse.virgo.bundlor.ant').configurations.compile.collect {
-//		it.isDirectory() ? it : zipTree(it)
-//	}
-//	from project(':org.eclipse.virgo.bundlor.ant').configurations.archives.allArtifacts.files.collect {
-//		zipTree(it)
+	manifest.attributes('Implementation-Version': version)
+	from "$rootDir/build-bundlor/resources/about"
+//	from {
+//		configurations.embedded.collect {
+//			it.isDirectory() ? it : zipTree(it)
+//		}
 //	}
 //	duplicatesStrategy 'exclude'
-	manifest {
-		attributes(
-			'Implementation-Version': version
-		)
-	}
 }
 
 repositories {
 	mavenCentral()
 }
 
-// Write the plugin's classpath to a file to share with the tests
-//task createClasspathManifest {
-//	def outputDir = file("$buildDir/$name")
-//
-//	inputs.files sourceSets.main.runtimeClasspath
-//	outputs.dir outputDir
-//
-//	doLast {
-//		outputDir.mkdirs()
-//		file("$outputDir/plugin-classpath.txt").text = sourceSets.main.runtimeClasspath.join("\n")
-//	}
-//}
-
 dependencies {
 	compile localGroovy()
 	compile project(':org.eclipse.virgo.bundlor')
     compile project(':org.eclipse.virgo.bundlor.blint')
 	testCompile "junit:junit:${junitVersion}"
-	// Add the classpath file to the test runtime classpath
-//	testRuntime files(createClasspathManifest)
 }
 
 gradlePlugin {
@@ -77,7 +64,7 @@ publishing {
 		mavenLocal()
 	}
 	publications {
-		bundlorGradle(MavenPublication) {
+		maven(MavenPublication) {
 			from components.java
 			groupId 'org.eclipse.virgo.bundlor'
 		}

@@ -84,7 +84,7 @@ class BundlorTaskTests {
 	}
 	
 	@Test
-	public void testBundlorTaskExecution() {
+	public void testDefaultSettingsBundlorTaskExecution() {
 		def bundlorTask = project.tasks.bundlor
 		assumeTrue(bundlorTask instanceof BundlorTask)
 		
