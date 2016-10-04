@@ -25,6 +25,10 @@ class StandardConfigurationValidator implements ConfigurationValidator {
 			throw new GradleException("configuration is required")
 		}
 		inputPath(configuration.getInputPath())
+		outputPath(configuration.getOutputPath())
+		manifestTemplate(configuration.getManifestTemplatePath(), configuration.getManifestTemplate())
+		osgiProfile(configuration.getOsgiProfilePath())
+		properties(configuration.getPropertiesPath())
 	}
 	
 	void inputPath(String inputPath) {

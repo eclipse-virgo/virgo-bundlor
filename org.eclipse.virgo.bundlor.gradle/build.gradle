@@ -3,6 +3,7 @@ plugins {
 	id 'eclipse'
 	id 'java-gradle-plugin'
 	id 'maven-publish'
+	id 'jacoco'
 }
 
 description = 'Bundlor Gradle Plugin'
@@ -19,7 +20,7 @@ eclipse {
     }
 }
 
-//jar {
+jar {
 //	from "$rootDir/build-bundlor/resources/about"
 //	from project(':org.eclipse.virgo.bundlor.ant').configurations.compile.collect {
 //		it.isDirectory() ? it : zipTree(it)
@@ -28,12 +29,12 @@ eclipse {
 //		zipTree(it)
 //	}
 //	duplicatesStrategy 'exclude'
-//	manifest {
-//		attributes(
-//			'Implementation-Version': version
-//		)
-//	}
-//}
+	manifest {
+		attributes(
+			'Implementation-Version': version
+		)
+	}
+}
 
 repositories {
 	mavenCentral()

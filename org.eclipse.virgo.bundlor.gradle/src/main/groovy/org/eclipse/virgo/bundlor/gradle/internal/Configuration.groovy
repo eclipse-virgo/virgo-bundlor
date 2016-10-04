@@ -32,7 +32,7 @@ final class Configuration {
 	
 	final List<Properties> properties = new ArrayList<Properties>();
 	
-	def addProperties(Properties properties) {
+	void addProperties(Properties properties) {
 		this.properties.add(properties)
 	}
 }
