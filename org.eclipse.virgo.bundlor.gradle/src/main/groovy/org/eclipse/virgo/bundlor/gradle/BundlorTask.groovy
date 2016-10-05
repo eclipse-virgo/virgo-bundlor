@@ -108,7 +108,7 @@ class BundlorTask extends DefaultTask {
 	Configuration createConfiguration() {
 		new Configuration(inputPath: inputPath.toString(),
 							outputPath: outputDir.toString(),
-							manifestTemplatePath: manifestTemplatePath,
+							manifestTemplatePath: (manifestTemplatePath != null ? project.file(manifestTemplatePath).path:''),
 							manifestTemplate: manifestTemplate,
 							bundleSymbolicName: bundleSymbolicName,
 							defaultBundleSymbolicName: bundleSymbolicName,
