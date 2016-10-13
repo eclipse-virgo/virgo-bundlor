@@ -30,19 +30,34 @@ public class WebApplicationArtifactAnalyzerTests {
 
     @Test
     public void validForAnalyzation() {
-        assertTrue("Invalid for standard web.xml file", analyzer.canAnalyse("WEB-INF/web.xml"));
+        assertTrue("Invalid for standard web.xml file on nix system", analyzer.canAnalyse("WEB-INF/web.xml"));
+        assertTrue("Invalid for standard web.xml file on win system", analyzer.canAnalyse("WEB-INF\\\\web.xml"));
     }
 
     @Test
     public void invalidForAnalyzation() {
         assertFalse("Invalid for web.xml in META-INF", analyzer.canAnalyse("META-INF/web.xml"));
+        assertFalse("Invalid for web.xml in META-INF", analyzer.canAnalyse("META-INF\\\\web.xml"));
         assertFalse("Invalid for web.xml in root", analyzer.canAnalyse("web.xml"));
     }
 
     @Test
-    public void contents() throws FileNotFoundException, Exception {
+    public void contentsOnNixSystem() throws FileNotFoundException, Exception {
         ReadablePartialManifest partialManifest = new StandardReadablePartialManifest();
         analyzer.analyse(new FileInputStream("src/test/resources/org/eclipse/virgo/bundlor/support/contributors/xml/web.xml"), "WEB-INF/web.xml",
+            partialManifest);
+
+        Set<String> importedPackages = partialManifest.getImportedPackages();
+        for (String expectedImportedPackage : new String[] { "alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "indigo",
+            "juliet", "lima", "mike", "november", "oscar", "poppa" }) {
+            assertTrue("Missing package '" + expectedImportedPackage + "'", importedPackages.contains(expectedImportedPackage));
+        }
+    }
+    
+    @Test
+    public void contentsOnWinSystem() throws FileNotFoundException, Exception {
+        ReadablePartialManifest partialManifest = new StandardReadablePartialManifest();
+        analyzer.analyse(new FileInputStream("src/test/resources/org/eclipse/virgo/bundlor/support/contributors/xml/web.xml"), "WEB-INF\\\\web.xml",
             partialManifest);
 
         Set<String> importedPackages = partialManifest.getImportedPackages();

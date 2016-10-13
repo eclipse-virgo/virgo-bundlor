@@ -29,8 +29,8 @@ import org.eclipse.virgo.bundlor.support.partialmanifest.PartialManifest;
  */
 public final class WebApplicationArtifactAnalyzer implements ArtifactAnalyzer {
 
-    private static final String WEB_XML_LOCATION = "WEB-INF/web.xml";
-
+    private static final String WEB_XML_LOCATION_REGEX = ".*WEB-INF(\\\\\\\\||/)web.xml$";
+    
     private static final String EXPRESSION = //
     "//context-param/param-value | " //
         + "//filter/filter-class | " //
@@ -54,7 +54,6 @@ public final class WebApplicationArtifactAnalyzer implements ArtifactAnalyzer {
     }
 
     public boolean canAnalyse(String artefactName) {
-        return artefactName.endsWith(WEB_XML_LOCATION);
+        return artefactName.matches(WEB_XML_LOCATION_REGEX);
     }
-
 }
