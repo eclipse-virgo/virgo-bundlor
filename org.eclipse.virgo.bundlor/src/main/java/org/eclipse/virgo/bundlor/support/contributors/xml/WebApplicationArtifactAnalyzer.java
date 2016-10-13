@@ -29,7 +29,7 @@ import org.eclipse.virgo.bundlor.support.partialmanifest.PartialManifest;
  */
 public final class WebApplicationArtifactAnalyzer implements ArtifactAnalyzer {
 
-    private static final String WEB_XML_LOCATION_REGEX = ".*WEB-INF(\\\\\\\\||/)web.xml$";
+    private static final String WEB_XML_LOCATION_REGEX = ".*WEB-INF(\\\\|/)web.xml$";
     
     private static final String EXPRESSION = //
     "//context-param/param-value | " //
