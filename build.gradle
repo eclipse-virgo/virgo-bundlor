@@ -220,8 +220,8 @@ configure(javaProjects) {
             sourceCompatibility = 1.8
             targetCompatibility = 1.8
             file.withProperties { p ->
-            	p.setProperty('org.eclipse.jdt.core.compiler.problem.discouragedReference','warning')
-            	p.setProperty('org.eclipse.jdt.core.compiler.problem.forbiddenReference', 'warning')
+            	p.setProperty('org.eclipse.jdt.core.compiler.problem.discouragedReference','ignore')
+            	p.setProperty('org.eclipse.jdt.core.compiler.problem.forbiddenReference', 'ignore')
             }
         }
         project {
