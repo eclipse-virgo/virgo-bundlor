@@ -193,6 +193,13 @@ configure(javaProjects) {
 }
 
 configure(javaProjects) {
+	apply plugin: 'signing'
+	signing {
+		sign configurations.archives
+	}
+}
+
+configure(javaProjects) {
     apply plugin: 'eclipse'
 
     eclipse {
