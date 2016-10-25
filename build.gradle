@@ -53,8 +53,7 @@ configure(javaProjects) {
                 jvmArgs = [
                     '-cp',
                     configurations.ecj.asPath,
-                    'org.eclipse.jdt.internal.compiler.batch.Main',
-                    '-warn:-unused']
+                    'org.eclipse.jdt.internal.compiler.batch.Main']
             }
         }
     }
@@ -67,8 +66,7 @@ configure(javaProjects) {
                 jvmArgs = [
                     '-cp',
                     configurations.ecj.asPath,
-                    'org.eclipse.jdt.internal.compiler.batch.Main',
-                    '-warn:-unused']
+                    'org.eclipse.jdt.internal.compiler.batch.Main']
             }
         }
     }

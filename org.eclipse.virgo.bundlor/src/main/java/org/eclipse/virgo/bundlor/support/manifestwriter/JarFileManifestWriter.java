@@ -24,10 +24,9 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarOutputStream;
 
-import org.eclipse.virgo.bundlor.util.FileCopyUtils;
-
 import org.eclipse.virgo.bundlor.ManifestWriter;
 import org.eclipse.virgo.bundlor.util.BundleManifestUtils;
+import org.eclipse.virgo.bundlor.util.FileCopyUtils;
 import org.eclipse.virgo.util.osgi.manifest.BundleManifest;
 import org.eclipse.virgo.util.parser.manifest.ManifestContents;
 
@@ -45,8 +44,8 @@ final class JarFileManifestWriter implements ManifestWriter {
     public void write(ManifestContents manifest) {
         JarOutputStream out = null;
         InputStream in = null;
+        JarFile inputJar = null;
         try {
-            JarFile inputJar;
             if (inputFile.equals(outputFile)) {
                 File tempFile = File.createTempFile("org.eclipse.virgo.bundlor", ".tmp");
                 FileCopyUtils.copy(new FileInputStream(inputFile), new FileOutputStream(tempFile));
@@ -77,17 +76,20 @@ final class JarFileManifestWriter implements ManifestWriter {
                     }
                 }
             }
-
+            
             System.out.printf("Transformed bundle written to '%s'%n", outputFile.getAbsolutePath());
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            try {
+        } finally {  
+            try {                
                 if (out != null) {
                     out.flush();
                     out.closeEntry();
                     out.flush();
                     out.close();
+                }
+                if(inputJar != null) {
+                    inputJar.close();
                 }
             } catch (IOException e) {
                 // Nothing to do

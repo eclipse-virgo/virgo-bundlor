@@ -15,9 +15,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.tools.ant.taskdefs.Property;
-import org.apache.tools.ant.types.PropertySet;
-
-import org.eclipse.virgo.bundlor.support.properties.PropertiesPropertiesSource;
 import org.eclipse.virgo.bundlor.support.properties.PropertiesSource;
 
 public class PropertyPropertiesSource implements PropertiesSource {

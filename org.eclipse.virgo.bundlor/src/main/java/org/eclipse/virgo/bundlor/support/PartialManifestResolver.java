@@ -12,7 +12,6 @@
 package org.eclipse.virgo.bundlor.support;
 
 import org.eclipse.virgo.bundlor.support.partialmanifest.ReadablePartialManifest;
-import org.eclipse.virgo.bundlor.support.partialmanifest.StandardReadablePartialManifest;
 import org.eclipse.virgo.util.osgi.manifest.BundleManifest;
 import org.eclipse.virgo.util.parser.manifest.ManifestContents;
 

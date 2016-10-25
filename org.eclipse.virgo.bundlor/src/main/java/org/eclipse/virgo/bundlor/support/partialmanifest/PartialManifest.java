@@ -11,8 +11,6 @@
 
 package org.eclipse.virgo.bundlor.support.partialmanifest;
 
-import org.eclipse.virgo.bundlor.support.ArtifactAnalyzer;
-
 /**
  * Describes a partially-constructed, dynamically-generated manifest. {@link ArtifactAnalyzer ArtefactAnalysers}
  * contribute manifest elements (imports and exports) to a <code>PartialManifest</code> during analysis.
