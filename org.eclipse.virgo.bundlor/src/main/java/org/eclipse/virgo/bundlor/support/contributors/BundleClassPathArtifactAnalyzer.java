@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -173,6 +174,8 @@ public class BundleClassPathArtifactAnalyzer implements ArtifactAnalyzer, Manife
 
     private static class JarInputStreamClassPathEntry implements ClassPathEntry {
 
+        private static final String UTF_8 = "UTF-8";
+
         private final byte[] contents;
 
         private final JarEntry entry;
@@ -191,7 +194,7 @@ public class BundleClassPathArtifactAnalyzer implements ArtifactAnalyzer, Manife
         }
 
         public Reader getReader() {
-            return new InputStreamReader(getInputStream());
+            return new InputStreamReader(getInputStream(), Charset.forName(UTF_8));
         }
 
         public boolean isDirectory() {

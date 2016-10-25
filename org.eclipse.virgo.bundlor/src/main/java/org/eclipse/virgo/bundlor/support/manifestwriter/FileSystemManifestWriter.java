@@ -12,9 +12,11 @@
 package org.eclipse.virgo.bundlor.support.manifestwriter;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
 
 import org.eclipse.virgo.bundlor.ManifestWriter;
 import org.eclipse.virgo.bundlor.util.BundleManifestUtils;
@@ -37,8 +39,7 @@ final class FileSystemManifestWriter implements ManifestWriter {
             if (!manifestFile.getParentFile().exists() && !manifestFile.getParentFile().mkdirs()) {
                 throw new RuntimeException(String.format("Could not create parent directories of '%s'", manifestFile.getAbsolutePath()));
             }
-
-            out = new FileWriter(manifestFile);
+            out = new OutputStreamWriter(new FileOutputStream(manifestFile), Charset.forName("UTF-8"));
             BundleManifestUtils.createBundleManifest(manifest).write(out);
             System.out.printf("Manifest written to '%s'%n", manifestFile.getAbsolutePath());
         } catch (IOException e) {

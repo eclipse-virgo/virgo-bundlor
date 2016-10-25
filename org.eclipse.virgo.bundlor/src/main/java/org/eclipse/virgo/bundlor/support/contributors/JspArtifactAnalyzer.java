@@ -14,6 +14,7 @@ package org.eclipse.virgo.bundlor.support.contributors;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +23,8 @@ import org.eclipse.virgo.bundlor.support.partialmanifest.PartialManifest;
 
 public class JspArtifactAnalyzer implements ArtifactAnalyzer {
 
+    private static final String UTF_8 = "UTF-8";
+
     private static final String PACKAGE_SUFFIX = ".*";
 
     private static final String TYPE_SUFFIX = ".class";
@@ -29,7 +32,7 @@ public class JspArtifactAnalyzer implements ArtifactAnalyzer {
     private final Pattern pattern = Pattern.compile("<%@ page.*import=\"(.*?)\".*%>");
 
     public void analyse(InputStream artifact, String artifactName, PartialManifest partialManifest) throws Exception {
-        BufferedReader in = new BufferedReader(new InputStreamReader(artifact));
+        BufferedReader in = new BufferedReader(new InputStreamReader(artifact, Charset.forName(UTF_8)));
         for (String line = in.readLine(); line != null; line = in.readLine()) {
             for (Matcher matcher = pattern.matcher(line); matcher.find();) {
                 processImports(matcher.group(1), partialManifest);

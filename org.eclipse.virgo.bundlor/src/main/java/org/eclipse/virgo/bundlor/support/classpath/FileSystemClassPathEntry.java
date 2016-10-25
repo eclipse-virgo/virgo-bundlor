@@ -14,13 +14,16 @@ package org.eclipse.virgo.bundlor.support.classpath;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
 
 import org.eclipse.virgo.bundlor.ClassPathEntry;
 
 final class FileSystemClassPathEntry implements ClassPathEntry {
+
+    private static final String UTF_8 = "UTF-8";
 
     private final File root;
 
@@ -40,11 +43,7 @@ final class FileSystemClassPathEntry implements ClassPathEntry {
     }
 
     public Reader getReader() {
-        try {
-            return new FileReader(this.file);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        return new InputStreamReader(getInputStream(), Charset.forName(UTF_8));
     }
 
     public String getName() {
