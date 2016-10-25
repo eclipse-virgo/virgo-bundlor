@@ -76,6 +76,9 @@ configure(javaProjects) {
     	ecj {}
 		embedded
 		compile.extendsFrom(embedded)
+		testBundles {
+			transitive = false
+		}
 	}
     repositories {
         mavenCentral()
@@ -134,6 +137,18 @@ configure(javaProjects) {
     javadoc {
         failOnError = false
     }
+    test.dependsOn('copyTestBundles')
+	task copyTestBundles(){
+		doLast {
+	     	configurations.testBundles.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+	     		copy {
+	     			into "$buildDir/testBundles"
+	     			from artifact.file
+	     			rename '.*', artifact.name + '.jar'
+	     		}
+	     	}
+	    }
+	}
     task sourcesJar(type: Jar, dependsOn: classes) {
     	description 'Assembles a jar archive containing the sources.'
     	group = 'build'
@@ -192,12 +207,12 @@ configure(javaProjects) {
     }
 }
 
-configure(javaProjects) {
-	apply plugin: 'signing'
-	signing {
-		sign configurations.archives
-	}
-}
+//configure(javaProjects) {
+//	apply plugin: 'signing'
+//	signing {
+//		sign configurations.archives
+//	}
+//}
 
 configure(javaProjects) {
     apply plugin: 'eclipse'

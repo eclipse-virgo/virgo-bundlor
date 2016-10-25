@@ -12,12 +12,6 @@ dependencies {
     embedded "org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:${eclipseVirgoUtilVersion}"
 
     testCompile "junit:junit:${junitVersion}"
-    testCompile "org.apache.wicket:wicket-ioc:${apacheWicketInjectionVersion}"
-}
-
-test.dependsOn('copyTestJars')
-
-task copyTestJars(type: Copy) {
-    into "$buildDir/test-jars"
-    from configurations.testCompile
+    
+    testBundles "org.apache.wicket:wicket-ioc:${apacheWicketInjectionVersion}"
 }

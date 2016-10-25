@@ -352,7 +352,7 @@ public class AsmTypeArtifactAnalyzerTests {
     
     @Test
     public void viaJava14CompiledClassLiteral() throws Exception {
-        JarFile jarFile = new JarFile("build/test-jars/wicket-ioc-1.3.3.jar");
+        JarFile jarFile = new JarFile("build/testBundles/wicket-ioc.jar");
         InputStream inputStream = jarFile.getInputStream(jarFile.getEntry("org/apache/wicket/injection/Injector.class"));
         ReadablePartialManifest model = analyse(inputStream, "org/apache/wicket/injection/Injector.class");        
         assertImportsPackage(model, "org.apache.wicket.markup.html");
