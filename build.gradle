@@ -29,7 +29,7 @@ allprojects {
         if(buildQualifier) { 
             version = version + '.' + buildQualifier
         } else {
-            version = version + '.' + timestamp
+            version = version + '.D-' + timestamp
         }
     } else {
         version = version + '.SNAPSHOT'
@@ -238,12 +238,16 @@ configure(javaProjects) {
     }
 }
 
-configure(javaProjects) {
+configure(javaProjects + project(':org.eclipse.virgo.bundlor.gradle')) {
     apply plugin: 'maven-publish'
 
     publishing {
         publications {
-        	all {
+        	bundlor(MavenPublication) {
+        	    from components.java
+                artifact sourcesJar
+                artifact javadocJar
+                groupId 'org.eclipse.virgo.bundlor'
         		pom.withXml {
                     asNode().with {
                         appendNode('description', 'Bundlor is a tool that automates the detection of dependencies and the creation of OSGi manifest directives for JARs after their creation. Bundlor takes as input a JAR and a template consisting of a superset of the standard OSGi manifest headers.')
@@ -272,13 +276,23 @@ configure(javaProjects) {
                     }
                 }
         	}
-            maven(MavenPublication) {
-                from components.java
-                artifact sourcesJar
-                artifact javadocJar
-                groupId 'org.eclipse.virgo.bundlor'
-            }
         }
+        repositories {
+            maven {
+                name = "BuildEclipseOrg"
+                url "/opt/public/rt/virgo/gradle/bundles"
+            }
+            if(System.properties['ci.build'] == 'true') {
+                maven {
+                    name = "CentralSonatype"
+                    credentials {
+                        username ossrhUsername
+                        password ossrhPassword
+                    }
+                    url "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                }
+            }
+        }        
     }
 }
 

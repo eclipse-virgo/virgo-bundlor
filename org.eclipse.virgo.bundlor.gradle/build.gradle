@@ -4,7 +4,6 @@ plugins {
 	id 'groovy'
 	id 'eclipse'
 	id 'java-gradle-plugin'
-	id 'maven-publish'
 	id 'jacoco'
 }
 
@@ -25,6 +24,20 @@ eclipse {
 jar {
 	manifest.attributes('Implementation-Version': version)
 	from "$rootDir/build-bundlor/resources/about"
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+	description 'Assembles a jar archive containing the sources.'
+	group = 'build'
+    classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    description 'Assembles a jar archive containing the javadocs.'
+	group = 'build'
+    classifier = 'javadoc'
+    from javadoc.destinationDir
 }
 
 repositories {
@@ -48,14 +61,3 @@ gradlePlugin {
 	}
 }
 
-publishing {
-	repositories {
-		mavenLocal()
-	}
-	publications {
-		maven(MavenPublication) {
-			from components.java
-			groupId 'org.eclipse.virgo.bundlor'
-		}
-	}
-}
