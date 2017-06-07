@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.eclipse.virgo.util:org.eclipse.virgo.util.math:3.5.0.RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.virgo.util/org.eclipse.virgo.util.math/3.5.0.RELEASE/95f3416a62e9c5dc6221be765102bf35ab26ae4f/org.eclipse.virgo.util.math-3.5.0.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.virgo.util/org.eclipse.virgo.util.math/3.5.0.RELEASE/b024e6c03c43984ee933f4033fb9f5ee282747b3/org.eclipse.virgo.util.math-3.5.0.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

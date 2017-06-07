@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:3.5.0.RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.virgo.util/org.eclipse.virgo.util.parser.manifest/3.5.0.RELEASE/64899e68dfa7379810f30630565b9999a5e14fc2/org.eclipse.virgo.util.parser.manifest-3.5.0.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.virgo.util/org.eclipse.virgo.util.parser.manifest/3.5.0.RELEASE/6291aeaefc7e6cf7cc3313af9d2174b056cff1a1/org.eclipse.virgo.util.parser.manifest-3.5.0.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

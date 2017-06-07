@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="org.eclipse.virgo.bundlor.ant_main" target="1.8" />
+      <module name="org.eclipse.virgo.bundlor.ant_test" target="1.8" />
+      <module name="org.eclipse.virgo.bundlor.blint_main" target="1.8" />
+      <module name="org.eclipse.virgo.bundlor.blint_test" target="1.8" />
+      <module name="org.eclipse.virgo.bundlor.commandline_main" target="1.8" />
+      <module name="org.eclipse.virgo.bundlor.commandline_test" target="1.8" />
+      <module name="org.eclipse.virgo.bundlor.gradle_main" target="1.8" />
+      <module name="org.eclipse.virgo.bundlor.gradle_test" target="1.8" />
+      <module name="org.eclipse.virgo.bundlor.maven_main" target="1.8" />
+      <module name="org.eclipse.virgo.bundlor.maven_test" target="1.8" />
+      <module name="org.eclipse.virgo.bundlor_main" target="1.8" />
+      <module name="org.eclipse.virgo.bundlor_test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

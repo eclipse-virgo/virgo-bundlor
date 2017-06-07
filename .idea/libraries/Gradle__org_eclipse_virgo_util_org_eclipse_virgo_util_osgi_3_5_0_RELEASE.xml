@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.eclipse.virgo.util:org.eclipse.virgo.util.osgi:3.5.0.RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.virgo.util/org.eclipse.virgo.util.osgi/3.5.0.RELEASE/43f0d0eb65b49131c1a25d7a4ec6f7be7ebc9e11/org.eclipse.virgo.util.osgi-3.5.0.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.eclipse.virgo.util/org.eclipse.virgo.util.osgi/3.5.0.RELEASE/4ae2aff65bbd88ec276d54c892c227b974314e42/org.eclipse.virgo.util.osgi-3.5.0.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

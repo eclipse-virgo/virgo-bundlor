@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":org.eclipse.virgo.bundlor.maven:test" external.linked.project.path="$MODULE_DIR$/../../../org.eclipse.virgo.bundlor.maven" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="bundlor-root" external.system.module.type="sourceSet" external.system.module.version="1.1.3.SNAPSHOT" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output-test url="file://$MODULE_DIR$/../../../org.eclipse.virgo.bundlor.maven/build/classes/test" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../org.eclipse.virgo.bundlor.maven/src/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../../org.eclipse.virgo.bundlor.maven/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../org.eclipse.virgo.bundlor.maven/src/test/resources" type="java-test-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="org.eclipse.virgo.bundlor.maven_main" />
+    <orderEntry type="module" module-name="org.eclipse.virgo.bundlor_main" />
+    <orderEntry type="module" module-name="org.eclipse.virgo.bundlor.blint_main" />
+    <orderEntry type="library" name="Gradle: org.osgi:org.osgi.core:4.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.maven:maven-plugin-api:3.0.4" level="project" />
+    <orderEntry type="library" name="Gradle: junit:junit:4.7" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm-all:5.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.virgo.util:org.eclipse.virgo.util.common:3.5.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.virgo.util:org.eclipse.virgo.util.math:3.5.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.virgo.util:org.eclipse.virgo.util.osgi:3.5.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.virgo.util:org.eclipse.virgo.util.osgi.manifest:3.5.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:3.5.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.osgi:org.osgi.compendium:4.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.maven:maven-model:3.0.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.maven:maven-artifact:3.0.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.sonatype.sisu:sisu-inject-plexus:2.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.codehaus.plexus:plexus-component-annotations:1.5.5" level="project" />
+    <orderEntry type="library" name="Gradle: org.codehaus.plexus:plexus-classworlds:2.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.sonatype.sisu:sisu-inject-bean:2.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.sonatype.sisu:sisu-guice:no_aop:3.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.sonatype.sisu:sisu-guava:0.9.9" level="project" />
+    <orderEntry type="library" name="Gradle: org.codehaus.plexus:plexus-utils:2.1" level="project" />
+  </component>
+  <component name="TestModuleProperties" production-module="org.eclipse.virgo.bundlor.maven_main" />
+</module>

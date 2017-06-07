@@ -1,5 +1,3 @@
-*/src/main/resources/META-INF/MANIFEST.MF
-*/src/test/resources/META-INF/TEST.MF
 target
 build/
 .settings/
@@ -10,8 +8,7 @@ ivy-cache
 org.eclipse.virgo.bundlor.gradle/.gradle
 org.eclipse.virgo.bundlor.gradle/BundlorTaskTestsProject
 bin/
-.settings/
 .project
 .classpath
 .springBeans
-
+/.idea/

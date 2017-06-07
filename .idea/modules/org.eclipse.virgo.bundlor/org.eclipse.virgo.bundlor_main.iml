@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":org.eclipse.virgo.bundlor:main" external.linked.project.path="$MODULE_DIR$/../../../org.eclipse.virgo.bundlor" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="bundlor-root" external.system.module.type="sourceSet" external.system.module.version="1.1.3.SNAPSHOT" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/../../../org.eclipse.virgo.bundlor/build/classes/main" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../org.eclipse.virgo.bundlor/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../org.eclipse.virgo.bundlor/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../org.eclipse.virgo.bundlor/src/main/resources" type="java-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm-all:5.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.osgi:org.osgi.core:4.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.virgo.util:org.eclipse.virgo.util.common:3.5.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.virgo.util:org.eclipse.virgo.util.math:3.5.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.virgo.util:org.eclipse.virgo.util.osgi:3.5.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.virgo.util:org.eclipse.virgo.util.osgi.manifest:3.5.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:3.5.0.RELEASE" level="project" />
+  </component>
+</module>
