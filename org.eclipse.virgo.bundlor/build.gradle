@@ -3,13 +3,13 @@ description = 'Bundlor Core'
 dependencies {
     ecj group: "org.eclipse.jdt.core.compiler", name: "ecj", version: "${ecjVersion}"
 		
-	compile "org.ow2.asm:asm-all:${objectwebAsmVersion}"    
+	compile "org.ow2.asm:asm:${objectwebAsmVersion}"    
     compile "org.osgi:org.osgi.core:${osgiCoreVersion}"
-    embedded "org.eclipse.virgo.util:org.eclipse.virgo.util.common:${eclipseVirgoUtilVersion}"
-    embedded "org.eclipse.virgo.util:org.eclipse.virgo.util.math:${eclipseVirgoUtilVersion}"
-    embedded "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi:${eclipseVirgoUtilVersion}"
-    embedded "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi.manifest:${eclipseVirgoUtilVersion}"
-    embedded "org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:${eclipseVirgoUtilVersion}"
+    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.common:${eclipseVirgoUtilVersion}"
+    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.math:${eclipseVirgoUtilVersion}"
+    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi:${eclipseVirgoUtilVersion}"
+    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.osgi.manifest:${eclipseVirgoUtilVersion}"
+    compile "org.eclipse.virgo.util:org.eclipse.virgo.util.parser.manifest:${eclipseVirgoUtilVersion}"
 
     testCompile "junit:junit:${junitVersion}"
     
