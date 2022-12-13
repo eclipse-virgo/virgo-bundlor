@@ -9,10 +9,13 @@ Import-Template:
  org.objectweb.asm.*;version="${objectwebAsmVersion:[=.=.=, +1.0.0)}",
  org.osgi.framework;version="0",
  org.w3c.dom.*;version="0",
- org.xml.*;version="0"
+ org.xml.*;version="0",
+ org.eclipse.virgo.util.*;version="0"
 Excluded-Exports: 
  *.internal.*,
  org.springframework.*
-Export-Template:
- org.eclipse.virgo.bundlor.*;version="${version}",
- org.eclipse.virgo.util.*;version="${eclipseVirgoUtilVersion}"
+Export-Template: 
+ org.eclipse.virgo.bundlor.*;version="${version}"
+
+
+
