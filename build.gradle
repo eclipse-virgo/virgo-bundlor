@@ -82,7 +82,10 @@ configure(javaProjects) {
         mavenCentral()
     }
     test {
-    	// we need to set the system properties for the jvm executing the tests explicitly
+        // https://www.oracle.com/java/technologies/javase/8u331-relnotes.html
+        systemProperties['jdk.xml.xpathExprOpLimit'] = 0
+
+        // we need to set the system properties for the jvm executing the tests explicitly
     	// so we copy system properties relevant for proxying external requests
     	// see Bug 501842 
     	System.properties.each { k,v ->
