@@ -19,7 +19,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import org.eclipse.virgo.bundlor.support.partialmanifest.ReadablePartialManifest;
@@ -36,8 +35,6 @@ public class EclipseLinkPersistenceArtifactAnalyzerTests {
     }
 
     @Test
-    @Ignore
-    // TODO - investigate test failure in GitHub action
     public void ormXml() throws Exception {
         ReadablePartialManifest partialManifest = new StandardReadablePartialManifest();
         InputStream artifact = new FileInputStream("src/test/resources/org/eclipse/virgo/bundlor/support/contributors/xml/eclipselink-orm.xml");
