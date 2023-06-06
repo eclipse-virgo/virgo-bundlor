@@ -19,3 +19,18 @@ jobs:
         with:
           gradle-version: 3.1
           arguments: build
+
+      # https://github.com/actions/upload-artifact
+      - name: 📚 Publish test results
+        if: always()
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          name: Test results
+          path: |
+            org.eclipse.virgo.bundlor/build/reports/tests/test/
+            org.eclipse.virgo.bundlor.ant/build/reports/tests/test/
+            org.eclipse.virgo.bundlor.blint/build/reports/tests/test/
+            org.eclipse.virgo.bundlor.commandline/build/reports/tests/test/
+            org.eclipse.virgo.bundlor.diff/build/reports/tests/test/
+            org.eclipse.virgo.bundlor.gradle/build/reports/tests/test/
+            org.eclipse.virgo.bundlor.maven/build/reports/tests/test/
