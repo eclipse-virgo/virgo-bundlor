@@ -17,7 +17,7 @@ jobs:
       - name: ⚙️ Build with Gradle
         uses: gradle/gradle-build-action@v2.4.2
         with:
-          gradle-version: 3.1
+          gradle-version: 3.5
           arguments: build
 
       # https://github.com/actions/upload-artifact
