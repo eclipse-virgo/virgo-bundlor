@@ -18,6 +18,8 @@ spec:
       value: "/tmp/gradle"
     - name: CBI_BUILD
       value: "true"
+    - name: CBI_BUILD_QUALIFIER
+      value: "RC1"
 
     resources:
       limits:
