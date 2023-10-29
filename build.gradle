@@ -25,7 +25,7 @@ ext.javaProjects = [
 allprojects {
     apply plugin: 'base'
     if(System.getenv('CBI_BUILD') == 'true') {
-        def buildQualifier = System.properties['ci.build.qualifier']
+        def buildQualifier = System.getenv('CBI_BUILD_QUALIFIER')
         if(buildQualifier) { 
             version = version + '.' + buildQualifier
         } else {
