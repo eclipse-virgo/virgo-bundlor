@@ -25,17 +25,17 @@ public class JarFileManifestWriterTests {
 
     @Test
     public void write() throws IOException {
-        JarFileManifestWriter writer = new JarFileManifestWriter(new File("target/input.jar"), new File("target/output.jar"));
-        FileCopyUtils.copy(new File("src/test/resources/input.jar"), new File("target/input.jar"));
+        JarFileManifestWriter writer = new JarFileManifestWriter(new File("build/input.jar"), new File("build/output.jar"));
+        FileCopyUtils.copy(new File("src/test/resources/input.jar"), new File("build/input.jar"));
         writer.write(new SimpleManifestContents());
-        assertTrue(new File("target/output.jar").exists());
+        assertTrue(new File("build/output.jar").exists());
     }
 
     @Test
     public void writeSameLocation() throws IOException {
-        JarFileManifestWriter writer = new JarFileManifestWriter(new File("target/input.jar"), new File("target/input.jar"));
-        FileCopyUtils.copy(new File("src/test/resources/input.jar"), new File("target/input.jar"));
+        JarFileManifestWriter writer = new JarFileManifestWriter(new File("build/input.jar"), new File("build/input.jar"));
+        FileCopyUtils.copy(new File("src/test/resources/input.jar"), new File("build/input.jar"));
         writer.write(new SimpleManifestContents());
-        assertTrue(new File("target/input.jar").exists());
+        assertTrue(new File("build/input.jar").exists());
     }
 }
